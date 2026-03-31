@@ -1,8 +1,11 @@
-import { UserRole } from "@/lib/authUtils";
+export interface UserRoles {
+  ADMIN: "ADMIN";
+  USER: "USER";
+}
 
 export interface UserInfo {
   id: string;
   name: string;
   email: string;
-  role: UserRole;
+  role: UserRoles;
 }

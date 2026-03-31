@@ -14,3 +14,16 @@ export interface ILoginResponse {
     emailVerified: boolean;
   };
 }
+
+export interface IRegisterResponse {
+  token: string;
+  accessToken: string;
+  refreshToken: string;
+  user: {
+    id: string;
+    name: string;
+    email: string;
+    role: "USER";
+    emailVerified: boolean;
+  };
+}
