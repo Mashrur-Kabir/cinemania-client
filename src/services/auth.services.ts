@@ -62,12 +62,14 @@ export async function getUserInfo() {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
+        // 🛡️ Added Authorization header as a fallback for strict middlewares
+        Authorization: `Bearer ${sessionToken || accessToken}`,
         Cookie: `accessToken=${accessToken}; better-auth.session_token=${sessionToken}`,
       },
+      next: { revalidate: 0 }, // Ensure we don't cache an "Unauthorized" state
     });
 
     if (!res.ok) {
-      console.error("Failed to fetch user info:", res.status, res.statusText);
       return null;
     }
 

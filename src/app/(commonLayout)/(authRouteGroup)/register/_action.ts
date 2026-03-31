@@ -20,10 +20,14 @@ export const registerAction = async (
     };
   }
 
+  // 🛡️ STRIP confirmPassword BEFORE SENDING TO BACKEND
+  // We destructure confirmPassword out and collect the rest in 'registerData'
+  const { confirmPassword, ...registerData } = parsedPayload.data;
+
   try {
     const response = await httpClient.post<IRegisterResponse>(
       "/auth/register",
-      parsedPayload.data,
+      registerData, // Now sending only name, email, and password
     );
     const { accessToken, refreshToken, token, user } = response.data;
 
