@@ -7,14 +7,20 @@
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-sans); /* Mulish */
-  --font-heading: var(--font-heading); /* Montserrat */
-  --font-mono: var(--font-mono); /* Geist Mono */
+  --font-sans: var(--font-sans);
+  --font-heading: var(--font-heading);
+  --font-mono: var(--font-mono);
 
-  /* CineMania Specific Colors */
   --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+
   --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
   --color-glow: var(--glow);
+
+  --color-surface: var(--surface);
+  --color-surface-strong: var(--surface-strong);
 
   --color-border: var(--border);
   --color-input: var(--input);
@@ -22,68 +28,224 @@
 
   --radius-2xl: calc(var(--radius) * 1.8);
   --radius-3xl: calc(var(--radius) * 2.2);
+
+  --animate-blob: blobMove 18s ease-in-out infinite;
+  --animate-fade-up: fadeUp 900ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-shimmer: shimmer 10s linear infinite;
 }
 
 :root {
-  /* Midnight Navy Foundation */
-  --background: oklch(0.12 0.03 264);
+  --background: oklch(0.08 0.02 264);
   --foreground: oklch(0.98 0.01 264);
 
-  /* Electric Rose Primary */
+  --surface: oklch(0.14 0.02 264 / 0.72);
+  --surface-strong: oklch(0.18 0.02 264 / 0.85);
+
   --primary: oklch(0.63 0.25 18);
   --primary-foreground: oklch(1 0 0);
 
-  /* Deep Purple Accent */
   --accent: oklch(0.45 0.22 285);
   --accent-foreground: oklch(1 0 0);
 
-  /* Glow Effects */
-  --glow: oklch(0.63 0.25 18 / 40%);
+  --glow: oklch(0.63 0.25 18 / 0.35);
 
-  --card: oklch(0.16 0.03 264);
-  --card-foreground: oklch(0.98 0.01 264);
+  --card: var(--surface);
+  --card-foreground: var(--foreground);
 
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
+  --border: oklch(1 0 0 / 0.1);
+  --input: oklch(1 0 0 / 0.14);
   --ring: oklch(0.63 0.25 18);
 
-  --radius: 0.75rem;
+  --radius: 0.875rem;
 }
 
-/* Base Overrides */
 @layer base {
-  /* Default Heading Styles */
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    @apply font-heading tracking-tight;
-  }
-
-  * {
-    @apply border-border outline-ring/50;
-  }
   body {
     @apply bg-background text-foreground selection:bg-primary/30;
-    background-image:
-      radial-gradient(
-        at 0% 0%,
-        oklch(0.25 0.12 285 / 15%) 0px,
-        transparent 50%
-      ),
-      radial-gradient(
-        at 100% 100%,
-        oklch(0.63 0.25 18 / 10%) 0px,
-        transparent 50%
-      );
+    min-height: 100vh;
+    /* 🔴 REMOVED the redundant radial-gradients from here */
     background-attachment: fixed;
+    overflow-x: hidden;
   }
 }
 
-/* Grid Pattern for that Modern Aesthetic */
-.bg-grid-pattern {
-  background-image: radial-gradient(oklch(1 0 0 / 0.05) 1px, transparent 1px);
-  background-size: 40px 40px;
+@layer components {
+  .glass-panel {
+    @apply relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.035] backdrop-blur-2xl;
+    box-shadow:
+      0 20px 80px rgba(0, 0, 0, 0.35),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  }
+
+  .glass-panel::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.08),
+      transparent 28%,
+      transparent 72%,
+      rgba(255, 255, 255, 0.04)
+    );
+    opacity: 0.55;
+  }
+
+  .hero-kicker {
+    @apply inline-flex items-center gap-2 rounded-full border border-primary/15 bg-primary/10 px-4 py-1.5 text-[10px] font-black uppercase tracking-[0.22em] text-primary;
+    backdrop-filter: blur(14px);
+  }
+
+  .neo-button-primary {
+    @apply rounded-full bg-primary text-primary-foreground font-bold transition-[transform,box-shadow,background-color,border-color] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)];
+    box-shadow: 0 0 22px rgba(225, 29, 72, 0.28);
+  }
+
+  .neo-button-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 36px rgba(225, 29, 72, 0.42);
+  }
+
+  .neo-button-primary:active {
+    transform: translateY(0px);
+  }
+
+  .neo-button-secondary {
+    @apply rounded-full border border-white/12 bg-white/5 font-bold text-white/90 transition-[transform,box-shadow,background-color,border-color] duration-300 ease-[cubic-bezier(0.22,1,0.36,1)];
+    backdrop-filter: blur(18px);
+    box-shadow: 0 14px 48px rgba(0, 0, 0, 0.22);
+  }
+
+  .neo-button-secondary:hover {
+    transform: translateY(-2px);
+    background-color: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.18);
+    box-shadow: 0 18px 56px rgba(0, 0, 0, 0.28);
+  }
+
+  .neo-button-secondary:active {
+    transform: translateY(0px);
+  }
+
+  .motion-reveal {
+    opacity: 0;
+    animation: fadeUp 600ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    will-change: transform, opacity;
+  }
+
+  .motion-delay-1 {
+    animation-delay: 100ms;
+  }
+  .motion-delay-2 {
+    animation-delay: 200ms;
+  }
+  .motion-delay-3 {
+    animation-delay: 300ms;
+  }
+
+  .motion-delay-4 {
+    animation-delay: 480ms;
+  }
+
+  .bg-grid-pattern {
+    background-image: radial-gradient(
+      oklch(1 0 0 / 0.045) 1px,
+      transparent 1px
+    );
+    background-size: 42px 42px;
+  }
+
+  .bg-noise {
+    background-image:
+      radial-gradient(oklch(1 0 0 / 0.07) 0.45px, transparent 0.45px),
+      radial-gradient(oklch(1 0 0 / 0.04) 0.45px, transparent 0.45px);
+    background-size:
+      4px 4px,
+      7px 7px;
+    background-position:
+      0 0,
+      2px 2px;
+  }
+}
+
+.blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(140px);
+  opacity: 0.5;
+  will-change: transform;
+  animation: blobMove 18s ease-in-out infinite;
+}
+
+.blob-primary {
+  width: 540px;
+  height: 540px;
+  background: oklch(0.63 0.25 18 / 0.22);
+  top: -12%;
+  left: -12%;
+}
+
+.blob-accent {
+  width: 440px;
+  height: 440px;
+  background: oklch(0.45 0.22 285 / 0.22);
+  top: 22%;
+  right: -10%;
+  animation-delay: 6s;
+}
+
+.blob-secondary {
+  width: 520px;
+  height: 520px;
+  background: oklch(0.7 0.2 340 / 0.14);
+  bottom: -14%;
+  left: 18%;
+  animation-delay: 12s;
+}
+
+@keyframes blobMove {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  33% {
+    transform: translate3d(42px, -58px, 0) scale(1.06);
+  }
+  66% {
+    transform: translate3d(-30px, 34px, 0) scale(0.96);
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+@keyframes shimmer {
+  from {
+    background-position: 0% 50%;
+  }
+  to {
+    background-position: 100% 50%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

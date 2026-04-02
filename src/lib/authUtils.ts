@@ -1,4 +1,4 @@
-export type UserRole = "ADMIN" | "USER";
+import { UserRole } from "@/types/user.types";
 
 export const authRoutes = [
   "/login",

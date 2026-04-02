@@ -1,11 +1,8 @@
-export interface UserRoles {
-  ADMIN: "ADMIN";
-  USER: "USER";
-}
+export type UserRole = "ADMIN" | "USER";
 
 export interface UserInfo {
   id: string;
   name: string;
   email: string;
-  role: UserRoles;
+  role: UserRole;
 }
