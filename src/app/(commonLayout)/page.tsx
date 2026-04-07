@@ -6,13 +6,33 @@ import Link from "next/link";
 import { Suspense } from "react";
 import TrendingSection from "@/components/modules/home/TrendingSection";
 import SectionSkeleton from "@/components/shared/loaders/SectionSkeleton";
+import PopularReviewsSection from "@/components/modules/home/PopularReviewsSection";
+import TopRatedSection from "@/components/modules/home/TopRatedSection";
+import NewArrivalsSection from "@/components/modules/home/NewArrivalsSection";
+import { getNewArrivals } from "@/services/home.services";
+import HeroPosterStage from "@/components/modules/home/HeroPosterStage";
+import ExploreAllMovies from "@/components/modules/home/ExploreAllMovies";
+import { getAllMedia } from "@/services/media.services";
 
-export default function HomePage() {
+export default async function HomePage() {
+  // 1. Fetch 6 newest posters for the background
+  const { data: arrivals } = await getNewArrivals();
+  const posterUrls =
+    arrivals?.map(
+      (m) =>
+        m.posterUrl ||
+        "https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=2000",
+    ) || [];
+
   return (
-    <div className="relative min-h-screen overflow-hidden px-6 pt-24 pb-12">
+    <div className="relative min-h-screen overflow-hidden pb-32">
       <BackgroundMain />
 
-      <main className="relative z-10 mx-auto flex w-full max-w-6xl flex-col items-center text-center">
+      {/* 🎬 The 16:9 Hero Stage */}
+      <HeroPosterStage posters={posterUrls} />
+
+      {/* Hero content starts lower to accent the 16:9 view */}
+      <main className="relative z-10 mx-auto flex w-full max-w-6xl flex-col items-center text-center px-6 pt-48 md:pt-64">
         {/* WAVE 1: Branding & Title */}
         <div className="motion-reveal motion-delay-1 space-y-6">
           <div className="hero-kicker">
@@ -27,7 +47,6 @@ export default function HomePage() {
             </span>
           </h1>
         </div>
-
         {/* WAVE 2: Description & Buttons */}
         <div className="motion-reveal motion-delay-2 mt-8 space-y-8">
           <p className="mx-auto max-w-2xl text-lg font-medium leading-relaxed text-muted-foreground/90 md:text-xl">
@@ -58,9 +77,8 @@ export default function HomePage() {
             </Button>
           </div>
         </div>
-
-        {/* WAVE 3: Features */}
-        <div className="motion-reveal motion-delay-3 grid grid-cols-1 gap-8 pt-24 md:grid-cols-3">
+        {/* WAVE 3: Features - CLOSE THIS DIV AFTER THE 3 CARDS */}
+        <div className="motion-reveal motion-delay-3 grid w-full grid-cols-1 gap-8 pt-24 md:grid-cols-3">
           <FeatureCard
             variant="primary"
             icon={Users}
@@ -79,17 +97,43 @@ export default function HomePage() {
             title="Centralized Streaming"
             description="One login for all content providers."
           />
+        </div>{" "}
+        {/* WAVE 4: The Dynamic Data Stream - NOW OUTSIDE THE GRID */}
+        <div className="mt-40 w-full space-y-40 text-left">
+          {/* Trending Section */}
+          <Suspense fallback={<SectionSkeleton count={6} />}>
+            <TrendingSection />
+          </Suspense>
 
-          {/* WAVE 4: The Dynamic Data Stream */}
-          <div className="mt-32 w-full space-y-32">
-            <Suspense fallback={<SectionSkeleton count={6} />}>
-              <TrendingSection />
-            </Suspense>
+          {/* Popular Reviews Section */}
+          <Suspense
+            fallback={<SectionSkeleton count={2} className="md:grid-cols-2" />}
+          >
+            <PopularReviewsSection />
+          </Suspense>
 
-            {/* We will add PopularReviewsSection here later */}
-          </div>
+          {/* 3. Top Rated Section */}
+          <Suspense fallback={<SectionSkeleton count={6} />}>
+            <TopRatedSection />
+          </Suspense>
+
+          {/* 4. New Arrivals Section */}
+          <Suspense fallback={<SectionSkeleton count={6} />}>
+            <NewArrivalsSection />
+          </Suspense>
+
+          {/*Explore All Movies Section*/}
+          <Suspense fallback={<SectionSkeleton count={6} />}>
+            <ExploreMoviesDataLayer />
+          </Suspense>
         </div>
       </main>
     </div>
   );
+}
+
+// This keeps the HomePage clean and allows Suspense to work perfectly.
+async function ExploreMoviesDataLayer() {
+  const { data: mediaItems } = await getAllMedia({ limit: 12 });
+  return <ExploreAllMovies mediaItems={mediaItems || []} />;
 }

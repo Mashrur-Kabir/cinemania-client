@@ -10,12 +10,13 @@ import { unstable_cache } from "next/cache";
  */
 export const getTrendingMedia = unstable_cache(
   async () => {
-    return await httpClient.get<IMedia[]>("/media", {
+    // 🛡️ Use publicGet here to avoid the "cookies() inside cache" error
+    return await httpClient.publicGet<IMedia[]>("/media", {
       params: { sortBy: "viewCount", sortOrder: "desc", limit: 6 },
     });
   },
   ["trending-media"],
-  { revalidate: 3600, tags: ["media"] }, // Revalidate every hour
+  { revalidate: 3600, tags: ["media"] },
 );
 
 /**
@@ -23,12 +24,12 @@ export const getTrendingMedia = unstable_cache(
  */
 export const getPopularReviews = unstable_cache(
   async () => {
-    return await httpClient.get<IReview[]>("/review", {
+    return await httpClient.publicGet<IReview[]>("/review", {
       params: { sortBy: "likeCount", sortOrder: "desc", limit: 4 },
     });
   },
   ["popular-reviews"],
-  { revalidate: 600, tags: ["review"] }, // Revalidate every 10 mins
+  { revalidate: 600, tags: ["review"] },
 );
 
 /**
@@ -36,7 +37,7 @@ export const getPopularReviews = unstable_cache(
  */
 export const getTopRatedMedia = unstable_cache(
   async () => {
-    return await httpClient.get<IMedia[]>("/media", {
+    return await httpClient.publicGet<IMedia[]>("/media", {
       params: { sortBy: "averageRating", sortOrder: "desc", limit: 6 },
     });
   },
@@ -49,7 +50,7 @@ export const getTopRatedMedia = unstable_cache(
  */
 export const getNewArrivals = unstable_cache(
   async () => {
-    return await httpClient.get<IMedia[]>("/media", {
+    return await httpClient.publicGet<IMedia[]>("/media", {
       params: { sortBy: "createdAt", sortOrder: "desc", limit: 6 },
     });
   },

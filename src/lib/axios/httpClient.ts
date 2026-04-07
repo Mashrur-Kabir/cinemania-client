@@ -6,12 +6,19 @@ import { isTokenExpiringSoon } from "../tokens/tokenUtils";
 import { getNewTokensWithRefreshToken } from "@/services/auth.services";
 import { ApiResponse } from "@/types/api.types";
 
-
 const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
 
 if (!API_BASE_URL) {
   throw new Error("API_BASE_URL is not defined in environment variables");
 }
+
+const publicInstance = axios.create({
+  baseURL: API_BASE_URL,
+  timeout: 30000,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
 
 async function tryRefreshToken(
   accessToken: string,
@@ -154,10 +161,28 @@ const httpDelete = async <TData>(
   }
 };
 
+const httpPublicGet = async <TData>(
+  endpoint: string,
+  options?: ApiRequestOptions,
+): Promise<ApiResponse<TData>> => {
+  try {
+    // 🛡️ Notice we use 'publicInstance' directly, so NO cookies() are called
+    const response = await publicInstance.get<ApiResponse<TData>>(endpoint, {
+      params: options?.params,
+      headers: options?.headers,
+    });
+    return response.data;
+  } catch (error) {
+    console.error(`Public GET request to ${endpoint} failed:`, error);
+    throw error;
+  }
+};
+
 export const httpClient = {
   get: httpGet,
   post: httpPost,
   put: httpPut,
   patch: httpPatch,
   delete: httpDelete,
+  publicGet: httpPublicGet,
 };

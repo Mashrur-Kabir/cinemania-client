@@ -1,4 +1,4 @@
-import { UserRole } from "@/lib/authUtils";
+import { UserRole } from "./user.types";
 
 export interface ILoginResponse {
   token: string; // better-auth session token

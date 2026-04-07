@@ -13,18 +13,37 @@ export interface IMedia {
   releaseYear: number;
   director: string;
   cast: string[];
-  platform: string;
+  platform?: string;
   pricing: "FREE" | "BASIC" | "PRO" | "PREMIUM";
-  streamingUrl: string;
+  posterUrl?: string;
+  streamingUrl?: string;
   isDeleted: boolean;
   deletedAt: string;
   averageRating: number;
   viewCount: number;
-  likeCount: number;
+  likeCount?: number;
   reviewCount: number;
   watchCount: number;
   createdAt: string;
   genres: IGenre[];
 }
+
+export type TMediaPreview = Pick<
+  IMedia,
+  | "id"
+  | "title"
+  | "slug"
+  | "posterUrl"
+  | "streamingUrl"
+  | "releaseYear"
+  | "averageRating"
+  | "pricing"
+  | "platform"
+  | "likeCount"
+  | "viewCount"
+> & {
+  // We explicitly make genres optional for previews to allow for 'Featured' fallbacks
+  genres?: Pick<IGenre, "name">[];
+};
 
 export type MediaResponse = ApiResponse<IMedia[]>;
