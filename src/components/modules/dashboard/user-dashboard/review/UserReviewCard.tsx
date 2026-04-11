@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useState } from "react";
@@ -11,13 +12,64 @@ import {
   ShieldAlert,
   Clapperboard,
   Calendar,
+  AlertTriangle,
+  Hash, // 🎯 Added for tag visual
 } from "lucide-react";
 import { IReview } from "@/types/review.types";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
+import { toast } from "sonner";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import EditReviewModal from "./EditReviewModal";
+import {
+  deleteReviewAction,
+  toggleLikeAction,
+} from "@/app/_actions/review.action";
 
 export default function UserReviewCard({ review }: { review: IReview }) {
   const [isHovered, setIsHovered] = useState(false);
+  const [isEditOpen, setIsEditOpen] = useState(false);
+  const queryClient = useQueryClient();
+
+  const { mutate: handleLike } = useMutation({
+    mutationFn: () => toggleLikeAction(review.id),
+    onSuccess: (res: any) => {
+      if (res.success) {
+        queryClient.invalidateQueries({ queryKey: ["my-reviews"] });
+      }
+    },
+  });
+
+  const triggerDeleteConfirmation = () => {
+    toast.warning("Erase this critique?", {
+      description:
+        "This action is permanent and cannot be undone in this timeline.",
+      icon: <AlertTriangle className="size-5 text-rose-500" />,
+      duration: 5000,
+      action: {
+        label: "Delete",
+        onClick: async () => {
+          try {
+            const res: any = await deleteReviewAction(review.id);
+            if (res.success) {
+              toast.success("Review deleted successfully");
+              queryClient.invalidateQueries({ queryKey: ["my-reviews"] });
+            } else {
+              toast.error(res.message);
+            }
+          } catch (error) {
+            toast.error("Temporal error: Failed to delete review");
+          }
+        },
+      },
+      cancel: {
+        label: "Cancel",
+        onClick: () => toast.dismiss(),
+      },
+      className:
+        "bg-[#030406] border-white/10 text-white rounded-2xl shadow-2xl",
+    });
+  };
 
   return (
     <motion.div
@@ -28,27 +80,24 @@ export default function UserReviewCard({ review }: { review: IReview }) {
       onHoverEnd={() => setIsHovered(false)}
       className="group relative h-full transition-all duration-500"
     >
-      {/* 🌌 Background Glow - Refined for depth */}
       <div
         className={cn(
-          "absolute inset-0 rounded-[2rem] opacity-0 blur-3xl transition-opacity duration-1000",
+          "absolute inset-0 rounded-[2.5rem] opacity-0 blur-3xl transition-opacity duration-1000",
           isHovered ? "opacity-10 bg-primary" : "opacity-0",
         )}
       />
 
-      <div className="glass-panel relative flex h-full flex-col gap-6 overflow-hidden rounded-[2rem] p-8 border border-white/5 bg-[#050505]/40 transition-colors duration-500 hover:bg-[#0a0b0d]/80 hover:border-white/10">
-        {/* 🔦 Diagonal Spotlight Sweep (Fixed Logic) */}
+      <div className="glass-panel relative flex h-full flex-col gap-5 overflow-hidden rounded-[2.5rem] p-8 border border-white/5 bg-[#050505]/40 transition-colors duration-500 hover:bg-[#0a0b0d]/80 hover:border-white/10">
         <div
           className={cn(
             "absolute -inset-[150%] bg-gradient-to-r from-transparent via-white/[0.05] to-transparent rotate-45 pointer-events-none",
-            // 🎯 FIX: Reset instantly on unhover by using a conditional transition
             isHovered
               ? "translate-x-full translate-y-full transition-transform duration-[1500ms] ease-in-out"
               : "-translate-x-full -translate-y-full transition-none",
           )}
         />
 
-        {/* 🔝 Header: Movie Info */}
+        {/* 🔝 Header */}
         <div className="flex items-start justify-between relative z-10">
           <div className="space-y-2">
             <div className="flex items-center gap-2 text-primary font-black text-[9px] uppercase tracking-[0.25em]">
@@ -75,47 +124,60 @@ export default function UserReviewCard({ review }: { review: IReview }) {
         </div>
 
         {/* 📝 Content Body */}
-        <div className="relative flex-1 py-1">
+        <div className="relative flex-1">
           {review.isSpoiler && (
-            <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-rose-500/10 px-3 py-1 text-[8px] font-black uppercase tracking-widest text-rose-500 border border-rose-500/20 shadow-[0_0_15px_rgba(225,29,72,0.1)]">
+            <div className="mb-4 inline-flex items-center gap-2 rounded-full bg-rose-500/10 px-3 py-1 text-[8px] font-black uppercase tracking-widest text-rose-500 border border-rose-500/20">
               <ShieldAlert className="size-3" /> Spoiler Alert
             </div>
           )}
           <p className="text-sm leading-relaxed text-muted-foreground/70 group-hover:text-white/90 transition-colors duration-500 italic">
             ❝{review.content}❞
           </p>
+
+          {/* 🏷️ Tags Area */}
+          {review.tags && review.tags.length > 0 && (
+            <div className="flex flex-wrap gap-2 mt-6">
+              {review.tags.map((tag) => (
+                <div
+                  key={tag}
+                  className="flex items-center gap-1 px-2 py-0.5 rounded-md bg-white/[0.03] border border-white/5 text-[9px] font-bold text-muted-foreground/60 transition-all hover:border-accent/30 hover:text-accent"
+                >
+                  <Hash className="size-2.5 opacity-40" />
+                  {tag}
+                </div>
+              ))}
+            </div>
+          )}
         </div>
 
-        {/* 📊 Footer: Actions & Engagement */}
+        {/* 📊 Footer */}
         <div className="mt-2 flex items-center justify-between border-t border-white/5 pt-6 relative z-10">
           <div className="flex items-center gap-5">
-            <div className="flex items-center gap-2 group/icon cursor-pointer">
+            <button
+              onClick={() => handleLike()}
+              className="flex items-center gap-2 group/icon cursor-pointer outline-none"
+            >
               <Heart
                 className={cn(
-                  "size-4 transition-colors duration-300",
-                  isHovered
-                    ? "text-primary fill-primary/20"
-                    : "text-muted-foreground/30",
+                  "size-4 transition-all duration-300",
+                  review.likeCount > 0
+                    ? "text-primary fill-primary shadow-[0_0_15px_rgba(225,29,72,0.4)]"
+                    : "text-muted-foreground/30 group-hover/icon:text-primary",
                 )}
               />
               <span className="text-xs font-bold text-muted-foreground group-hover/icon:text-white">
                 {review.likeCount}
               </span>
-            </div>
-            <div className="flex items-center gap-2 group/icon cursor-pointer">
-              <MessageSquare
-                className={cn(
-                  "size-4 transition-colors duration-300",
-                  isHovered ? "text-accent" : "text-muted-foreground/30",
-                )}
-              />
-              <span className="text-xs font-bold text-muted-foreground group-hover/icon:text-white">
+            </button>
+
+            <div className="flex items-center gap-2 group/icon">
+              <MessageSquare className="size-4 text-muted-foreground/30" />
+              <span className="text-xs font-bold text-muted-foreground">
                 {review.commentCount}
               </span>
             </div>
           </div>
 
-          {/* 🎯 FIX: Actions container uses absolute positioning to prevent layout jitter */}
           <div className="relative flex items-center justify-end">
             <AnimatePresence>
               {isHovered && (
@@ -123,17 +185,19 @@ export default function UserReviewCard({ review }: { review: IReview }) {
                   initial={{ opacity: 0, x: 20, scale: 0.8 }}
                   animate={{ opacity: 1, x: 0, scale: 1 }}
                   exit={{ opacity: 0, x: 20, scale: 0.8 }}
-                  className="absolute right-full mr-3 flex items-center gap-1"
+                  className="absolute right-full mr-4 flex items-center gap-1.5"
                 >
                   <button
-                    title="Edit"
-                    className="p-2 text-muted-foreground hover:text-white hover:bg-white/5 rounded-full transition-all active:scale-90"
+                    onClick={() => setIsEditOpen(true)}
+                    title="Edit Review"
+                    className="p-2.5 text-muted-foreground hover:text-white hover:bg-white/10 rounded-full transition-all active:scale-90"
                   >
                     <Edit3 className="size-4" />
                   </button>
                   <button
-                    title="Delete"
-                    className="p-2 text-muted-foreground hover:text-rose-500 hover:bg-rose-500/10 rounded-full transition-all active:scale-90"
+                    onClick={triggerDeleteConfirmation}
+                    title="Delete Review"
+                    className="p-2.5 text-muted-foreground hover:text-rose-500 hover:bg-rose-500/10 rounded-full transition-all active:scale-90"
                   >
                     <Trash2 className="size-4" />
                   </button>
@@ -154,6 +218,12 @@ export default function UserReviewCard({ review }: { review: IReview }) {
           </div>
         </div>
       </div>
+
+      <EditReviewModal
+        isOpen={isEditOpen}
+        setIsOpen={setIsEditOpen}
+        review={review}
+      />
     </motion.div>
   );
 }

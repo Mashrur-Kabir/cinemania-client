@@ -4,11 +4,11 @@ import {
   getFollowingFeed,
   getUserStats,
   getWatchlist,
-} from "@/services/userDashboard.services";
+} from "@/services/user.services";
 import StatsOverview from "@/components/modules/dashboard/user-dashboard/overview/StatsOverview";
 import ActivityFeed from "@/components/modules/dashboard/user-dashboard/overview/ActivityFeed";
 import GenreBar from "@/components/modules/dashboard/user-dashboard/overview/GenreBar";
-import WatchlistPreview from "@/components/modules/dashboard/user-dashboard/overview/WatchlistPreview";
+import WatchlistPreview from "@/components/modules/dashboard/user-dashboard/watchlist/WatchlistPreview";
 
 export default async function UserDashboardPage() {
   const [statsData, feedData, watchlistData] = await Promise.all([

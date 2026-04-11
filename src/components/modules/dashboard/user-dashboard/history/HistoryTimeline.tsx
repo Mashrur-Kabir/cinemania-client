@@ -1,26 +1,43 @@
-// src/components/modules/dashboard/user-dashboard/history/HistoryTimeline.tsx
-import { getWatchedHistory } from "@/services/userDashboard.services";
+import { getWatchedHistory } from "@/services/user.services";
+import Pagination from "@/components/shared/pagination/Pagination";
 import DiaryEntry from "./DiaryEntry";
+import { IDiaryEntry } from "@/types/dashboard.types";
 
-export default async function HistoryTimeline() {
-  const { data: history } = await getWatchedHistory();
+export default async function HistoryTimeline({ page }: { page: number }) {
+  const limit = 5;
 
-  if (!history?.length) {
+  const response = await getWatchedHistory({ page, limit });
+
+  // 🔍 Check your terminal (not browser console)
+  console.log("DIARY META:", response.meta);
+
+  const history = response.data;
+  const meta = response.meta;
+
+  if (!history || history.length === 0) {
     return (
-      <div className="text-center py-20 opacity-30">
-        <p className="text-xl font-bold text-white">Your diary is empty.</p>
-        <p className="text-sm text-muted-foreground">
-          Log your first movie to start the timeline.
+      <div className="text-center py-32 opacity-20 animate-in fade-in duration-700">
+        <p className="text-4xl font-black uppercase tracking-tighter italic">
+          The timeline is empty.
+        </p>
+        <p className="text-sm font-bold tracking-widest mt-2">
+          LOG A MOVIE TO START YOUR DIARY
         </p>
       </div>
     );
   }
 
   return (
-    <>
-      {history.map((entry, i) => (
+    <div className="space-y-4">
+      {history.map((entry: IDiaryEntry, i: number) => (
         <DiaryEntry key={entry.id} entry={entry} index={i} />
       ))}
-    </>
+
+      {meta && meta.totalPages > 1 && (
+        <div className="mt-24 flex justify-center pb-20 relative z-50">
+          <Pagination meta={meta} />
+        </div>
+      )}
+    </div>
   );
 }

@@ -10,6 +10,7 @@ export interface IWatchlistItem {
 
 export interface IDiaryEntry {
   id: string;
+  mediaId: string;
   watchedAt: string;
   notes?: string;
   isRewatch: boolean;

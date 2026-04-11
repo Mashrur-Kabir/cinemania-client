@@ -1,11 +1,18 @@
-import { getUserStats } from "@/services/userDashboard.services";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { getUserStats } from "@/services/user.services";
 import { Suspense } from "react";
-import SectionSkeleton from "@/components/shared/loaders/SectionSkeleton";
 import HistoryTimeline from "@/components/modules/dashboard/user-dashboard/history/HistoryTimeline";
+import AddHistoryModal from "@/components/modules/dashboard/user-dashboard/history/AddHistoryModal";
+import DiaryTimelineSkeleton from "@/components/shared/loaders/DiarryTimelineSkeleton";
 
-export default async function HistoryPage() {
-  // We only await stats here so the header renders immediately
+export default async function HistoryPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string }>;
+}) {
   const { data: stats } = await getUserStats();
+  const params = await searchParams;
+  const currentPage = Number(params.page) || 1;
 
   return (
     <div className="relative max-w-6xl mx-auto py-12 px-6">
@@ -33,25 +40,24 @@ export default async function HistoryPage() {
             </p>
           </div>
         </div>
+
+        <AddHistoryModal />
       </header>
 
       {/* 🚀 The Timeline View */}
       <div className="relative">
-        {/* Continuous Center Line */}
         <div className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-primary via-primary/20 to-transparent opacity-20" />
 
-        {/* 🎯 FIX: Using Suspense and SectionSkeleton */}
+        {/* 🎯 Key Fix: Passing the page to the timeline */}
         <Suspense
+          key={currentPage} // 🔄 Re-trigger suspense fallback when page changes
           fallback={
             <div className="space-y-20">
-              <SectionSkeleton
-                count={3}
-                className="grid-cols-1 md:grid-cols-1"
-              />
+              <DiaryTimelineSkeleton count={3} />
             </div>
           }
         >
-          <HistoryTimeline />
+          <HistoryTimeline page={currentPage} />
         </Suspense>
       </div>
     </div>

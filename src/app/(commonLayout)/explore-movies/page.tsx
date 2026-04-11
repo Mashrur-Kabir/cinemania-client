@@ -54,7 +54,7 @@ export default async function ExploreMoviesPage({
 
 async function MediaGridContainer({ params }: { params: any }) {
   const page = Number(params.page) || 1;
-  const limit = 12;
+  const limit = 10;
 
   const { data: mediaItems, meta } = await getAllMedia({
     page,
@@ -87,8 +87,9 @@ async function MediaGridContainer({ params }: { params: any }) {
         ))}
       </div>
 
+      {/* 🎯 REUSABLE PAGINATION INTEGRATION */}
       {meta && meta.totalPages > 1 && (
-        <div className="mt-24 flex justify-center">
+        <div className="mt-24 flex justify-center border-t border-white/5 pt-12">
           <Pagination meta={meta} />
         </div>
       )}

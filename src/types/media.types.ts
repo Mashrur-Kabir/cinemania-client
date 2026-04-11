@@ -33,6 +33,7 @@ export type TMediaPreview = Pick<
   | "id"
   | "title"
   | "slug"
+  | "director"
   | "posterUrl"
   | "streamingUrl"
   | "releaseYear"

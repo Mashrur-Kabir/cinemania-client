@@ -47,8 +47,14 @@ export const getDashboardNavItems = (role: UserRole): NavSection[] => {
   const commonItems: NavSection = {
     title: "Account",
     items: [
-      { title: "My Profile", href: "/my-profile", icon: "User" },
-      { title: "Security", href: "/change-password", icon: "ShieldCheck" },
+      // 🎯 FIXED: Updated path from /my-profile to /dashboard/my-profile
+      { title: "My Profile", href: "/dashboard/my-profile", icon: "User" },
+      // 🛡️ Note: If your security page is also under dashboard, update this too:
+      {
+        title: "Security",
+        href: "/dashboard/change-password",
+        icon: "ShieldCheck",
+      },
     ],
   };
 
@@ -65,7 +71,7 @@ export const getDashboardNavItems = (role: UserRole): NavSection[] => {
       title: "Social",
       items: [
         { title: "My Reviews", href: "/dashboard/my-reviews", icon: "Star" },
-        { title: "Followers", href: "/dashboard/community", icon: "Users" },
+        { title: "Followers", href: "/dashboard/followers", icon: "Users" },
       ],
     },
     commonItems,
