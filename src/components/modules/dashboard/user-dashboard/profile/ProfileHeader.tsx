@@ -2,7 +2,7 @@
 import Image from "next/image";
 import { getMyProfile } from "@/services/user.services";
 import { Badge } from "@/components/ui/badge";
-import { Crown, Mail, ShieldCheck, Users } from "lucide-react";
+import { Crown, Mail, ShieldCheck } from "lucide-react";
 
 export default async function ProfileHeader() {
   const { data: profile } = await getMyProfile();
@@ -24,6 +24,8 @@ export default async function ProfileHeader() {
               alt={user.name}
               fill
               priority
+              // 🎯 THE FIX: Specify the exact width of the container
+              sizes="160px"
               className="object-cover transition-transform duration-700 group-hover:scale-105"
             />
           </div>

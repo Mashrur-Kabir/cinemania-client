@@ -1,4 +1,4 @@
-import { UserRole } from "./user.types";
+import { UserInfo, UserRole } from "./user.types";
 
 export interface ILoginResponse {
   token: string; // better-auth session token
@@ -26,4 +26,10 @@ export interface IRegisterResponse {
     role: "USER";
     emailVerified: boolean;
   };
+}
+export interface IChangePasswordResponse {
+  token: string;
+  user: UserInfo;
+  accessToken: string;
+  refreshToken: string;
 }

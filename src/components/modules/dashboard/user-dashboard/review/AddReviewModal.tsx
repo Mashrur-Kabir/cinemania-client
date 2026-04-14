@@ -10,6 +10,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
+  DialogDescription,
   DialogClose,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
@@ -132,6 +133,9 @@ export default function AddReviewModal() {
               <DialogTitle className="text-3xl font-black text-white italic uppercase text-center">
                 WRITE A <span className="text-accent">CRITIQUE.</span>
               </DialogTitle>
+              <DialogDescription className="sr-only">
+                Fill out the form below to submit your review
+              </DialogDescription>
             </DialogHeader>
             <div className="relative mt-8">
               <Search className="absolute left-4 top-1/2 -translate-y-1/2 size-5 text-muted-foreground" />

@@ -1,7 +1,16 @@
+// src/services/review.services.ts
 "use server";
 
 import { httpClient } from "@/lib/axios/httpClient";
 import { IReview } from "@/types/review.types";
-import { revalidatePath } from "next/cache";
+import { IQueryOptions } from "./user.services"; // Reuse the interface we defined earlier
 
-export const getMyReviews = async () => httpClient.get<IReview[]>("/review"); // Assuming this returns user-specific reviews
+/**
+ * ✍️ GET MY REVIEWS
+ * Fetches reviews with pagination and ownership filtering.
+ */
+export const getMyReviews = async (userId: string, params?: IQueryOptions) => {
+  return httpClient.get<IReview[]>("/review", {
+    params: { userId, ...params },
+  });
+};

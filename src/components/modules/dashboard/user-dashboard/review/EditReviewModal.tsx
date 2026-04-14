@@ -10,6 +10,7 @@ import {
   DialogHeader,
   DialogTitle,
   DialogClose,
+  DialogDescription,
 } from "@/components/ui/dialog";
 import {
   X,
@@ -131,9 +132,9 @@ export default function EditReviewModal({
                 </DialogTitle>
                 <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 mt-1">
                   <Clapperboard className="size-3 text-accent" />
-                  <p className="text-[9px] text-accent font-black uppercase tracking-[0.2em]">
-                    Editing Critique
-                  </p>
+                  <DialogDescription className="sr-only">
+                    Fill out the form below to edit your review
+                  </DialogDescription>
                 </div>
               </div>
             </div>

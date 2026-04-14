@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import axios from "axios";
-import { cookies, headers } from "next/headers";
+import axios, { AxiosInstance } from "axios";
 import { isTokenExpiringSoon } from "../tokens/tokenUtils";
 import { getNewTokensWithRefreshToken } from "@/services/auth.services";
 import { ApiResponse } from "@/types/api.types";
@@ -28,10 +27,12 @@ async function tryRefreshToken(
     return;
   }
 
-  const requestHeader = await headers();
+  // 🎯 THE FIX: Check if we're on the server before importing server-only headers
+  if (typeof window === "undefined") {
+    const { headers } = await import("next/headers");
+    const requestHeader = await headers();
 
-  if (requestHeader.get("x-token-refreshed") === "1") {
-    return; // avoid multiple refresh attempts in the same request lifecycle
+    if (requestHeader.get("x-token-refreshed") === "1") return;
   }
 
   try {
@@ -41,7 +42,22 @@ async function tryRefreshToken(
   }
 }
 
-const axiosInstance = async () => {
+/**
+ * 🚀 Universal Axios Instance
+ */
+const axiosInstance = async (): Promise<AxiosInstance> => {
+  // 1️⃣ BROWSER SIDE LOGIC
+  if (typeof window !== "undefined") {
+    return axios.create({
+      baseURL: API_BASE_URL,
+      timeout: 30000,
+      withCredentials: true, // 🎯 Browsers handle cookies automatically!
+      headers: { "Content-Type": "application/json" },
+    });
+  }
+
+  // 2️⃣ SERVER SIDE LOGIC (RSC / Actions)
+  const { cookies } = await import("next/headers"); // 🎯 Dynamic import
   const cookieStore = await cookies();
   const accessToken = cookieStore.get("accessToken")?.value;
   const refreshToken = cookieStore.get("refreshToken")?.value;
@@ -54,9 +70,8 @@ const axiosInstance = async () => {
     .getAll()
     .map((cookie) => `${cookie.name}=${cookie.value}`)
     .join("; ");
-  // eg Cookie: "accessToken=abc123; refreshToken=def456"
 
-  const instance = axios.create({
+  return axios.create({
     baseURL: API_BASE_URL,
     timeout: 30000,
     headers: {
@@ -64,8 +79,6 @@ const axiosInstance = async () => {
       Cookie: cookieHeader,
     },
   });
-
-  return instance;
 };
 
 export interface ApiRequestOptions {

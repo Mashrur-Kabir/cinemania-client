@@ -1,14 +1,21 @@
-import { getWatchlist } from "@/services/user.services";
-import MediaCard from "@/components/modules/home/MediaCard";
-import { HomeSection } from "@/components/modules/home/HomeSection";
+// src/app/(dashboardLayout)/dashboard/watchlist/page.tsx
+import { Suspense } from "react";
+import WatchlistTimeline from "@/components/modules/dashboard/user-dashboard/watchlist/WatchlistTimeline";
 import AddWatchlistModal from "@/components/modules/dashboard/user-dashboard/watchlist/AddWatchlistModal";
+import SectionSkeleton from "@/components/shared/loaders/SectionSkeleton";
 
-export default async function WatchlistPage() {
-  const { data: watchlist } = await getWatchlist();
+export default async function WatchlistPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string }>;
+}) {
+  const params = await searchParams;
+  const currentPage = Number(params.page) || 1;
 
   return (
     <div className="max-w-6xl mx-auto py-10 animate-in fade-in slide-in-from-bottom-4 duration-700">
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 px-6 mb-2">
+      {/* 🎭 Header Section */}
+      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 px-6 mb-12">
         <div className="space-y-1">
           <h1 className="text-4xl font-black text-white tracking-tighter italic uppercase">
             MY <span className="text-primary">WATCHLIST.</span>
@@ -22,17 +29,20 @@ export default async function WatchlistPage() {
         <AddWatchlistModal />
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6 mt-12 px-6">
-        {watchlist?.map((item) => (
-          <MediaCard key={item.id} media={item.media} />
-        ))}
-      </div>
-
-      {!watchlist?.length && (
-        <div className="text-center py-40 opacity-20 italic font-medium">
-          Your watchlist is empty. Time to find some magic.
-        </div>
-      )}
+      {/* 🚀 Paginated Content Area */}
+      <Suspense
+        key={currentPage}
+        fallback={
+          <div className="px-6">
+            <SectionSkeleton
+              count={6}
+              className="grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6"
+            />
+          </div>
+        }
+      >
+        <WatchlistTimeline page={currentPage} />
+      </Suspense>
     </div>
   );
 }

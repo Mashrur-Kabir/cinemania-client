@@ -21,8 +21,8 @@ export interface IQueryOptions {
 export const getUserStats = async () =>
   httpClient.get<IUserStats>("/watchedHistory/stats");
 
-export const getWatchlist = async () =>
-  httpClient.get<IWatchlistItem[]>("/watchlist");
+export const getWatchlist = async (params?: IQueryOptions) =>
+  httpClient.get<IWatchlistItem[]>("/watchlist", { params });
 
 export const getFollowingFeed = async () =>
   httpClient.get<IActivityItem[]>("/activity/feed");

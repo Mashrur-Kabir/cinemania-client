@@ -4,7 +4,6 @@
 import {
   getDefaultDashboardRoute,
   isValidRedirectForRole,
-  UserRole,
 } from "@/lib/authUtils";
 import { httpClient } from "@/lib/axios/httpClient";
 import { setTokenInCookies } from "@/lib/tokens/tokenUtils";
@@ -12,6 +11,7 @@ import { ApiErrorResponse, ApiResponse } from "@/types/api.types";
 import { ILoginResponse } from "@/types/auth.types";
 import { loginZodSchema, ILoginPayload } from "@/zod/auth.validation";
 import { redirect } from "next/navigation";
+import { UserRole } from "@/types/user.types";
 
 export const loginAction = async (
   payload: ILoginPayload,

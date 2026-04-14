@@ -86,14 +86,14 @@ export default function DashboardSidebarContent({
                       key={item.href}
                       href={item.href}
                       className={cn(
-                        "group flex items-center rounded-xl transition-all duration-300",
-                        /* 🎯 FIX: Dynamic gap. When collapsed, gap must be 0 to center the icon perfectly */
+                        // 🎯 THE FIX: Added 'border border-transparent' and 'outline-none' to the base classes
+                        "group flex items-center rounded-xl transition-all duration-300 border border-transparent outline-none",
                         isCollapsed
                           ? "justify-center gap-0 px-0 py-3"
                           : "gap-3 px-3 py-2.5",
                         isActive
-                          ? "bg-primary/10 text-primary shadow-[inset_0_0_20px_rgba(225,29,72,0.1)] border border-primary/20"
-                          : "text-muted-foreground hover:bg-white/5 hover:text-white",
+                          ? "bg-primary/10 text-primary shadow-[inset_0_0_20px_rgba(225,29,72,0.1)] border-primary/20" // 🎯 Removed 'border' here as it's now in the base
+                          : "text-muted-foreground hover:bg-white/5 hover:text-white hover:border-white/10", // 🎯 Added a subtle border on hover for polish
                       )}
                     >
                       <Icon

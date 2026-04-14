@@ -1,5 +1,6 @@
 // src/components/modules/dashboard/profile/GenreInsight.tsx
 import { getMyProfile } from "@/services/user.services";
+import GenreBar from "../overview/GenreBar";
 
 export default async function GenreInsight() {
   const { data } = await getMyProfile();
@@ -24,12 +25,7 @@ export default async function GenreInsight() {
             </div>
 
             {/* Custom Progress Bar */}
-            <div className="h-1.5 w-full bg-white/5 rounded-full overflow-hidden">
-              <div
-                className="h-full bg-primary shadow-[0_0_10px_rgba(225,29,72,0.5)] transition-all duration-1000"
-                style={{ width: `${genre.percentage}%` }}
-              />
-            </div>
+            <GenreBar percent={genre.percentage} />
 
             <p className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest">
               {genre.count} Titles Watched

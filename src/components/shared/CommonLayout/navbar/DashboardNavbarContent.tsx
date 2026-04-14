@@ -17,6 +17,7 @@ import { NavSection } from "@/lib/navItems";
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
 import MobileSidebar from "../sidebar/MobileSidebar";
+import NotificationCenter from "@/components/modules/dashboard/notifications/NotificationCenter";
 
 interface DashboardNavbarContentProps {
   userInfo: UserInfo;
@@ -50,15 +51,8 @@ export default function DashboardNavbarContent({
 
       {/* 🔔 Right Side: Actions & Profile */}
       <div className="flex items-center gap-2 md:gap-4">
-        {/* Notifications */}
-        <Button
-          variant="ghost"
-          size="icon"
-          className="relative text-muted-foreground hover:text-white hover:bg-white/5"
-        >
-          <Bell className="size-5" />
-          <span className="absolute top-2 right-2 size-2 bg-primary rounded-full border-2 border-[#030406] shadow-[0_0_10px_rgba(225,29,72,0.8)]" />
-        </Button>
+        {/* 🚀 Notification Center */}
+        <NotificationCenter />
 
         <Separator
           orientation="vertical"

@@ -52,7 +52,7 @@ export const getDashboardNavItems = (role: UserRole): NavSection[] => {
       // 🛡️ Note: If your security page is also under dashboard, update this too:
       {
         title: "Security",
-        href: "/dashboard/change-password",
+        href: "/dashboard/security",
         icon: "ShieldCheck",
       },
     ],
