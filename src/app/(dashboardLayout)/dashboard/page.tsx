@@ -9,8 +9,16 @@ import StatsOverview from "@/components/modules/dashboard/user-dashboard/overvie
 import ActivityFeed from "@/components/modules/dashboard/user-dashboard/overview/ActivityFeed";
 import GenreBar from "@/components/modules/dashboard/user-dashboard/overview/GenreBar";
 import WatchlistPreview from "@/components/modules/dashboard/user-dashboard/watchlist/WatchlistPreview";
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 export default async function UserDashboardPage() {
+  const cookieStore = await cookies();
+  const token = cookieStore.get("accessToken")?.value;
+  if (!token) {
+    redirect("/");
+  }
+
   const [statsData, feedData, watchlistData] = await Promise.all([
     getUserStats(),
     getFollowingFeed(),

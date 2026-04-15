@@ -34,6 +34,7 @@ import {
   markAllAsReadAction,
   markAsReadAction,
 } from "@/app/_actions/notification.action";
+import { UserInfo } from "@/types/user.types";
 
 const NOTIFICATION_ICONS: Record<
   NotificationType,
@@ -50,13 +51,18 @@ const NOTIFICATION_ICONS: Record<
   WATCHED_MEDIA: { icon: PlayCircle, color: "text-white" },
 };
 
-export default function NotificationCenter() {
+export default function NotificationCenter({
+  user,
+}: {
+  user: UserInfo | null;
+}) {
   const queryClient = useQueryClient();
 
   const { data: response } = useQuery({
     queryKey: ["notifications"],
     queryFn: getMyNotifications,
     refetchInterval: 30000,
+    enabled: !!user,
   });
 
   const { notifications = [], unreadCount = 0 } = response?.data || {};

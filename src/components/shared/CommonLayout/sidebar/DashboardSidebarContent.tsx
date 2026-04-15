@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Image from "next/image";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
@@ -12,6 +13,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { NavSection } from "@/lib/navItems";
 import { ChevronLeft, PanelLeftOpen } from "lucide-react"; // 🎯 Now both are used
 import { Button } from "@/components/ui/button";
+import CinemaniaLogo from "@/assets/logo/cinemania_logo.png";
 
 interface SidebarContentProps {
   navItems: NavSection[];
@@ -47,16 +49,33 @@ export default function DashboardSidebarContent({
         )}
       </Button>
 
-      {/* 🎬 Brand Logo Area */}
-      <div className="flex h-20 items-center px-6 border-b border-white/5 overflow-hidden">
-        <Link href="/" className="flex items-center gap-3 group shrink-0">
-          <div className="size-8 bg-primary rounded-lg flex items-center justify-center shadow-[0_0_15px_rgba(225,29,72,0.5)] group-hover:scale-110 transition-transform shrink-0">
-            <span className="text-white font-black text-xl italic">C</span>
+      {/* 🎬 Brand Logo Area (UPDATED) */}
+      <div className="flex h-20 items-center border-b border-white/5 overflow-hidden">
+        <Link href="/" className="flex items-center gap-3 group w-full px-6">
+          {/* 🎯 Logo Icon Container */}
+          <div
+            className={cn(
+              "shrink-0 transition-all duration-500 flex items-center justify-center",
+              // Changed size-10 to size-16 (64px) or size-20 (80px)
+              isCollapsed ? "mx-auto size-10" : "size-16",
+            )}
+          >
+            <Image
+              src={CinemaniaLogo}
+              alt="Logo"
+              // Using larger props or 'fill'
+              width={80}
+              height={80}
+              className="object-contain"
+              priority // Good practice for logos to avoid layout shift
+            />
           </div>
+
+          {/* 🎯 Brand Title - Hidden when collapsed */}
           <span
             className={cn(
-              "font-heading font-black tracking-tighter text-xl text-white transition-all duration-500",
-              isCollapsed ? "opacity-0 w-0" : "opacity-100",
+              "font-heading font-black tracking-tighter text-xl text-white transition-all duration-500 whitespace-nowrap",
+              isCollapsed ? "opacity-0 w-0 overflow-hidden" : "opacity-100",
             )}
           >
             CINE<span className="text-primary">MANIA</span>
