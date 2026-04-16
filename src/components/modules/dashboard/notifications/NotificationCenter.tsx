@@ -124,10 +124,10 @@ export default function NotificationCenter({
         <div className="p-6 border-b border-white/5 flex items-center justify-between bg-white/[0.02]">
           <div className="space-y-0.5">
             <h3 className="text-xs font-black uppercase tracking-[0.2em] text-white">
-              Signal Inbox
+              NOTIFICATIONS
             </h3>
             <p className="text-[9px] font-bold text-muted-foreground uppercase">
-              {unreadCount} New Transmissions
+              {unreadCount} New Notifications
             </p>
           </div>
           {unreadCount > 0 && (

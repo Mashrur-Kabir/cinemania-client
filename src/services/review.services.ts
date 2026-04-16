@@ -2,8 +2,9 @@
 "use server";
 
 import { httpClient } from "@/lib/axios/httpClient";
-import { IReview } from "@/types/review.types";
+import { IReview, IReviewDetail } from "@/types/review.types";
 import { IQueryOptions } from "./user.services"; // Reuse the interface we defined earlier
+import { ApiResponse } from "@/types/api.types";
 
 /**
  * ✍️ GET MY REVIEWS
@@ -13,4 +14,15 @@ export const getMyReviews = async (userId: string, params?: IQueryOptions) => {
   return httpClient.get<IReview[]>("/review", {
     params: { userId, ...params },
   });
+};
+
+/**
+ * 🔍 GET SINGLE REVIEW
+ * Fetches a single critique along with its associated media context
+ * and a pre-structured recursive tree of comments for high-performance rendering.
+ */
+export const getSingleReview = async (
+  id: string,
+): Promise<ApiResponse<IReviewDetail>> => {
+  return httpClient.get(`/review/${id}`);
 };

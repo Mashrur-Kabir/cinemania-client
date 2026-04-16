@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Search, Bell, Settings, LogOut, ShieldCheck } from "lucide-react";
+import { Search, Settings, LogOut, ShieldCheck } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
@@ -57,8 +57,15 @@ export default function DashboardNavbarContent({
 
   // 🎯 2. Handle Search Logic
   const handleSearch = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && searchQuery.trim()) {
-      router.push(`/discovery?search=${encodeURIComponent(searchQuery)}`);
+    if (e.key === "Enter") {
+      const trimmedQuery = searchQuery.trim();
+      if (trimmedQuery) {
+        // 🚀 We keep using 'search' to keep the URL pretty
+        router.push(`/discovery?search=${encodeURIComponent(trimmedQuery)}`);
+      } else {
+        // If user clears search and hits enter, take them back to discovery feed
+        router.push("/discovery");
+      }
     }
   };
 

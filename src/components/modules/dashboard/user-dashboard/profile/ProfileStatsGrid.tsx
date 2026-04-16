@@ -1,11 +1,12 @@
 // src/components/modules/dashboard/profile/ProfileStatsGrid.tsx
-import { getMyProfile } from "@/services/user.services";
 import StatCard from "./StatCard";
+import { IUserProfileStats } from "@/types/user.types";
 
-export default async function ProfileStatsGrid() {
-  const { data } = await getMyProfile();
-  const { overview } = data;
-
+export default async function ProfileStatsGrid({
+  overview,
+}: {
+  overview: IUserProfileStats["overview"];
+}) {
   const stats = [
     {
       label: "Movies Logged",

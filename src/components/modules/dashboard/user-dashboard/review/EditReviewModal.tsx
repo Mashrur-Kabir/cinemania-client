@@ -51,8 +51,14 @@ export default function EditReviewModal({
     onSuccess: (res: any) => {
       if (res.success) {
         toast.success("Review updated");
-        queryClient.invalidateQueries({ queryKey: ["my-reviews"] });
+
+        // 🔥 Close FIRST
         setIsOpen(false);
+
+        // 🔥 Delay refetch slightly to avoid flicker
+        setTimeout(() => {
+          queryClient.invalidateQueries({ queryKey: ["my-reviews"] });
+        }, 150);
       } else {
         toast.error(res.message);
       }
@@ -99,13 +105,18 @@ export default function EditReviewModal({
   const posterSrc = review.media?.posterUrl || POSTER_FALLBACK;
 
   return (
-    <Dialog open={isOpen} onOpenChange={setIsOpen}>
+    <Dialog
+      open={isOpen}
+      onOpenChange={(open) => {
+        if (!open) setIsOpen(false);
+      }}
+    >
       <DialogContent className="sm:max-w-[650px] bg-[#030406]/95 border-white/5 backdrop-blur-3xl p-0 overflow-hidden rounded-[2.5rem] shadow-2xl focus:outline-none [&>button]:hidden">
         <DialogClose className="absolute right-8 top-8 z-50 rounded-full p-2 text-white/30 hover:bg-white/10 transition-all border border-white/5">
           <X className="size-5" />
         </DialogClose>
 
-        <div className="animate-in zoom-in-95 duration-500 max-h-[90vh] overflow-y-auto custom-scrollbar">
+        <div className="max-h-[90vh] overflow-y-auto custom-scrollbar">
           {/* 🎭 Symmetrical Horizontal Header */}
           <DialogHeader className="relative h-44 w-full p-0 space-y-0 overflow-hidden border-b border-white/5">
             <Image

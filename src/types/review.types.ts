@@ -1,4 +1,5 @@
 import { ApiResponse } from "./api.types";
+import { UserRole } from "./user.types";
 
 export type ReviewStatus = "PENDING" | "APPROVED" | "REJECTED";
 
@@ -15,8 +16,28 @@ export interface IReview {
   userId: string;
   createdAt: string;
   updatedAt: string;
-  user?: { name: string; image: string }; // Optional for display
+  user?: { name: string; image: string; role: UserRole }; // Optional for display
   media?: { title: string; posterUrl: string };
+}
+
+export interface IComment {
+  id: string;
+  content: string;
+  userId: string;
+  reviewId: string;
+  parentId: string | null;
+  isEdited: boolean;
+  createdAt: string;
+  user: {
+    id: string;
+    name: string;
+    image: string | null;
+  };
+  replies: IComment[]; // 🎯 Recursive structure
+}
+
+export interface IReviewDetail extends IReview {
+  comments: IComment[];
 }
 
 export type ReviewResponse = ApiResponse<IReview[]>;

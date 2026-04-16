@@ -42,5 +42,8 @@ export const getFollowStatus = async (userId: string) =>
 export const getMyProfile = async () =>
   httpClient.get<IUserProfileStats>("/profile/me");
 
+export const getUserProfile = async (id: string) =>
+  httpClient.get<IUserProfileStats>(`/profile/${id}`);
+
 export const getAllAchievements = async () =>
   httpClient.get<IAchievement[]>("/achievements");

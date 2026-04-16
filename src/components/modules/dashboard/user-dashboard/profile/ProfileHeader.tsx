@@ -3,9 +3,13 @@ import Image from "next/image";
 import { getMyProfile } from "@/services/user.services";
 import { Badge } from "@/components/ui/badge";
 import { Crown, Mail, ShieldCheck } from "lucide-react";
+import { IUserProfileStats } from "@/types/user.types";
 
-export default async function ProfileHeader() {
-  const { data: profile } = await getMyProfile();
+export default async function ProfileHeader({
+  profile,
+}: {
+  profile: IUserProfileStats;
+}) {
   const { user, subscription, overview } = profile;
 
   return (
@@ -57,7 +61,7 @@ export default async function ProfileHeader() {
             </div>
           </div>
 
-          <div className="flex flex-wrap gap-3">
+          <div className="flex flex-wrap gap-3 items-center">
             <Badge className="bg-primary text-white border-none px-4 py-1.5 rounded-xl font-black uppercase text-[10px] tracking-widest shadow-[0_0_20px_rgba(225,29,72,0.3)]">
               {subscription.plan} Member
             </Badge>

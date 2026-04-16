@@ -1,12 +1,13 @@
 // src/components/modules/dashboard/profile/TrophyCase.tsx
-import { getMyProfile } from "@/services/user.services";
 import { Trophy, Award } from "lucide-react";
 import { format } from "date-fns";
+import { IUserProfileStats } from "@/types/user.types";
 
-export default async function TrophyCase() {
-  const { data } = await getMyProfile();
-  const badges = data.badges || [];
-
+export default async function TrophyCase({
+  badges,
+}: {
+  badges: IUserProfileStats["badges"];
+}) {
   return (
     <div className="p-8 rounded-[2.5rem] bg-white/[0.02] border border-white/5 relative overflow-hidden group">
       <div className="flex items-center justify-between mb-8">
