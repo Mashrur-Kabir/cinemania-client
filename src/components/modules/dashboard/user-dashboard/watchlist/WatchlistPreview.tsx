@@ -38,14 +38,12 @@ export default function WatchlistPreview({
           >
             <div className="relative size-12 rounded-lg overflow-hidden border border-white/10">
               <Image
-                src={
-                  item.media.posterUrl ||
-                  "https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=200"
-                }
+                src={item.media.posterUrl || "..."}
                 alt={item.media.title}
                 fill
-                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                className="object-cover transition-transform group-hover:scale-110"
+                sizes="..."
+                // 🎯 THE FIX: Add these utilities to stabilize the sub-pixel scaling
+                className="object-cover transition-transform duration-500 ease-out transform-gpu will-change-transform [backface-visibility:hidden] group-hover:scale-110"
               />
             </div>
             <div className="flex-1 min-w-0">

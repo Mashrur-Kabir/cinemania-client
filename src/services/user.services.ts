@@ -30,11 +30,11 @@ export const getFollowingFeed = async () =>
 export const getWatchedHistory = async (params?: IQueryOptions) =>
   httpClient.get<IDiaryEntry[]>("/watchedHistory", { params });
 
-export const getFollowers = async (userId: string) =>
-  httpClient.get<IFollowData[]>(`/follow/${userId}/followers`);
+export const getFollowers = async (userId: string, params?: IQueryOptions) =>
+  httpClient.get<IFollowData[]>(`/follow/${userId}/followers`, { params });
 
-export const getFollowing = async (userId: string) =>
-  httpClient.get<IFollowData[]>(`/follow/${userId}/following`);
+export const getFollowing = async (userId: string, params?: IQueryOptions) =>
+  httpClient.get<IFollowData[]>(`/follow/${userId}/following`, { params });
 
 export const getFollowStatus = async (userId: string) =>
   httpClient.get<{ isFollowing: boolean }>(`/follow/${userId}/status`);

@@ -95,7 +95,14 @@ export default function AddWatchlistModal() {
   return (
     <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
-        <button className="flex items-center gap-2 px-6 py-3 rounded-2xl bg-primary text-white font-black text-[10px] uppercase tracking-[0.2em] hover:scale-105 active:scale-95 transition-all shadow-[0_0_30px_rgba(225,29,72,0.3)]">
+        <button
+          className={cn(
+            "flex items-center gap-2 px-6 py-3 rounded-2xl bg-primary text-white font-black text-[10px] uppercase tracking-[0.2em] shadow-[0_0_30px_rgba(225,29,72,0.3)]",
+            // 🎯 THE FIX: Hardware acceleration & smooth rendering
+            "transition-all duration-300 ease-out transform-gpu will-change-transform [backface-visibility:hidden]",
+            "hover:scale-105 active:scale-95",
+          )}
+        >
           <Plus className="size-4" /> Add to Watchlist
         </button>
       </DialogTrigger>

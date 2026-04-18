@@ -3,7 +3,6 @@ import {
   getDefaultDashboardRoute,
   getRouteOwner,
   isAuthRoute,
-  UserRole,
 } from "./lib/authUtils";
 import {
   getNewTokensWithRefreshToken,
@@ -11,6 +10,7 @@ import {
 } from "./services/auth.services";
 import { jwtUtils } from "./lib/tokens/jwtUtils";
 import { isTokenExpiringSoon } from "./lib/tokens/tokenUtils";
+import { UserRole } from "@/types/user.types";
 
 async function refreshTokenMiddleware(refreshToken: string): Promise<boolean> {
   try {

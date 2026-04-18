@@ -1,4 +1,4 @@
-import BackgroundMain from "@/components/shared/background/BackgroundMain";
+import BackgroundMain from "@/components/modules/home/BackgroundMain";
 import DashboardNavbar from "@/components/shared/CommonLayout/navbar/DashboardNavbar";
 import DashboardSidebar from "@/components/shared/CommonLayout/sidebar/DashboardSidebar";
 

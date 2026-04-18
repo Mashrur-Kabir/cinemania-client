@@ -26,3 +26,29 @@ export const getSingleReview = async (
 ): Promise<ApiResponse<IReviewDetail>> => {
   return httpClient.get(`/review/${id}`);
 };
+
+/**
+ * 🎞️ GET PUBLIC USER REVIEWS
+ * Fetches only approved reviews for a specific user.
+ */
+export const getUserApprovedReviews = async (
+  userId: string,
+  params?: IQueryOptions,
+) => {
+  return httpClient.get<IReview[]>(`/review/user/${userId}`, { params });
+};
+
+/**
+ * 🌍 GET PUBLIC COMMUNITY FEED
+ * Fetches all approved reviews globally, sorted by recency.
+ */
+export const getPublicCommunityFeed = async (params?: IQueryOptions) => {
+  return httpClient.publicGet<IReview[]>("/review/public", {
+    params: {
+      sortBy: "createdAt",
+      sortOrder: "desc",
+      limit: 12,
+      ...params,
+    },
+  });
+};

@@ -99,7 +99,14 @@ export default function AddHistoryModal() {
     >
       <DialogTrigger asChild>
         <div className="flex justify-center mt-6">
-          <button className="flex items-center gap-2 px-8 py-3 rounded-full bg-primary text-white font-black text-xs uppercase tracking-widest hover:scale-105 active:scale-95 transition-all shadow-[0_0_30px_rgba(225,29,72,0.4)]">
+          <button
+            className={cn(
+              "flex items-center gap-2 px-8 py-3 rounded-full bg-primary text-white font-black text-xs uppercase tracking-widest shadow-[0_0_30px_rgba(225,29,72,0.4)]",
+              // 🎯 THE FIX: Hardware acceleration & optimized rendering
+              "transition-all duration-300 ease-out transform-gpu will-change-transform [backface-visibility:hidden]",
+              "hover:scale-105 active:scale-95",
+            )}
+          >
             <Plus className="size-4" /> Log a Movie
           </button>
         </div>

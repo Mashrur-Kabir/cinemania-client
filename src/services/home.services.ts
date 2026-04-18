@@ -24,7 +24,7 @@ export const getTrendingMedia = unstable_cache(
  */
 export const getPopularReviews = unstable_cache(
   async () => {
-    return await httpClient.publicGet<IReview[]>("/review", {
+    return await httpClient.publicGet<IReview[]>("/review/public", {
       params: { sortBy: "likeCount", sortOrder: "desc", limit: 4 },
     });
   },

@@ -119,7 +119,14 @@ export default function NotificationCenter({
 
       <DropdownMenuContent
         align="end"
-        className="w-[400px] bg-[#0c0d10]/95 backdrop-blur-3xl border-white/5 p-0 rounded-[2rem] shadow-2xl overflow-hidden ring-1 ring-white/10"
+        sideOffset={12} // 🎯 THE FIX: Adds breathing room to prevent "jumping" to position
+        className={cn(
+          "w-[400px] bg-[#0c0d10]/95 backdrop-blur-3xl border-white/5 p-0 rounded-[2rem] shadow-2xl overflow-hidden ring-1 ring-white/10",
+          // 🎯 ANIMATION: Smooth fade, scale, and slide transition
+          "animate-in fade-in zoom-in-95 slide-in-from-top-4 duration-300 ease-out",
+          // 🎯 PERFORMANCE: GPU acceleration to stop the jitter
+          "transform-gpu will-change-[transform,opacity] [backface-visibility:hidden]",
+        )}
       >
         <div className="p-6 border-b border-white/5 flex items-center justify-between bg-white/[0.02]">
           <div className="space-y-0.5">

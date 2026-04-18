@@ -1,4 +1,3 @@
-// src/app/(dashboardLayout)/dashboard/community/page.tsx
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { HomeSection } from "@/components/modules/home/HomeSection";
 import { Users, UserPlus } from "lucide-react";
@@ -7,9 +6,16 @@ import { getUserInfo } from "@/services/auth.services";
 import { redirect } from "next/navigation";
 import FollowingList from "@/components/modules/dashboard/user-dashboard/follower/FollowingList";
 
-export default async function FollowersPage() {
+export default async function FollowersPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ page?: string }>;
+}) {
   const userInfo = await getUserInfo();
   if (!userInfo) redirect("/login");
+
+  const params = await searchParams;
+  const currentPage = Number(params.page) || 1; // 🎯 THE FIX: Resolve page from URL
 
   return (
     <div className="max-w-5xl mx-auto py-12 px-6 animate-in fade-in duration-1000">
@@ -36,11 +42,11 @@ export default async function FollowersPage() {
           </div>
 
           <TabsContent value="followers">
-            <FollowerList userId={userInfo.id} />
+            <FollowerList userId={userInfo.id} page={currentPage} />
           </TabsContent>
 
           <TabsContent value="following">
-            <FollowingList userId={userInfo.id} />
+            <FollowingList userId={userInfo.id} page={currentPage} />
           </TabsContent>
         </Tabs>
       </HomeSection>

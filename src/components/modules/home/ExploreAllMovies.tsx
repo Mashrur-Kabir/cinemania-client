@@ -82,7 +82,7 @@ export default function ExploreAllMovies({
 
       <div className="mt-16 flex justify-center">
         <Link
-          href="/explore-movies"
+          href="/media"
           className="group relative flex items-center gap-3 px-10 py-4 rounded-full bg-white/5 border border-white/10 overflow-hidden transition-all duration-500 hover:border-primary/50"
         >
           {/* Subtle button glow */}

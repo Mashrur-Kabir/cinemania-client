@@ -1,4 +1,4 @@
-import BackgroundMain from "@/components/shared/background/BackgroundMain";
+import BackgroundMain from "@/components/modules/home/BackgroundMain";
 import FeatureCard from "@/components/modules/home/FeatureCard";
 import { Button } from "@/components/ui/button";
 import { Play, Star, Users, Layout } from "lucide-react";
@@ -13,6 +13,8 @@ import { getNewArrivals } from "@/services/home.services";
 import HeroPosterStage from "@/components/modules/home/HeroPosterStage";
 import ExploreAllMovies from "@/components/modules/home/ExploreAllMovies";
 import { getAllMedia } from "@/services/media.services";
+import { HomeSection } from "@/components/modules/home/HomeSection";
+import PricingCard from "@/components/modules/home/PricingCard";
 
 export default async function HomePage() {
   // 1. Fetch 6 newest posters for the background
@@ -98,6 +100,39 @@ export default async function HomePage() {
             description="One login for all content providers."
           />
         </div>{" "}
+        {/* 🎯 Subscription */}
+        <div className="mt-40 w-full">
+          <HomeSection
+            title="ELEVATE YOUR EXPERIENCE"
+            subtitle="Unlock Our Exclusive Plans to Access More."
+          >
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <PricingCard
+                type="BASIC"
+                price="9.99"
+                features={["720p Streaming", "No Ads", "10 Monthly Reviews"]}
+              />
+              <PricingCard
+                type="PRO"
+                price="19.99"
+                features={[
+                  "1080p Streaming",
+                  "Early Access",
+                  "Unlimited Reviews",
+                ]}
+              />
+              <PricingCard
+                type="PREMIUM"
+                price="29.99"
+                features={[
+                  "4K Ultra HD",
+                  "Priority Support",
+                  "Exclusive Achievement Badges",
+                ]}
+              />
+            </div>
+          </HomeSection>
+        </div>
         {/* WAVE 4: The Dynamic Data Stream - NOW OUTSIDE THE GRID */}
         <div className="mt-40 w-full space-y-40 text-left">
           {/* Trending Section */}

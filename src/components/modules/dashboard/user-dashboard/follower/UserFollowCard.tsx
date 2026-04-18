@@ -47,7 +47,9 @@ export default function UserFollowCard({
             src={user.image || "/default-avatar.png"}
             alt={user.name}
             fill
-            className="object-cover"
+            sizes="56px"
+            // 🎯 THE FIX: Hardware acceleration for smooth hovers
+            className="object-cover transform-gpu will-change-transform [backface-visibility:hidden] transition-transform duration-500 group-hover:scale-110"
           />
         </div>
         <div>

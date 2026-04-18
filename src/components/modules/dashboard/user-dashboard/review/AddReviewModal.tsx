@@ -117,7 +117,14 @@ export default function AddReviewModal() {
   return (
     <Dialog open={open} onOpenChange={(v) => (!v ? handleClose() : setOpen(v))}>
       <DialogTrigger asChild>
-        <button className="flex items-center gap-2 px-8 py-3 rounded-full bg-accent text-black font-black text-xs uppercase tracking-widest hover:scale-105 active:scale-95 transition-all shadow-[0_0_30px_rgba(56,189,248,0.3)]">
+        <button
+          className={cn(
+            "flex items-center gap-2 px-8 py-3 rounded-full bg-accent text-black font-black text-xs uppercase tracking-widest shadow-[0_0_30px_rgba(56,189,248,0.3)]",
+            // 🎯 THE FIX: Apply the buttery-smooth animation stack
+            "transition-all duration-300 ease-out transform-gpu will-change-transform [backface-visibility:hidden]",
+            "hover:scale-105 active:scale-95",
+          )}
+        >
           <Plus className="size-4" /> Drop a Review
         </button>
       </DialogTrigger>

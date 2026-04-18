@@ -17,7 +17,7 @@ export interface IReview {
   createdAt: string;
   updatedAt: string;
   user?: { name: string; image: string; role: UserRole }; // Optional for display
-  media?: { title: string; posterUrl: string };
+  media?: { title: string; posterUrl: string; slug: string };
 }
 
 export interface IComment {

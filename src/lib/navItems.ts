@@ -32,7 +32,7 @@ export const getCommonNavItems = (role?: UserRole): NavItem[] => {
 
     items.push({
       title: "My Watchlist",
-      href: "/watchlist",
+      href: "/dashboard/watchlist",
     });
   }
 
