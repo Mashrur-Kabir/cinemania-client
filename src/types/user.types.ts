@@ -56,3 +56,18 @@ export interface IAchievement {
   isEarned: boolean;
   earnedAt: string | null;
 }
+
+export interface IUser {
+  id: string;
+  name: string;
+  email: string;
+  emailVerified: boolean;
+  image: string | null;
+  role: "USER" | "ADMIN";
+  status: "ACTIVE" | "INACTIVE";
+  needPasswordChange: boolean;
+  createdAt: string;
+  updatedAt: string;
+  isDeleted: boolean;
+  deletedAt: string | null;
+}

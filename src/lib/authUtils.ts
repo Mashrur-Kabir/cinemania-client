@@ -21,8 +21,13 @@ export type RouteConfig = {
  * Routes accessible by any logged-in user regardless of role
  */
 export const commonProtectedRoutes: RouteConfig = {
-  exact: ["/my-profile", "/change-password"],
-  pattern: [],
+  exact: ["/my-profile", "/change-password", "/discovery", "/community"],
+  pattern: [
+    /^\/discovery/, // 🎯 Protects discovery and all sub-paths
+    /^\/community/, // 🎯 Protects community and all sub-paths
+    /^\/media/, // 🛡️ Recommended: Protect media detail pages too
+    /^\/reviews/, // 🛡️ Recommended: Protect review detail pages too
+  ],
 };
 
 export const adminProtectedRoutes: RouteConfig = {

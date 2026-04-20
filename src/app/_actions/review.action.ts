@@ -49,3 +49,16 @@ export const toggleLikeAction = async (id: string) => {
     return handleActionError(error, "Failed to toggle like");
   }
 };
+
+export const updateReviewStatusAction = async (
+  id: string,
+  status: "APPROVED" | "REJECTED",
+) => {
+  try {
+    const res = await httpClient.patch(`/review/${id}/status`, { status });
+    revalidatePath("/admin/dashboard");
+    return res;
+  } catch (error: any) {
+    return { success: false, message: error.message };
+  }
+};

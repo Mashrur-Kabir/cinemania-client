@@ -1,6 +1,18 @@
 "use client";
 
-import { motion } from "framer-motion";
+/**
+ * ExploreAllMovies — framer-motion removed
+ * ─────────────────────────────────────────
+ * The black background issue was caused by framer-motion animating
+ * `x` from 0 to -1920 — a fixed pixel value. At viewports wider than
+ * 1920px the strip ends before covering the row, revealing the #030406
+ * background through the gap.
+ *
+ * Fix: pure CSS `animation: marquee` / `marquee-reverse` which are already
+ * defined in globals.css. The strip width is percentage-based via flex,
+ * so it always covers regardless of viewport size.
+ */
+
 import MediaCard from "./MediaCard";
 import { HomeSection } from "./HomeSection";
 import Link from "next/link";
@@ -12,8 +24,8 @@ export default function ExploreAllMovies({
 }: {
   mediaItems: TMediaPreview[];
 }) {
-  // 🎯 Duplicate the items to create a seamless infinite loop
-  const marqueeItems = [
+  // Triple to ensure the loop never reveals the end
+  const row = [
     ...(mediaItems || []),
     ...(mediaItems || []),
     ...(mediaItems || []),
@@ -24,74 +36,76 @@ export default function ExploreAllMovies({
       title="EXPLORE THE MULTIVERSE"
       subtitle="A never-ending stream of stories waiting to be told."
     >
-      <div className="relative w-full overflow-hidden py-10">
-        {/* 🎭 Row 1: Moving Left */}
-        <div className="flex mb-8">
-          <motion.div
-            animate={{ x: [0, -1920] }}
-            transition={{
-              x: {
-                repeat: Infinity,
-                repeatType: "loop",
-                duration: 40, // Adjust speed
-                ease: "linear",
-              },
-            }}
-            className="flex gap-6 hover:[animation-play-state:paused]"
-          >
-            {marqueeItems.map((media, idx) => (
+      <div className="relative w-full overflow-hidden py-6">
+        {/* Row 1 — left */}
+        <div className="flex mb-6 pause-on-hover">
+          <div className="flex gap-5 animate-marquee pause-on-hover shrink-0">
+            {row.map((media, idx) => (
               <div
-                key={`${media.id}-row1-${idx}`}
-                className="w-[200px] flex-shrink-0"
+                key={`r1-${media.id}-${idx}`}
+                className="w-[180px] flex-shrink-0"
               >
                 <MediaCard media={media} />
               </div>
             ))}
-          </motion.div>
-        </div>
-
-        {/* 🎭 Row 2: Moving Right (Offset for variety) */}
-        <div className="flex">
-          <motion.div
-            animate={{ x: [-1920, 0] }}
-            transition={{
-              x: {
-                repeat: Infinity,
-                repeatType: "loop",
-                duration: 50, // Slightly different speed for parallax feel
-                ease: "linear",
-              },
-            }}
-            className="flex gap-6"
+          </div>
+          {/* Duplicate strip for seamless loop */}
+          <div
+            className="flex gap-5 animate-marquee pause-on-hover shrink-0"
+            aria-hidden
           >
-            {marqueeItems.map((media, idx) => (
+            {row.map((media, idx) => (
               <div
-                key={`${media.id}-row2-${idx}`}
-                className="w-[200px] flex-shrink-0"
+                key={`r1b-${media.id}-${idx}`}
+                className="w-[180px] flex-shrink-0"
               >
                 <MediaCard media={media} />
               </div>
             ))}
-          </motion.div>
+          </div>
         </div>
 
-        {/* 🌫️ Edge Fades: Cinematic depth */}
-        <div className="pointer-events-none absolute inset-y-0 left-0 w-40 bg-gradient-to-r from-[#030406] to-transparent z-10" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 w-40 bg-gradient-to-l from-[#030406] to-transparent z-10" />
+        {/* Row 2 — right */}
+        <div className="flex pause-on-hover">
+          <div className="flex gap-5 animate-marquee-reverse pause-on-hover shrink-0">
+            {row.map((media, idx) => (
+              <div
+                key={`r2-${media.id}-${idx}`}
+                className="w-[180px] flex-shrink-0"
+              >
+                <MediaCard media={media} />
+              </div>
+            ))}
+          </div>
+          <div
+            className="flex gap-5 animate-marquee-reverse pause-on-hover shrink-0"
+            aria-hidden
+          >
+            {row.map((media, idx) => (
+              <div
+                key={`r2b-${media.id}-${idx}`}
+                className="w-[180px] flex-shrink-0"
+              >
+                <MediaCard media={media} />
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Edge fades */}
+        <div className="pointer-events-none absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#030406] to-transparent z-10" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#030406] to-transparent z-10" />
       </div>
 
-      <div className="mt-16 flex justify-center">
+      <div className="mt-12 flex justify-center">
         <Link
           href="/media"
-          className="group relative flex items-center gap-3 px-10 py-4 rounded-full bg-white/5 border border-white/10 overflow-hidden transition-all duration-500 hover:border-primary/50"
+          className="group relative flex items-center gap-3 px-10 py-4 rounded-full bg-white/5 border border-white/10 overflow-hidden transition-[border-color,background-color] duration-500 hover:border-primary/50 hover:bg-primary/5"
         >
-          {/* Subtle button glow */}
-          <div className="absolute inset-0 bg-primary/0 group-hover:bg-primary/5 transition-colors duration-500" />
-
           <span className="relative z-10 font-black text-xs tracking-[0.2em] text-white uppercase">
             Access Full Multiverse
           </span>
-          <ChevronRight className="relative z-10 size-4 text-primary group-hover:translate-x-1 transition-transform" />
+          <ChevronRight className="relative z-10 size-4 text-primary transition-transform duration-300 group-hover:translate-x-1" />
         </Link>
       </div>
     </HomeSection>

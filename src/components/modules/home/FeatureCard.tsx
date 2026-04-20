@@ -14,20 +14,17 @@ const FeatureCard = ({
   icon: Icon,
   variant,
 }: FeatureCardProps) => {
-  const variants = {
-    primary:
-      "hover:border-primary/40 hover:shadow-[0_0_30px_-5px_rgba(225,29,72,0.35)] text-primary",
-    accent:
-      "hover:border-accent/40 hover:shadow-[0_0_30px_-5px_rgba(168,85,247,0.3)] text-accent",
-    white:
-      "hover:border-white/20 hover:shadow-[0_0_30px_-5px_rgba(255,255,255,0.12)] text-white",
+  const variantClasses = {
+    primary: "feature-card--primary text-primary",
+    accent: "feature-card--accent text-accent",
+    white: "feature-card--white text-white",
   };
 
   return (
     <div
       className={cn(
-        "glass-panel group relative overflow-hidden p-8 transition-all duration-500 hover:-translate-y-1",
-        variants[variant],
+        "feature-card glass-panel group relative overflow-hidden p-8",
+        variantClasses[variant],
       )}
     >
       <div className="relative mb-6 inline-block">
@@ -39,14 +36,10 @@ const FeatureCard = ({
             variant === "white" && "bg-white/20",
           )}
         />
-        <Icon className="relative size-10 transition-all duration-500 ease-out group-hover:-translate-y-1 group-hover:scale-110" />
+        <Icon className="relative size-10 transition-transform duration-500 ease-out group-hover:-translate-y-1 group-hover:scale-110 will-change-transform" />
       </div>
-
-      <h3 className="mb-3 text-xl font-bold text-white transition-colors group-hover:text-white/95">
-        {title}
-      </h3>
-
-      <p className="text-sm leading-relaxed text-muted-foreground transition-colors group-hover:text-muted-foreground/85">
+      <h3 className="mb-3 text-xl font-bold text-white">{title}</h3>
+      <p className="text-sm leading-relaxed text-muted-foreground">
         {description}
       </p>
     </div>
