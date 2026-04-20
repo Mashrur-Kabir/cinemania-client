@@ -250,6 +250,27 @@
     scrollbar-width: thin;
     scrollbar-color: rgba(225, 29, 72, 0.2) transparent;
   }
+
+  /* ── Custom Vertical Scrollbar for Dropdowns & Modals ── */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 10px;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(225, 29, 72, 0.3); /* Primary color */
+    border-radius: 10px;
+    transition: background 0.3s ease;
+  }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(225, 29, 72, 0.7);
+  }
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(225, 29, 72, 0.3) transparent;
+  }
 }
 
 /* ── Blob positions (used by BackgroundMain) ── */

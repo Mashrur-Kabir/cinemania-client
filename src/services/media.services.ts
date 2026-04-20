@@ -5,15 +5,24 @@ import { httpClient } from "@/lib/axios/httpClient";
 import { IMedia, TMediaPreview } from "@/types/media.types";
 import { ApiResponse } from "@/types/api.types";
 
+export interface IGenre {
+  id: string;
+  name: string;
+}
+
 /**
- * 🌐 Fetches all media for grids and discovery.
- * Uses TMediaPreview because the 'Get All' view usually doesn't need
- * full descriptions/cast lists until the user clicks into a detail page.
+ * 🌐 Fetches all media for grids, discovery, and Admin Tables.
+ * Accepts either an object of params or a raw query string.
  */
 export const getAllMedia = async (
-  params: Record<string, any> = {},
+  query?: string | Record<string, any>,
 ): Promise<ApiResponse<TMediaPreview[]>> => {
-  return httpClient.get<TMediaPreview[]>("/media", { params });
+  if (typeof query === "string") {
+    // Used by the Admin Table Server Component
+    return httpClient.get<TMediaPreview[]>(`/media?${query}`);
+  }
+  // Used by standard client components
+  return httpClient.get<TMediaPreview[]>("/media", { params: query });
 };
 
 /**
@@ -41,4 +50,19 @@ export const getMediaStream = async (
   id: string,
 ): Promise<ApiResponse<IStreamResponse>> => {
   return httpClient.get<IStreamResponse>(`/media/${id}/play`);
+};
+
+/**
+ * 🗑️ Protected Admin: Soft deletes a media entry from the multiverse.
+ */
+export const deleteMediaAction = async (id: string) => {
+  return httpClient.delete(`/media/${id}`);
+};
+
+/**
+ * 🏷️ Fetches all genres for the Admin Multi-Select Filter.
+ * (If you have a genre.services.ts, you can move this there later)
+ */
+export const getAllGenres = async (): Promise<ApiResponse<IGenre[]>> => {
+  return httpClient.get<IGenre[]>("/genre");
 };
