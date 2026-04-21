@@ -3,11 +3,11 @@ import {
   HydrationBoundary,
   QueryClient,
 } from "@tanstack/react-query";
-import { getAllMedia } from "@/services/media.services";
-import MediaTable from "@/components/modules/dashboard/admin-dashboard/media/MediaTable";
-import { getAllGenres } from "@/services/genre.services";
+import { getAllUsers, getUserAnalytics } from "@/services/admin.services";
+import UserTable from "@/components/modules/dashboard/admin-dashboard/user/UserTable";
+import UserAnalyticsDashboard from "@/components/modules/dashboard/admin-dashboard/user/UserAnalyticsDashboard";
 
-const MediaLibraryPage = async ({
+const UsersManagementPage = async ({
   searchParams,
 }: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
@@ -18,13 +18,11 @@ const MediaLibraryPage = async ({
     .map((key) => {
       const value = queryParamsObjects[key];
       if (value === undefined) return "";
-
       if (Array.isArray(value)) {
         return value
           .map((v) => `${encodeURIComponent(key)}=${encodeURIComponent(v)}`)
           .join("&");
       }
-
       return `${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
     })
     .filter(Boolean)
@@ -32,36 +30,39 @@ const MediaLibraryPage = async ({
 
   const queryClient = new QueryClient();
 
-  // Prefetch Table Data
+  //prefetch table data
   await queryClient.prefetchQuery({
-    queryKey: ["media", queryString],
-    queryFn: () => getAllMedia(queryString),
-    staleTime: 1000 * 60 * 60, // 1 hour
+    queryKey: ["users", queryString],
+    queryFn: () => getAllUsers(queryString),
+    staleTime: 1000 * 60 * 5, // 5 minutes
   });
 
-  // Prefetch Filter Options
+  //prefetch dashboard analytics
   await queryClient.prefetchQuery({
-    queryKey: ["genres"],
-    queryFn: () => getAllGenres(),
-    staleTime: 1000 * 60 * 60 * 24, // 24 hours
+    queryKey: ["user-analytics"],
+    queryFn: () => getUserAnalytics(),
+    staleTime: 1000 * 60 * 60, // 1 hour caching for stats
   });
 
   return (
     <div className="max-w-7xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
       <header className="flex flex-col gap-2">
         <h1 className="text-4xl font-black text-white tracking-tighter uppercase italic">
-          Media <span className="text-primary">Library</span>
+          User <span className="text-cyan-500">Base</span>
         </h1>
         <p className="text-muted-foreground font-medium uppercase text-xs tracking-widest">
-          Manage the cinematic multiverse catalog.
+          Monitor and manage personnel access.
         </p>
       </header>
 
+      {/* Statistical Dashboard Component Placeholder will go right here eventually */}
+
       <HydrationBoundary state={dehydrate(queryClient)}>
-        <MediaTable initialQueryString={queryString} />
+        <UserAnalyticsDashboard />
+        <UserTable initialQueryString={queryString} />
       </HydrationBoundary>
     </div>
   );
 };
 
-export default MediaLibraryPage;
+export default UsersManagementPage;

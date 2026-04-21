@@ -21,8 +21,9 @@ export const mediaColumns: ColumnDef<TMediaPreview>[] = [
               src={poster}
               alt={`${row.original.title} Poster`}
               fill
-              sizes="32px"
-              className="object-cover group-hover:scale-110 transition-transform duration-500"
+              sizes="40px"
+              unoptimized
+              className="object-cover transition-transform duration-500 will-change-transform transform-gpu group-hover:scale-110"
             />
           ) : (
             <Video className="absolute left-1/2 top-1/2 size-4 -translate-x-1/2 -translate-y-1/2 text-white/20 group-hover:text-primary/50 transition-colors" />

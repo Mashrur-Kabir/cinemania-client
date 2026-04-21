@@ -3,7 +3,7 @@ import { getUserStats } from "@/services/user.services";
 import { Suspense } from "react";
 import HistoryTimeline from "@/components/modules/dashboard/user-dashboard/history/HistoryTimeline";
 import AddHistoryModal from "@/components/modules/dashboard/user-dashboard/history/AddHistoryModal";
-import DiaryTimelineSkeleton from "@/components/shared/loaders/DiarryTimelineSkeleton";
+import DiaryTimelineSkeleton from "@/components/shared/loaders/DiaryTimelineSkeleton";
 
 export default async function HistoryPage({
   searchParams,

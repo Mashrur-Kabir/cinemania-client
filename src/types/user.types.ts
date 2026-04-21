@@ -71,3 +71,15 @@ export interface IUser {
   isDeleted: boolean;
   deletedAt: string | null;
 }
+
+export interface IUserAnalytics {
+  overview: {
+    totalUsers: number;
+    activeUsers: number;
+    blockedUsers: number;
+    adminUsers: number;
+  };
+  statusDistribution: { name: string; value: number }[];
+  roleDistribution: { name: string; value: number }[];
+  growthData: { month: string; count: number }[];
+}

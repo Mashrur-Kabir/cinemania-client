@@ -4,6 +4,10 @@
 import { httpClient } from "@/lib/axios/httpClient";
 import { IMedia, TMediaPreview } from "@/types/media.types";
 import { ApiResponse } from "@/types/api.types";
+import {
+  TMediaFormValues,
+  TUpdateMediaFormValues,
+} from "@/zod/media.validation";
 
 export interface IGenre {
   id: string;
@@ -60,9 +64,20 @@ export const deleteMediaAction = async (id: string) => {
 };
 
 /**
- * 🏷️ Fetches all genres for the Admin Multi-Select Filter.
- * (If you have a genre.services.ts, you can move this there later)
+ * 🚀 Protected Admin: Creates a new media entry in the multiverse.
  */
-export const getAllGenres = async (): Promise<ApiResponse<IGenre[]>> => {
-  return httpClient.get<IGenre[]>("/genre");
+export const createMedia = async (
+  payload: TMediaFormValues,
+): Promise<ApiResponse<IMedia>> => {
+  return httpClient.post<IMedia>("/media", payload);
+};
+
+/**
+ * 🛠️ Protected Admin: Updates an existing media entry.
+ */
+export const updateMedia = async (
+  id: string,
+  payload: TUpdateMediaFormValues,
+): Promise<ApiResponse<IMedia>> => {
+  return httpClient.patch<IMedia>(`/media/${id}`, payload);
 };

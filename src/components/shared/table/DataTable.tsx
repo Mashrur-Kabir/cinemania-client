@@ -211,7 +211,6 @@ const DataTable = <TData,>({
         <div className="mb-6 flex flex-wrap items-start gap-4">
           {search && (
             <DataTableSearch
-              key={search.initialValue ?? ""}
               initialValue={search.initialValue}
               placeholder={search.placeholder}
               debounceMs={search.debounceMs}
@@ -237,7 +236,12 @@ const DataTable = <TData,>({
       )}
 
       {/* 🎯 THE FIX: min-h-[500px] added to prevent the sudden shrinking */}
-      <div className="rounded-xl border border-white/10 bg-black/20 overflow-hidden flex flex-col justify-between min-h-[500px] shadow-xl">
+      <div
+        className={cn(
+          "rounded-xl border border-white/10 bg-black/20 overflow-hidden flex flex-col justify-between min-h-[500px] shadow-xl transition-opacity duration-300",
+          showLoadingOverlay && "opacity-50 pointer-events-none select-none", // 🎯 Dims and locks the table during sync
+        )}
+      >
         <div className="overflow-x-auto chart-scrollbar-x">
           <Table>
             <TableHeader className="bg-white/[0.02] border-b border-white/10">
