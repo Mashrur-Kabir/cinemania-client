@@ -16,6 +16,7 @@ export interface IReview {
   userId: string;
   createdAt: string;
   updatedAt: string;
+  rejectionReason?: string;
   user?: { name: string; image: string; role: UserRole }; // Optional for display
   media?: { title: string; posterUrl: string; slug: string };
 }

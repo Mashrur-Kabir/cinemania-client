@@ -53,12 +53,16 @@ export const toggleLikeAction = async (id: string) => {
 export const updateReviewStatusAction = async (
   id: string,
   status: "APPROVED" | "REJECTED",
+  reason?: string,
 ) => {
   try {
-    const res = await httpClient.patch(`/review/${id}/status`, { status });
+    const res = await httpClient.patch(`/review/${id}/status`, {
+      status,
+      reason,
+    });
     revalidatePath("/admin/dashboard");
     return res;
   } catch (error: any) {
-    return { success: false, message: error.message };
+    return handleActionError(error, "Failed to modify signal status");
   }
 };

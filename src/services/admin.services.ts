@@ -79,3 +79,7 @@ export const deleteUserAction = async (id: string) => {
 export const getUserAnalytics = async () => {
   return httpClient.get<IUserAnalytics>("/user/analytics");
 };
+
+export const getAdminArchive = async (params?: IQueryOptions) => {
+  return httpClient.get<IReview[]>("/review/admin/archive", { params });
+};

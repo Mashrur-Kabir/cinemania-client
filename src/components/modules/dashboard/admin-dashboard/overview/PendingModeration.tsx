@@ -19,6 +19,7 @@ import { toast } from "sonner";
 import { useState, useEffect } from "react"; // 🎯 Added useEffect for Portals
 import { createPortal } from "react-dom"; // 🎯 Added createPortal
 import { cn } from "@/lib/utils";
+import Link from "next/link";
 
 export default function PendingModeration({
   items: initialItems,
@@ -271,11 +272,11 @@ export default function PendingModeration({
           document.body, // 🎯 Renders the modal directly to body
         )}
 
-      {items.length > 5 && (
-        <p className="text-center text-[9px] font-bold text-white/20 uppercase tracking-[0.2em] pt-2">
-          + {items.length - 5} more in queue
-        </p>
-      )}
+      <Link href="/admin/dashboard/reports" className="block w-full pt-2">
+        <button className="w-full py-3 rounded-xl bg-white/[0.02] border border-white/5 text-[10px] font-black uppercase tracking-widest text-white/40 hover:bg-amber-500/10 hover:text-amber-500 hover:border-amber-500/20 transition-all duration-300">
+          View Full Queue
+        </button>
+      </Link>
     </div>
   );
 }

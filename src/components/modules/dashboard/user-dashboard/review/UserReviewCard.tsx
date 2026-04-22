@@ -103,7 +103,7 @@ export default function UserReviewCard({ review }: { review: IReview }) {
         )}
       />
 
-      <div className="glass-panel relative flex h-full flex-col overflow-hidden rounded-[2.5rem] border border-white/5 bg-[#050505]/40 transition-colors duration-500 hover:bg-[#0a0b0d]/80 hover:border-white/10">
+      <div className="relative flex h-full flex-col overflow-hidden rounded-[2.5rem] border border-white/5 bg-[#050505]/40 transition-colors duration-500 hover:bg-[#0a0b0d]/80 hover:border-white/10">
         {/* 🚀 CLICKABLE ZONE: Link to Detail Page */}
         <Link
           href={detailHref}
@@ -120,8 +120,10 @@ export default function UserReviewCard({ review }: { review: IReview }) {
               </h3>
               <div className="flex items-center gap-2 text-muted-foreground/40">
                 <Calendar className="size-3" />
-                <span className="text-[10px] font-bold uppercase tracking-wider">
-                  {format(new Date(review.createdAt), "do MMM yyyy")}
+                <span suppressHydrationWarning>
+                  {typeof window !== "undefined"
+                    ? format(new Date(review.createdAt), "do MMM yyyy")
+                    : ""}
                 </span>
               </div>
             </div>
