@@ -79,7 +79,7 @@ export async function proxy(request: NextRequest) {
     }
 
     // 👤 5. Detailed Account State Enforcement
-    const userInfo = await getUserInfo(); //
+    const userInfo = await getUserInfo();
 
     if (userInfo) {
       // 📧 Email Verification Check
@@ -97,20 +97,23 @@ export async function proxy(request: NextRequest) {
       }
 
       // 🎖️ 6. Subscription Weight Gatekeeper (CineMania Specific)
-      // If user is accessing /watch but doesn't have the tier weight
       if (pathname.startsWith("/watch") && userInfo.subscription) {
         // Logic will eventually compare media weight vs user weight
-        //
       }
     }
 
-    // 🏛️ 7. Role-Based Access Control (RBAC)
-    if (routeOwner === "ADMIN" || routeOwner === "USER") {
-      if (routeOwner !== userRole) {
-        return NextResponse.redirect(
-          new URL(getDefaultDashboardRoute(userRole!), request.url),
-        );
-      }
+    // 🏛️ 7. Hierarchical Role-Based Access Control (RBAC)
+    // 🎯 THE FIX: Admin requires strict matching, but Users allow Admins to pass through.
+    if (routeOwner === "ADMIN" && userRole !== "ADMIN") {
+      return NextResponse.redirect(
+        new URL(getDefaultDashboardRoute(userRole!), request.url),
+      );
+    }
+
+    if (routeOwner === "USER" && userRole !== "USER" && userRole !== "ADMIN") {
+      return NextResponse.redirect(
+        new URL(getDefaultDashboardRoute(userRole!), request.url),
+      );
     }
 
     return NextResponse.next();

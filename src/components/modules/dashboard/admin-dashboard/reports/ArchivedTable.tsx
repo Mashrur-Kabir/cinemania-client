@@ -7,6 +7,7 @@ import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import { getAdminArchive } from "@/services/admin.services";
 import { archiveColumns } from "./ArchivedColumns";
+import { motion } from "framer-motion"; // 🎯 Added Framer Motion
 
 const DEFAULT_PAGE = 1;
 const DEFAULT_LIMIT = 10;
@@ -54,7 +55,13 @@ export default function ArchiveTable({
   const meta = response?.meta;
 
   return (
-    <div className="space-y-6 animate-in fade-in zoom-in-95 duration-500">
+    // 🎯 THE FIX: Used Framer Motion for a buttery smooth fade & slide, preventing scale jitter
+    <motion.div
+      initial={{ opacity: 0, y: 15 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
+      className="space-y-6"
+    >
       <div className="p-6 border border-rose-500/10 bg-rose-500/[0.01] rounded-3xl shadow-[inset_0_0_50px_rgba(225,29,72,0.02)]">
         <DataTable
           data={reviewsList}
@@ -78,6 +85,6 @@ export default function ArchiveTable({
           meta={meta}
         />
       </div>
-    </div>
+    </motion.div>
   );
 }

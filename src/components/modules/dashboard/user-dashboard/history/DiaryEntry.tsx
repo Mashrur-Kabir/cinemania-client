@@ -13,7 +13,7 @@ import {
   MoreHorizontal,
   Edit3,
   Trash2,
-  AlertTriangle, // 🎯 Added for the warning icon
+  AlertTriangle,
 } from "lucide-react";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
@@ -35,7 +35,7 @@ export default function DiaryEntry({
   entry: IDiaryEntry;
   index: number;
 }) {
-  const containerRef = useRef(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const [isEditOpen, setIsEditOpen] = useState(false);
   const queryClient = useQueryClient();
 
@@ -67,7 +67,6 @@ export default function DiaryEntry({
         label: "Keep it",
         onClick: () => toast.dismiss(),
       },
-      // 🎨 Matching your Cinematic Dark Theme
       className:
         "bg-[#030406] border-white/10 text-white rounded-2xl shadow-2xl",
     });
@@ -78,17 +77,21 @@ export default function DiaryEntry({
     offset: ["start end", "end start"],
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], [-30, 30]);
+  const y = useTransform(scrollYProgress, [0, 1], [-20, 20]);
   const isEven = index % 2 === 0;
 
   return (
     <div
       ref={containerRef}
-      className="relative flex items-center justify-center w-full min-h-[300px] mb-24 md:mb-32"
+      // 🎯 THE FIX: Inline style ensures Framer Motion calculates offset correctly before CSS loads
+      style={{ position: "relative" }}
+      className="relative flex items-center justify-center w-full min-h-[300px] mb-24 md:mb-32 group/entry"
     >
       {/* 📍 Central Timeline Node */}
       <div className="absolute left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-4">
-        <div className="size-4 rounded-full bg-primary shadow-[0_0_15px_rgba(225,29,72,0.8)] border-4 border-[#030406]" />
+        <div className="size-4 rounded-full bg-primary/40 group-hover/entry:bg-primary transition-colors duration-700 shadow-[0_0_15px_rgba(225,29,72,0.8)] border-4 border-[#030406] relative">
+          <div className="absolute inset-0 rounded-full bg-primary/30 blur-sm scale-150 group-hover/entry:scale-100 transition-transform duration-700" />
+        </div>
         <div className="h-full w-px bg-gradient-to-b from-primary/50 via-primary/10 to-transparent flex-1 min-h-[200px]" />
       </div>
 
@@ -99,7 +102,7 @@ export default function DiaryEntry({
           isEven ? "md:text-right" : "md:text-left",
         )}
       >
-        {/* 🛠️ Dropdown: Unified with Edit and the new Sonner Delete */}
+        {/* 🛠️ Dropdown */}
         <div
           className={cn(
             "absolute -top-6 z-30",
@@ -107,8 +110,8 @@ export default function DiaryEntry({
           )}
         >
           <DropdownMenu>
-            <DropdownMenuTrigger className="p-2 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-all outline-none">
-              <MoreHorizontal className="size-5 text-muted-foreground" />
+            <DropdownMenuTrigger className="p-2 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-all outline-none group/btn">
+              <MoreHorizontal className="size-5 text-muted-foreground group-hover/btn:text-white transition-colors" />
             </DropdownMenuTrigger>
             <DropdownMenuContent
               align={isEven ? "start" : "end"}
@@ -116,13 +119,14 @@ export default function DiaryEntry({
             >
               <DropdownMenuItem
                 onClick={() => setIsEditOpen(true)}
-                className="gap-3 focus:bg-primary/10 focus:text-primary cursor-pointer py-3"
+                className="gap-3 focus:bg-primary/10 focus:text-primary cursor-pointer py-3 transition-colors"
               >
                 <Edit3 className="size-4" /> Edit Entry
               </DropdownMenuItem>
+              {/* 🎯 THE FIX: Explicit Tailwind color overrides for Radix UI focus state */}
               <DropdownMenuItem
                 onClick={triggerDeleteConfirmation}
-                className="gap-3 focus:bg-destructive/10 focus:text-destructive text-destructive cursor-pointer py-3"
+                className="gap-3 text-rose-500 focus:bg-rose-500/10 focus:text-primary cursor-pointer py-3 transition-colors"
               >
                 <Trash2 className="size-4" /> Delete Forever
               </DropdownMenuItem>
@@ -130,36 +134,43 @@ export default function DiaryEntry({
           </DropdownMenu>
         </div>
 
-        {/* 🖼️ Poster with Parallax Effect */}
+        {/* 🖼️ Poster with Fixed Parallax & Light Bleed Effect */}
         <div
           className={cn(
-            "relative aspect-[2/3] w-full max-w-[240px] mx-auto overflow-hidden rounded-[2rem] shadow-2xl border border-white/5 group",
+            "relative w-full max-w-[240px] mx-auto group/poster perspective-1000",
             isEven ? "md:ml-auto" : "md:mr-auto md:order-last",
           )}
         >
-          <motion.div
-            style={{ y }}
-            className="absolute inset-0 h-[120%] -top-[10%]"
-          >
-            <Image
-              src={
-                entry.media.posterUrl ||
-                "https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=2000"
-              }
-              alt={entry.media.title}
-              fill
-              sizes="(max-width: 768px) 100vw, 33vw"
-              className="object-cover transition-transform duration-700 group-hover:scale-105"
-            />
-          </motion.div>
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-60" />
+          {/* Subtle colored shadow matching the image (Light Bleed) */}
+          <div className="absolute inset-4 bg-primary/20 blur-[40px] rounded-full opacity-0 group-hover/poster:opacity-100 transition-opacity duration-1000 -z-10" />
+
+          {/* 🎯 THE FIX: Removed hover:-translate-y-2 and updated to transition-all for buttery smoothness */}
+          <div className="relative aspect-[2/3] overflow-hidden rounded-[2rem] shadow-2xl border border-white/10 group-hover/poster:border-primary/30 transition-all duration-700 ease-out hover:shadow-[0_20px_40px_-10px_rgba(225,29,72,0.3)]">
+            <motion.div
+              style={{ y }}
+              className="absolute inset-0 h-[120%] -top-[10%] w-full"
+            >
+              <Image
+                src={
+                  entry.media.posterUrl ||
+                  "https://images.unsplash.com/photo-1485846234645-a62644f84728?q=80&w=2000"
+                }
+                alt={entry.media.title}
+                fill
+                sizes="(max-width: 768px) 100vw, 33vw"
+                className="object-cover transform-gpu group-hover/poster:scale-105 transition-transform duration-1000 ease-out will-change-transform"
+              />
+            </motion.div>
+
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover/poster:opacity-60 transition-opacity duration-700" />
+          </div>
         </div>
 
         {/* 📝 Details Section */}
         <motion.div
-          initial={{ opacity: 0, x: isEven ? -40 : 40 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          transition={{ duration: 0.8 }}
+          initial={{ opacity: 0, x: isEven ? -20 : 20, filter: "blur(10px)" }}
+          whileInView={{ opacity: 1, x: 0, filter: "blur(0px)" }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
           viewport={{ once: true, margin: "-100px" }}
           className="flex flex-col justify-center gap-4"
         >
@@ -173,7 +184,7 @@ export default function DiaryEntry({
             {format(new Date(entry.watchedAt), "MMMM dd, yyyy")}
           </div>
 
-          <h3 className="text-4xl md:text-5xl font-black text-white tracking-tighter uppercase leading-[0.9]">
+          <h3 className="text-4xl md:text-5xl font-black text-white tracking-tighter uppercase leading-[0.9] drop-shadow-md">
             {entry.media.title}
           </h3>
 
@@ -185,13 +196,13 @@ export default function DiaryEntry({
           >
             <Badge
               variant="outline"
-              className="bg-white/5 border-white/10 text-white/50 px-3 py-1 rounded-lg font-bold"
+              className="bg-white/5 border-white/10 text-white/50 px-3 py-1 rounded-lg font-bold backdrop-blur-sm"
             >
               {entry.media.releaseYear}
             </Badge>
 
             {entry.isRewatch && (
-              <Badge className="bg-amber-500/10 text-amber-500 border-amber-500/20 gap-1.5 px-3 py-1 rounded-lg font-bold">
+              <Badge className="bg-amber-500/10 text-amber-500 border-amber-500/20 gap-1.5 px-3 py-1 rounded-lg font-bold backdrop-blur-sm">
                 <Repeat className="size-3" /> REWATCH
               </Badge>
             )}
@@ -200,13 +211,13 @@ export default function DiaryEntry({
           {entry.notes && (
             <div
               className={cn(
-                "mt-6 p-6 rounded-[1.5rem] bg-white/[0.03] border border-white/5 italic text-sm text-muted-foreground/80 leading-relaxed relative",
+                "mt-6 p-6 rounded-[1.5rem] bg-white/[0.02] border border-white/5 italic text-sm text-white/60 leading-relaxed relative hover:bg-white/[0.04] transition-colors duration-500",
                 isEven ? "text-right" : "text-left",
               )}
             >
               <MessageSquareQuote
                 className={cn(
-                  "size-8 absolute -top-4 opacity-10 text-primary",
+                  "size-8 absolute -top-4 opacity-20 text-primary",
                   isEven ? "-right-2" : "-left-2",
                 )}
               />

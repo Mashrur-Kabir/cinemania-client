@@ -4,7 +4,6 @@ import {
   QueryClient,
 } from "@tanstack/react-query";
 import { getAdminArchive, getPendingReviews } from "@/services/admin.services";
-// 🎯 THE FIX: Import ReportsManager instead of ReportsTable
 import ReportsManager from "@/components/modules/dashboard/admin-dashboard/reports/ReportsManager";
 import { ShieldHalf } from "lucide-react";
 
@@ -32,17 +31,20 @@ const ReportsManagementPage = async ({
 
   const queryClient = new QueryClient();
 
-  // 🎯 PREFETCH LOGIC: Only fetch the data for the active tab to save server resources
+  // 🎯 THE FIX: Parse the exact same way the client does so the query variables match 1:1.
+  // This prevents React Query from instantly triggering a "refetch" jitter!
+  const parsedParams = Object.fromEntries(new URLSearchParams(queryString));
+
   if (currentTab === "pending") {
     await queryClient.prefetchQuery({
       queryKey: ["pending-reviews", queryString],
-      queryFn: () => getPendingReviews({ ...queryParamsObjects, limit: 10 }),
+      queryFn: () => getPendingReviews(parsedParams),
       staleTime: 1000 * 60 * 2,
     });
   } else {
     await queryClient.prefetchQuery({
       queryKey: ["archived-reviews", queryString],
-      queryFn: () => getAdminArchive({ ...queryParamsObjects, limit: 10 }),
+      queryFn: () => getAdminArchive(parsedParams),
       staleTime: 1000 * 60 * 2,
     });
   }
@@ -67,7 +69,6 @@ const ReportsManagementPage = async ({
       </header>
 
       <HydrationBoundary state={dehydrate(queryClient)}>
-        {/* 🎯 THE FIX: Render the Manager so the tabs appear! */}
         <ReportsManager initialQueryString={queryString} />
       </HydrationBoundary>
     </div>

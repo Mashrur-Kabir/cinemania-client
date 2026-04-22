@@ -4,6 +4,7 @@
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "@tanstack/react-form";
+import { useRouter } from "next/navigation"; // 🎯 Added for Server Component refreshing
 import {
   Dialog,
   DialogContent,
@@ -22,8 +23,8 @@ import {
   ChevronLeft,
   ShieldAlert,
   MessageSquareText,
-  Hash, // 🎯 Icon for tags
-} from "lucide-react"; // 🎯 Removed unused Clapperboard
+  Hash,
+} from "lucide-react";
 import { useDebounce } from "@/hooks/use-debounce";
 import { getAllMedia } from "@/services/media.services";
 import { reviewSchema, type IReviewForm } from "@/zod/review.validation";
@@ -46,6 +47,7 @@ export default function AddReviewModal() {
 
   const debouncedSearch = useDebounce(text, 400);
   const queryClient = useQueryClient();
+  const router = useRouter(); // 🎯 Initialize router
 
   const { data: mediaResponse, isLoading: isSearching } = useQuery({
     queryKey: ["media-search", debouncedSearch],
@@ -58,8 +60,16 @@ export default function AddReviewModal() {
     onSuccess: (res: any) => {
       if (res.success) {
         toast.success(res.message);
-        queryClient.invalidateQueries({ queryKey: ["my-reviews"] });
-        handleClose();
+
+        // 1. Start the fade-out animation instantly, leaving the form visually intact
+        setOpen(false);
+
+        // 2. Wait for the modal to completely disappear (500ms) before reloading the page.
+        // This prevents the underlying empty state from vanishing abruptly while the modal is closing.
+        setTimeout(() => {
+          queryClient.invalidateQueries({ queryKey: ["my-reviews"] });
+          router.refresh(); // 🎯 Forces the Server Component (ReviewsTimeline) to fetch the new review
+        }, 500);
       } else {
         toast.error(res.message);
       }
@@ -89,15 +99,17 @@ export default function AddReviewModal() {
     },
   });
 
-  const handleClose = () => {
-    setOpen(false);
-    setSelectedMedia(null);
-    setText("");
-    setTagInput("");
-    form.reset();
+  // 🎯 THE FOOLPROOF PATTERN: Clean the slate when OPENING, never when closing.
+  const handleOpenChange = (isOpen: boolean) => {
+    if (isOpen) {
+      setSelectedMedia(null);
+      setText("");
+      setTagInput("");
+      form.reset();
+    }
+    setOpen(isOpen);
   };
 
-  // 🎯 FIX: Added defensive check (field.state.value || []) to prevent undefined crash
   const handleAddTag = (e: React.KeyboardEvent, field: any) => {
     if (e.key === "Enter" && tagInput.trim()) {
       e.preventDefault();
@@ -115,12 +127,11 @@ export default function AddReviewModal() {
   };
 
   return (
-    <Dialog open={open} onOpenChange={(v) => (!v ? handleClose() : setOpen(v))}>
+    <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
         <button
           className={cn(
             "flex items-center gap-2 px-8 py-3 rounded-full bg-accent text-black font-black text-xs uppercase tracking-widest shadow-[0_0_30px_rgba(56,189,248,0.3)]",
-            // 🎯 THE FIX: Apply the buttery-smooth animation stack
             "transition-all duration-300 ease-out transform-gpu will-change-transform [backface-visibility:hidden]",
             "hover:scale-105 active:scale-95",
           )}
@@ -249,7 +260,6 @@ export default function AddReviewModal() {
                 )}
               </form.Field>
 
-              {/* 🎯 TAGS INPUT SECTION */}
               <form.Field name="tags">
                 {(field) => (
                   <div className="space-y-1.5">
@@ -266,7 +276,6 @@ export default function AddReviewModal() {
                         className="h-12 bg-white/[0.03] border-white/10 rounded-xl pl-12 focus:ring-accent/20"
                       />
                     </div>
-                    {/* 🎯 FIX: Used (field.state.value || []) to prevent undefined property access */}
                     {(field.state.value || []).length > 0 && (
                       <div className="flex flex-wrap gap-2 mt-3">
                         {(field.state.value || []).map((tag: string) => (

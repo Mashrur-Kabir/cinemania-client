@@ -2,7 +2,6 @@
 
 import { ColumnDef } from "@tanstack/react-table";
 import { IReview } from "@/types/review.types";
-import { Badge } from "@/components/ui/badge";
 import {
   Star,
   User,
@@ -10,13 +9,12 @@ import {
   Clock,
   Eye,
   Quote,
-  Hash,
   Calendar,
   ShieldAlert,
 } from "lucide-react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 

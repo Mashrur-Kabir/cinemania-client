@@ -10,33 +10,7 @@ import {
   TUpdateUserStatusValues,
 } from "@/zod/user.validation";
 import { ApiResponse } from "@/types/api.types";
-
-/**
- * 📊 UNIFIED ADMIN STATS
- * Matches the merged backend structure for System Nexus.
- */
-export interface IAdminStats {
-  platform: {
-    totalUsers: number;
-    totalPremiumUsers: number;
-    totalMedia: number;
-    totalRevenue: number;
-  };
-  engagement: {
-    totalReviews: number;
-    pendingReviewsCount: number;
-    activeSubscriptions: number;
-  };
-  topContent: {
-    mostWatched: { title: string; views: number } | null;
-    highestRated: { title: string; rating: number } | null;
-  };
-  revenueData: {
-    date: string;
-    amount: number;
-  }[];
-  growthRate: number;
-}
+import { IAdminProfileStats, IAdminStats } from "@/types/admin.types";
 
 // 🎯 Name synced with AdminDashboardPage
 export const getAdminStats = async () => {
@@ -82,4 +56,9 @@ export const getUserAnalytics = async () => {
 
 export const getAdminArchive = async (params?: IQueryOptions) => {
   return httpClient.get<IReview[]>("/review/admin/archive", { params });
+};
+
+// Add the fetch function
+export const getMyAdminProfile = async () => {
+  return httpClient.get<IAdminProfileStats>("/profile/admin/me");
 };

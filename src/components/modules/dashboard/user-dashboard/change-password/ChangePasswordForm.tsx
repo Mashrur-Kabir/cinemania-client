@@ -31,7 +31,7 @@ export default function ChangePasswordForm() {
   });
 
   return (
-    <div className="mx-auto w-full glass-panel rounded-[2.5rem] p-8 border border-white/5 bg-black/40 max-w-2xl">
+    <div className="mx-auto w-full rounded-[2.5rem] p-8 border border-white/5 bg-black/40 max-w-2xl">
       <div className="flex items-center gap-4 mb-8">
         <div className="size-12 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center">
           <ShieldCheck className="size-6 text-primary" />

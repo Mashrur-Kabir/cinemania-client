@@ -44,17 +44,14 @@ export const getCommonNavItems = (role?: UserRole): NavItem[] => {
  * Used in Sidebar. Returns structured sections with icons.
  */
 export const getDashboardNavItems = (role: UserRole): NavSection[] => {
+  // 🎯 THE FIX: Dynamically set the base path based on the user's role
+  const basePath = role === "ADMIN" ? "/admin/dashboard" : "/dashboard";
+
   const commonItems: NavSection = {
     title: "Account",
     items: [
-      // 🎯 FIXED: Updated path from /my-profile to /dashboard/my-profile
-      { title: "My Profile", href: "/dashboard/my-profile", icon: "User" },
-      // 🛡️ Note: If your security page is also under dashboard, update this too:
-      {
-        title: "Security",
-        href: "/dashboard/security",
-        icon: "ShieldCheck",
-      },
+      { title: "My Profile", href: `${basePath}/my-profile`, icon: "User" },
+      { title: "Security", href: `${basePath}/security`, icon: "ShieldCheck" },
     ],
   };
 
@@ -74,7 +71,7 @@ export const getDashboardNavItems = (role: UserRole): NavSection[] => {
         { title: "Followers", href: "/dashboard/followers", icon: "Users" },
       ],
     },
-    commonItems,
+    commonItems, // Appends Account section to bottom
   ];
 
   const adminItems: NavSection[] = [
@@ -101,7 +98,7 @@ export const getDashboardNavItems = (role: UserRole): NavSection[] => {
         },
       ],
     },
-    commonItems,
+    commonItems, // Appends Account section to bottom
   ];
 
   return role === "ADMIN" ? adminItems : userItems;
