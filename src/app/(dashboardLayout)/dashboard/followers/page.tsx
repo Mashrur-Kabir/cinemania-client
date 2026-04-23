@@ -5,17 +5,19 @@ import FollowerList from "@/components/modules/dashboard/user-dashboard/follower
 import { getUserInfo } from "@/services/auth.services";
 import { redirect } from "next/navigation";
 import FollowingList from "@/components/modules/dashboard/user-dashboard/follower/FollowingList";
+import NetworkSearch from "@/components/modules/dashboard/user-dashboard/follower/NetworkSearch";
 
 export default async function FollowersPage({
   searchParams,
 }: {
-  searchParams: Promise<{ page?: string }>;
+  searchParams: Promise<{ page?: string; search?: string }>;
 }) {
   const userInfo = await getUserInfo();
   if (!userInfo) redirect("/login");
 
   const params = await searchParams;
-  const currentPage = Number(params.page) || 1; // 🎯 THE FIX: Resolve page from URL
+  const currentPage = Number(params.page) || 1;
+  const search = params.search || ""; // 🎯 Extract search term
 
   return (
     <div className="max-w-5xl mx-auto py-12 px-6 animate-in fade-in duration-1000">
@@ -23,7 +25,10 @@ export default async function FollowersPage({
         title="THE NETWORK"
         subtitle="Your allies and rivals across the cinematic multiverse."
       >
-        <Tabs defaultValue="followers" className="w-full mt-10">
+        {/* 🎯 THE FIX: Add the Search Bar above the Tabs */}
+        <NetworkSearch />
+
+        <Tabs defaultValue="followers" className="w-full">
           <div className="flex justify-center mb-12">
             <TabsList className="bg-white/5 border border-white/10 p-1 rounded-2xl h-14">
               <TabsTrigger
@@ -42,11 +47,21 @@ export default async function FollowersPage({
           </div>
 
           <TabsContent value="followers">
-            <FollowerList userId={userInfo.id} page={currentPage} />
+            {/* 🎯 Pass search term down */}
+            <FollowerList
+              userId={userInfo.id}
+              page={currentPage}
+              search={search}
+            />
           </TabsContent>
 
           <TabsContent value="following">
-            <FollowingList userId={userInfo.id} page={currentPage} />
+            {/* 🎯 Pass search term down */}
+            <FollowingList
+              userId={userInfo.id}
+              page={currentPage}
+              search={search}
+            />
           </TabsContent>
         </Tabs>
       </HomeSection>

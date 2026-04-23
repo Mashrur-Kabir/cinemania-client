@@ -6,12 +6,19 @@ import {
 import { getAdminArchive, getPendingReviews } from "@/services/admin.services";
 import ReportsManager from "@/components/modules/dashboard/admin-dashboard/reports/ReportsManager";
 import { ShieldHalf } from "lucide-react";
+import { getUserInfo } from "@/services/auth.services"; // 🎯 NEW IMPORT
+import { redirect } from "next/navigation";
 
 const ReportsManagementPage = async ({
   searchParams,
 }: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) => {
+  // If the cookie is gone (e.g., during logout re-render), bounce them safely before Axios crashes!
+  const userInfo = await getUserInfo();
+  if (!userInfo || userInfo.role !== "ADMIN") {
+    redirect("/login");
+  }
   const queryParamsObjects = await searchParams;
   const currentTab = queryParamsObjects.tab || "pending";
 

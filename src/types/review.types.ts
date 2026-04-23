@@ -18,7 +18,13 @@ export interface IReview {
   updatedAt: string;
   rejectionReason?: string;
   user?: { name: string; image: string; role: UserRole }; // Optional for display
-  media?: { title: string; posterUrl: string; slug: string };
+  media?: {
+    title: string;
+    posterUrl: string;
+    slug: string;
+    releaseYear?: number;
+    platform?: string;
+  };
 }
 
 export interface IComment {

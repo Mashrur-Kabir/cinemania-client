@@ -1,83 +1,122 @@
-// src/components/modules/dashboard/user-dashboard/profile/ProfileHeader.tsx
-import Image from "next/image";
-import { getMyProfile } from "@/services/user.services";
-import { Badge } from "@/components/ui/badge";
-import { Crown, Mail, ShieldCheck } from "lucide-react";
-import { IUserProfileStats } from "@/types/user.types";
+"use client";
 
-export default async function ProfileHeader({
+import { motion, Variants } from "framer-motion";
+import Image from "next/image";
+import { Badge } from "@/components/ui/badge";
+import { Crown, Mail, ShieldCheck, Activity } from "lucide-react";
+import { IUserProfileStats } from "@/types/user.types";
+import { cn } from "@/lib/utils";
+
+const containerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1, delayChildren: 0.2 },
+  },
+};
+
+const itemVariants: Variants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+};
+
+export default function ProfileHeader({
   profile,
 }: {
   profile: IUserProfileStats;
 }) {
   const { user, subscription, overview } = profile;
+  const avatarSrc = user.image || "/default-avatar.png";
 
   return (
-    <header className="relative w-full rounded-[3rem] overflow-hidden bg-[#030406] border border-white/5 shadow-2xl">
-      {/* 🎭 Cinematic Background/Banner */}
-      <div className="absolute inset-0 h-48 bg-gradient-to-br from-primary/20 via-primary/5 to-transparent opacity-50" />
-      <div className="absolute inset-0 h-48 backdrop-blur-3xl" />
+    <motion.header
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      className="relative w-full rounded-[3rem] overflow-hidden bg-[#030406] border border-white/5 shadow-2xl"
+    >
+      {/* 🎭 Dynamic Cinematic Background */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <Image
+          src={avatarSrc}
+          alt="cover blur"
+          fill
+          className="object-cover opacity-20 blur-[80px] saturate-[2] scale-125"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#030406] via-[#030406]/80 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#030406] via-transparent to-transparent opacity-80" />
+      </div>
 
-      <div className="relative pt-24 pb-10 px-10 flex flex-col md:flex-row items-end gap-8">
-        {/* 👤 Glowing Avatar */}
-        <div className="relative group">
-          <div className="absolute -inset-1 bg-gradient-to-r from-primary to-rose-600 rounded-[2.5rem] blur opacity-25 group-hover:opacity-50 transition duration-1000 group-hover:duration-200" />
-          <div className="relative size-40 rounded-[2.2rem] overflow-hidden border-4 border-[#030406] bg-[#030406]">
+      <div className="relative z-10 pt-32 pb-12 px-8 md:px-12 flex flex-col md:flex-row items-center md:items-end gap-8 text-center md:text-left">
+        {/* 👤 Premium Glowing Avatar */}
+        <motion.div variants={itemVariants} className="relative group shrink-0">
+          {/* Ambient outer glow */}
+          <div className="absolute -inset-2 bg-gradient-to-tr from-primary via-rose-500 to-amber-500 rounded-[2.5rem] blur-xl opacity-30 group-hover:opacity-60 transition duration-1000 group-hover:duration-300" />
+
+          <div className="relative size-40 rounded-[2rem] overflow-hidden border-2 border-white/10 bg-[#030406] shadow-2xl">
             <Image
-              src={user.image || "/default-avatar.png"}
+              src={avatarSrc}
               alt={user.name}
               fill
               priority
-              // 🎯 THE FIX: Specify the exact width of the container
               sizes="160px"
-              className="object-cover transition-transform duration-700 group-hover:scale-105"
+              className="object-cover transform-gpu will-change-transform transition-transform duration-700 group-hover:scale-110"
             />
           </div>
 
-          {/* Active Status Ring */}
           {subscription.isActive && (
-            <div className="absolute -bottom-2 -right-2 size-10 rounded-2xl bg-primary flex items-center justify-center shadow-[0_0_15px_rgba(225,29,72,0.8)] border-4 border-[#030406]">
-              <Crown className="size-5 text-white" />
+            <div className="absolute -bottom-3 -right-3 size-12 rounded-2xl bg-gradient-to-br from-yellow-400 to-amber-600 flex items-center justify-center shadow-[0_0_20px_rgba(245,158,11,0.5)] border-4 border-[#030406] transform-gpu hover:scale-110 transition-transform">
+              <Crown className="size-5 text-black drop-shadow-md" />
             </div>
           )}
-        </div>
+        </motion.div>
 
         {/* 📝 Identity Details */}
-        <div className="flex-1 space-y-4 pb-2">
-          <div className="space-y-1">
-            <h1 className="text-5xl font-black text-white tracking-tighter uppercase italic">
+        <div className="flex-1 space-y-6 pb-2">
+          <motion.div variants={itemVariants} className="space-y-2">
+            <h1 className="text-5xl md:text-6xl font-black text-white tracking-tighter uppercase italic drop-shadow-2xl">
               {user.name}
             </h1>
-            <div className="flex items-center gap-4 text-muted-foreground">
-              <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest">
+            <div className="flex flex-wrap justify-center md:justify-start items-center gap-4 text-muted-foreground">
+              <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest bg-white/[0.03] px-3 py-1.5 rounded-lg border border-white/5">
                 <Mail className="size-3.5 text-primary" />
                 {user.email}
               </div>
-              <div className="w-px h-3 bg-white/10" />
-              <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest">
+              <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest bg-white/[0.03] px-3 py-1.5 rounded-lg border border-white/5">
                 <ShieldCheck className="size-3.5 text-emerald-500" />
                 {user.status}
               </div>
             </div>
-          </div>
+          </motion.div>
 
-          <div className="flex flex-wrap gap-3 items-center">
-            <Badge className="bg-primary text-white border-none px-4 py-1.5 rounded-xl font-black uppercase text-[10px] tracking-widest shadow-[0_0_20px_rgba(225,29,72,0.3)]">
+          <motion.div
+            variants={itemVariants}
+            className="flex flex-wrap justify-center md:justify-start gap-4 items-center"
+          >
+            <Badge
+              className={cn(
+                "px-5 py-2 rounded-xl font-black uppercase text-[10px] tracking-widest shadow-lg border-none",
+                subscription.isActive
+                  ? "bg-primary text-white shadow-[0_0_20px_rgba(225,29,72,0.3)]"
+                  : "bg-white/10 text-white/50",
+              )}
+            >
               {subscription.plan} Member
             </Badge>
 
-            <div className="flex items-center gap-6 px-6 py-1.5 rounded-xl bg-white/5 border border-white/10 backdrop-blur-md">
-              <div className="flex items-center gap-2">
-                <span className="text-xs font-black text-white">
+            <div className="flex items-center gap-6 px-6 py-2 rounded-xl bg-black/40 border border-white/10 backdrop-blur-md shadow-inner">
+              <div className="flex items-center gap-2 group cursor-pointer">
+                <Activity className="size-4 text-primary/50 group-hover:text-primary transition-colors" />
+                <span className="text-sm font-black text-white">
                   {overview.followers}
                 </span>
                 <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
                   Followers
                 </span>
               </div>
-              <div className="w-px h-3 bg-white/10" />
-              <div className="flex items-center gap-2">
-                <span className="text-xs font-black text-white">
+              <div className="w-px h-4 bg-white/10" />
+              <div className="flex items-center gap-2 group cursor-pointer">
+                <span className="text-sm font-black text-white">
                   {overview.following}
                 </span>
                 <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
@@ -85,9 +124,9 @@ export default async function ProfileHeader({
                 </span>
               </div>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
-    </header>
+    </motion.header>
   );
 }

@@ -41,7 +41,8 @@ export default function DiscoveryFeed({ data }: { data: IDiscoveryData }) {
                     className={cn(
                       "relative aspect-video rounded-2xl overflow-hidden border border-white/5 mb-3 transition-all",
                       "group-hover:border-primary/30 group-hover:shadow-[0_0_30px_-10px_rgba(225,29,72,0.3)]",
-                      "isolate", // 🎯 Ensures the overflow-hidden works perfectly with the scale
+                      // 🎯 THE FIX: Force the GPU to handle the clipping of the child image
+                      "isolate transform-gpu [backface-visibility:hidden]",
                     )}
                   >
                     <Image
@@ -52,8 +53,8 @@ export default function DiscoveryFeed({ data }: { data: IDiscoveryData }) {
                       className={cn(
                         "object-cover transition-transform duration-700 ease-out",
                         "group-hover:scale-105",
-                        "transform-gpu will-change-transform", // 🎯 GPU acceleration
-                        "[backface-visibility:hidden] [transform-style:preserve-3d]", // 🎯 Prevents jitter/blur
+                        // 🎯 THE FIX: Kept these, but removed preserve-3d as it sometimes conflicts with isolated parents
+                        "transform-gpu will-change-transform [backface-visibility:hidden]",
                       )}
                     />
 

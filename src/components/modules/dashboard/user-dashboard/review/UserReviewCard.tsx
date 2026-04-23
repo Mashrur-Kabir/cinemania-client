@@ -2,7 +2,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import {
   Star,
   MessageSquare,
@@ -21,14 +21,14 @@ import { format } from "date-fns";
 import { toast } from "sonner";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import EditReviewModal from "./EditReviewModal";
-import Link from "next/link"; // 🎯 Added for detail navigation
+import Link from "next/link";
 import {
   deleteReviewAction,
   toggleLikeAction,
 } from "@/app/_actions/review.action";
 
 export default function UserReviewCard({ review }: { review: IReview }) {
-  const [isHovered, setIsHovered] = useState(false);
+  // 🎯 THE FIX: Removed `isHovered` state entirely to prevent re-render jitter
   const [isEditOpen, setIsEditOpen] = useState(false);
   const queryClient = useQueryClient();
 
@@ -44,7 +44,7 @@ export default function UserReviewCard({ review }: { review: IReview }) {
   const triggerDeleteConfirmation = () => {
     toast.warning("Erase this critique?", {
       description: "This action is permanent and cannot be undone.",
-      icon: <AlertTriangle className="size-4 text-rose-500/80" />, // 🎯 Subtler icon
+      icon: <AlertTriangle className="size-4 text-rose-500/80" />,
       action: {
         label: "Delete",
         onClick: async () => {
@@ -56,7 +56,7 @@ export default function UserReviewCard({ review }: { review: IReview }) {
             } else {
               toast.error(res.message);
             }
-          } catch (error) {
+          } catch {
             toast.error("Temporal error: Failed to delete review");
           }
         },
@@ -65,20 +65,15 @@ export default function UserReviewCard({ review }: { review: IReview }) {
         label: "Cancel",
         onClick: () => toast.dismiss(),
       },
-      // 🎯 THE FIX: Clean, standard-weight text and color transitions
       classNames: {
         toast:
           "bg-[#080808] border border-white/10 text-white rounded-2xl shadow-2xl p-5",
-        title: "text-white font-bold text-sm tracking-tight", // 🎯 Reduced size and tracking
-        description: "text-white/40 text-[11px] font-medium", // 🎯 Removed italic/bold mix
-        // 🚀 Action Button (Delete) - Smooth color transition without jittery scale
+        title: "text-white font-bold text-sm tracking-tight",
+        description: "text-white/40 text-[11px] font-medium",
         actionButton: cn(
           "bg-rose-600 text-white font-bold text-[11px] px-4 py-2 rounded-lg transition-all duration-300 ease-out",
-          "transform-gpu will-change-transform", // 🎯 Forces GPU for smoothness
-          "hover:bg-rose-500 hover:shadow-[0_0_15px_rgba(225,29,72,0.3)] hover:-translate-y-0.5", // 🎯 Glow & Lift
-          "active:scale-95", // 🎯 Physical feedback on click
+          "transform-gpu will-change-transform hover:bg-rose-500 hover:shadow-[0_0_15px_rgba(225,29,72,0.3)] hover:-translate-y-0.5 active:scale-95",
         ),
-        // 🛡️ Cancel Button - Simple ghost style
         cancelButton:
           "text-white/30 hover:text-white font-bold text-[11px] px-4 py-2 transition-colors duration-200",
       },
@@ -89,22 +84,16 @@ export default function UserReviewCard({ review }: { review: IReview }) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-      whileHover={{ y: -5 }}
-      onHoverStart={() => setIsHovered(true)}
-      onHoverEnd={() => setIsHovered(false)}
-      className="group relative h-full transition-all duration-500"
+      // 🎯 THE FIX: Swapped scale for a subtle Y translation to prevent Grid snapping
+      initial={{ opacity: 0, y: 15 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4, ease: "easeOut" }}
+      className="group relative h-full transition-transform duration-500 hover:-translate-y-1.5 transform-gpu will-change-transform"
     >
-      <div
-        className={cn(
-          "absolute inset-0 rounded-[2.5rem] opacity-0 blur-3xl transition-opacity duration-1000",
-          isHovered ? "opacity-10 bg-primary" : "opacity-0",
-        )}
-      />
+      {/* 🎯 THE FIX: Pure CSS ambient glow instead of state-driven React render */}
+      <div className="absolute inset-0 rounded-[2.5rem] bg-primary opacity-0 blur-3xl transition-opacity duration-700 group-hover:opacity-10 pointer-events-none" />
 
       <div className="relative flex h-full flex-col overflow-hidden rounded-[2.5rem] border border-white/5 bg-[#050505]/40 transition-colors duration-500 hover:bg-[#0a0b0d]/80 hover:border-white/10">
-        {/* 🚀 CLICKABLE ZONE: Link to Detail Page */}
         <Link
           href={detailHref}
           className="flex flex-col flex-1 p-8 pb-0 gap-5 z-10 outline-none"
@@ -148,9 +137,7 @@ export default function UserReviewCard({ review }: { review: IReview }) {
           </div>
         </Link>
 
-        {/* 📊 FOOTER ZONE: Interactive elements separate from Link */}
         <div className="p-8 pt-0 space-y-6">
-          {/* 🏷️ Tags Area - Refactored for Style & Performance */}
           {review.tags && review.tags.length > 0 && (
             <div className="flex flex-wrap gap-2 mt-6">
               {review.tags.map((tag) => (
@@ -161,10 +148,7 @@ export default function UserReviewCard({ review }: { review: IReview }) {
                     "bg-white/[0.02] border border-white/5",
                     "text-[9px] font-black uppercase tracking-[0.1em] text-muted-foreground/50",
                     "transition-all duration-300 ease-out cursor-default",
-                    // 🎯 THE FIX: Sophisticated single-layer hover
-                    "hover:border-primary/40 hover:bg-primary/5 hover:text-primary",
-                    "hover:shadow-[0_0_20px_rgba(225,29,72,0.15)]",
-                    // 🎯 THE FIX: Subtle lift instead of scale to prevent pixel jitter
+                    "hover:border-primary/40 hover:bg-primary/5 hover:text-primary hover:shadow-[0_0_20px_rgba(225,29,72,0.15)]",
                     "transform-gpu will-change-transform hover:-translate-y-0.5",
                   )}
                 >
@@ -211,39 +195,31 @@ export default function UserReviewCard({ review }: { review: IReview }) {
             </div>
 
             <div className="relative flex items-center justify-end">
-              <AnimatePresence>
-                {isHovered && (
-                  <motion.div
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: 20 }}
-                    className="absolute right-full mr-4 flex items-center gap-1.5"
-                  >
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setIsEditOpen(true);
-                      }}
-                      className="p-2.5 text-muted-foreground hover:text-white hover:bg-white/10 rounded-full transition-all"
-                    >
-                      <Edit3 className="size-4" />
-                    </button>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        triggerDeleteConfirmation();
-                      }}
-                      className="p-2.5 text-muted-foreground hover:text-rose-500 hover:bg-rose-500/10 rounded-full transition-all"
-                    >
-                      <Trash2 className="size-4" />
-                    </button>
-                  </motion.div>
-                )}
-              </AnimatePresence>
+              {/* 🎯 THE FIX: Pure CSS hover menu. No AnimatePresence, no mounting delays! */}
+              <div className="absolute right-full mr-4 flex items-center gap-1.5 opacity-0 translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 ease-out pointer-events-none group-hover:pointer-events-auto">
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setIsEditOpen(true);
+                  }}
+                  className="p-2.5 text-muted-foreground hover:text-white hover:bg-white/10 rounded-full transition-all"
+                >
+                  <Edit3 className="size-4" />
+                </button>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    triggerDeleteConfirmation();
+                  }}
+                  className="p-2.5 text-muted-foreground hover:text-rose-500 hover:bg-rose-500/10 rounded-full transition-all"
+                >
+                  <Trash2 className="size-4" />
+                </button>
+              </div>
 
               <div
                 className={cn(
-                  "px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest border transition-all duration-500 shadow-sm",
+                  "px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest border transition-all duration-500 shadow-sm relative bg-black/50 z-20",
                   review.status === "APPROVED"
                     ? "bg-emerald-500/10 border-emerald-500/30 text-emerald-500"
                     : "bg-amber-500/10 border-amber-500/30 text-amber-500",

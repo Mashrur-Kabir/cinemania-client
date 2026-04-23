@@ -14,7 +14,8 @@ import {
   Quote,
   Hash,
   Calendar,
-  MessageSquareWarning, // 🎯 Added new icon
+  MessageSquareWarning,
+  ShieldAlert, // 🎯 Added to show previous rejection warnings
 } from "lucide-react";
 import Image from "next/image";
 import { cn } from "@/lib/utils";
@@ -24,26 +25,30 @@ import { motion, AnimatePresence } from "framer-motion";
 import { updateReviewStatusAction } from "@/app/_actions/review.action";
 import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
-import { Textarea } from "@/components/ui/textarea"; // 🎯 Added Textarea import
+import { Textarea } from "@/components/ui/textarea";
+import { useSearchParams } from "next/navigation";
 
 // 🎯 Custom Action Cell for instant moderation & deep inspection
 const ModerationActions = ({ review }: { review: IReview }) => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [isViewOpen, setIsViewOpen] = useState(false);
   const [confirmReject, setConfirmReject] = useState(false);
-  const [rejectReason, setRejectReason] = useState(""); // 🎯 NEW: State for rejection reason
+  const [rejectReason, setRejectReason] = useState("");
   const isClient = typeof window !== "undefined";
   const queryClient = useQueryClient();
+  const searchParams = useSearchParams();
+  const targetId = searchParams?.get("targetId");
+  const isTargetLocked = targetId === review.id;
+
+  const isAppeal = !!review.rejectionReason;
 
   const handleAction = async (status: "APPROVED" | "REJECTED") => {
-    // 🎯 NEW: Validation block
     if (status === "REJECTED" && !rejectReason.trim()) {
       toast.error("A rejection protocol requires a logged reason.");
       return;
     }
 
     setIsProcessing(true);
-    // 🎯 NEW: Pass the reason if rejecting
     const res = await updateReviewStatusAction(
       review.id,
       status,
@@ -57,7 +62,7 @@ const ModerationActions = ({ review }: { review: IReview }) => {
       queryClient.invalidateQueries({ queryKey: ["pending-reviews"] });
       setIsViewOpen(false);
       setConfirmReject(false);
-      setRejectReason(""); // 🎯 Clear reason on success
+      setRejectReason("");
     } else {
       toast.error("Moderation uplink failed");
     }
@@ -72,15 +77,20 @@ const ModerationActions = ({ review }: { review: IReview }) => {
             if (!isProcessing) {
               setIsViewOpen(true);
               setConfirmReject(false);
-              setRejectReason(""); // 🎯 Clear reason on open
+              setRejectReason("");
             }
           }}
           className={cn(
-            "p-2 rounded-lg border transition-all duration-300 active:scale-95 group",
-            "bg-white/5 border-white/10 text-white/40",
-            "hover:bg-white/10 hover:text-white hover:shadow-[0_0_15px_rgba(255,255,255,0.1)]",
+            "p-2 rounded-lg border transition-all duration-300 group",
+            isAppeal
+              ? "bg-purple-500/10 border-purple-500/30 text-purple-400 hover:bg-purple-500 hover:text-white hover:shadow-[0_0_15px_rgba(168,85,247,0.3)]"
+              : "bg-white/5 border-white/10 text-white/40 hover:bg-white/10 hover:text-white hover:shadow-[0_0_15px_rgba(255,255,255,0.1)]",
+            // 🎯 THE FIX: Apply intense red tactical glow if this is the isolated target!
+            isTargetLocked &&
+              "ring-2 ring-rose-500 bg-rose-500/20 text-rose-400 shadow-[0_0_30px_rgba(225,29,72,0.6)] animate-pulse",
+            "active:scale-95 transform-gpu will-change-transform",
           )}
-          title="Analyze Review"
+          title={isAppeal ? "Analyze Appeal" : "Analyze Review"}
         >
           <Eye className="size-4 group-hover:scale-110 transition-transform" />
         </button>
@@ -101,21 +111,43 @@ const ModerationActions = ({ review }: { review: IReview }) => {
                 />
 
                 <motion.div
-                  initial={{ opacity: 0, scale: 0.9, y: 20 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                  className="relative w-full max-w-xl glass-panel border-amber-500/20 overflow-hidden shadow-[0_0_50px_rgba(245,158,11,0.1)] flex flex-col max-h-screen"
+                  // 🎯 THE FIX: Smooth Y translation instead of jittery scale
+                  initial={{ opacity: 0, y: 15 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 15 }}
+                  transition={{ duration: 0.4, ease: "easeOut" }}
+                  className={cn(
+                    "relative w-full max-w-xl glass-panel overflow-hidden flex flex-col max-h-screen shadow-2xl",
+                    isAppeal ? "border-purple-500/30" : "border-amber-500/20",
+                  )}
                 >
-                  <div className="p-8 border-b border-white/5 flex items-center justify-between bg-amber-500/[0.02]">
+                  <div
+                    className={cn(
+                      "p-8 border-b border-white/5 flex items-center justify-between",
+                      isAppeal ? "bg-purple-500/[0.02]" : "bg-amber-500/[0.02]",
+                    )}
+                  >
                     <div className="flex items-center gap-4">
-                      <div className="p-3 rounded-2xl bg-amber-500/10 border border-amber-500/20 shadow-[0_0_20px_rgba(245,158,11,0.15)]">
-                        <Film className="size-6 text-amber-500" />
+                      <div
+                        className={cn(
+                          "p-3 rounded-2xl border shadow-lg",
+                          isAppeal
+                            ? "bg-purple-500/10 border-purple-500/20 text-purple-500"
+                            : "bg-amber-500/10 border-amber-500/20 text-amber-500",
+                        )}
+                      >
+                        <Film className="size-6" />
                       </div>
                       <div>
                         <h2 className="text-xl font-black text-white uppercase tracking-tighter">
-                          Review Analysis
+                          {isAppeal ? "Appeal Analysis" : "Review Analysis"}
                         </h2>
-                        <p className="text-[10px] font-black text-amber-500 uppercase tracking-[0.2em]">
+                        <p
+                          className={cn(
+                            "text-[10px] font-black uppercase tracking-[0.2em]",
+                            isAppeal ? "text-purple-400" : "text-amber-500",
+                          )}
+                        >
                           {review.media?.title}
                         </p>
                       </div>
@@ -136,6 +168,22 @@ const ModerationActions = ({ review }: { review: IReview }) => {
                   </div>
 
                   <div className="p-8 space-y-8 overflow-y-auto custom-scrollbar flex-1">
+                    {/* 🚨 PREVIOUS REJECTION LOG FOR APPEALS */}
+                    {isAppeal && (
+                      <div className="relative p-5 rounded-[1.5rem] bg-rose-500/5 border border-rose-500/20 overflow-hidden">
+                        <div className="absolute top-0 left-6 w-8 h-[2px] bg-rose-500 shadow-[0_0_10px_rgba(225,29,72,1)]" />
+                        <div className="flex items-center gap-2 mb-2 text-rose-500">
+                          <ShieldAlert className="size-4 animate-pulse" />
+                          <span className="text-[10px] font-black uppercase tracking-widest">
+                            Previous Moderation Log
+                          </span>
+                        </div>
+                        <p className="text-xs font-medium text-rose-100/80 leading-relaxed italic">
+                          {review.rejectionReason}
+                        </p>
+                      </div>
+                    )}
+
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                       <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5 flex items-center gap-3">
                         <User className="size-4 text-cyan-400" />
@@ -182,12 +230,7 @@ const ModerationActions = ({ review }: { review: IReview }) => {
                           The Critique
                         </span>
                       </div>
-                      <p
-                        className={cn(
-                          "text-sm leading-relaxed text-white/80 italic bg-white/[0.01] p-6 rounded-3xl border border-white/5 break-words whitespace-pre-wrap",
-                          "shadow-[inset_0_0_20px_rgba(255,255,255,0.02)]",
-                        )}
-                      >
+                      <p className="text-sm leading-relaxed text-white/80 italic bg-white/[0.01] p-6 rounded-3xl border border-white/5 break-words whitespace-pre-wrap shadow-[inset_0_0_20px_rgba(255,255,255,0.02)]">
                         ❝{review.content}❞
                       </p>
                     </div>
@@ -214,7 +257,7 @@ const ModerationActions = ({ review }: { review: IReview }) => {
                     )}
                   </div>
 
-                  {/* 🎯 NEW: Inline Confirmation Footer with Textarea */}
+                  {/* 🎯 Inline Confirmation Footer */}
                   <div className="p-8 bg-black/40 border-t border-white/5 flex flex-col gap-4 overflow-hidden shrink-0">
                     <AnimatePresence mode="wait">
                       {confirmReject ? (
@@ -223,6 +266,7 @@ const ModerationActions = ({ review }: { review: IReview }) => {
                           initial={{ opacity: 0, y: 10 }}
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: -10 }}
+                          transition={{ duration: 0.3 }}
                           className="flex flex-col gap-4 w-full"
                         >
                           <div className="flex items-center gap-2 text-rose-500 mb-1">
@@ -268,6 +312,7 @@ const ModerationActions = ({ review }: { review: IReview }) => {
                           initial={{ opacity: 0, y: 10 }}
                           animate={{ opacity: 1, y: 0 }}
                           exit={{ opacity: 0, y: -10 }}
+                          transition={{ duration: 0.3 }}
                           className="flex w-full gap-4"
                         >
                           <button
@@ -363,36 +408,48 @@ export const reportsColumns: ColumnDef<IReview>[] = [
   {
     accessorKey: "content",
     header: "Critique Payload",
-    cell: ({ row }) => (
-      <div className="max-w-[300px]">
-        <p className="text-[11px] text-white/60 leading-relaxed line-clamp-2 italic">
-          ❝{row.original.content}❞
-        </p>
-        <div className="flex items-center gap-2 mt-1.5">
-          <Badge
-            variant="outline"
-            className={cn(
-              "text-[8px] font-black uppercase px-1.5 py-0",
-              "bg-amber-500/10 border-amber-500/20 text-amber-500",
-            )}
-          >
-            <Star className="size-2.5 mr-1 inline-block fill-current" />{" "}
-            {row.original.rating}/10
-          </Badge>
-          {row.original.isSpoiler && (
+    cell: ({ row }) => {
+      const isAppeal = !!row.original.rejectionReason;
+
+      return (
+        <div className="max-w-[300px]">
+          <p className="text-[11px] text-white/60 leading-relaxed line-clamp-2 italic">
+            ❝{row.original.content}❞
+          </p>
+          <div className="flex items-center gap-2 mt-1.5">
             <Badge
               variant="outline"
               className={cn(
                 "text-[8px] font-black uppercase px-1.5 py-0",
-                "bg-rose-500/10 border-rose-500/20 text-rose-500 animate-pulse",
+                "bg-amber-500/10 border-amber-500/20 text-amber-500",
               )}
             >
-              Spoiler
+              <Star className="size-2.5 mr-1 inline-block fill-current" />{" "}
+              {row.original.rating}/10
             </Badge>
-          )}
+
+            {/* 🎯 THE FIX: Show Appeal Badge if it has a rejection reason */}
+            {isAppeal && (
+              <Badge
+                variant="outline"
+                className="text-[8px] font-black uppercase px-1.5 py-0 bg-purple-500/10 border-purple-500/30 text-purple-400 animate-pulse shadow-[0_0_10px_rgba(168,85,247,0.2)]"
+              >
+                Appeal
+              </Badge>
+            )}
+
+            {row.original.isSpoiler && (
+              <Badge
+                variant="outline"
+                className="text-[8px] font-black uppercase px-1.5 py-0 bg-rose-500/10 border-rose-500/20 text-rose-500"
+              >
+                Spoiler
+              </Badge>
+            )}
+          </div>
         </div>
-      </div>
-    ),
+      );
+    },
   },
   {
     accessorKey: "createdAt",
@@ -400,7 +457,8 @@ export const reportsColumns: ColumnDef<IReview>[] = [
     cell: ({ row }) => (
       <div className="flex items-center gap-1.5 text-[10px] font-bold text-white/40 uppercase tracking-wider">
         <Clock className="size-3" />
-        {new Date(row.original.createdAt).toLocaleDateString("en-US", {
+        {new Date(row.original.updatedAt).toLocaleDateString("en-US", {
+          // 🎯 Used updatedAt to show when it was appealed!
           month: "short",
           day: "numeric",
           hour: "2-digit",

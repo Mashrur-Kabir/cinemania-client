@@ -1,5 +1,4 @@
 import { Suspense } from "react";
-
 import SectionSkeleton from "@/components/shared/loaders/SectionSkeleton";
 import ProfileHeader from "@/components/modules/dashboard/user-dashboard/profile/ProfileHeader";
 import ProfileStatsGrid from "@/components/modules/dashboard/user-dashboard/profile/ProfileStatsGrid";
@@ -8,7 +7,7 @@ import GenreInsight from "@/components/modules/dashboard/user-dashboard/profile/
 import { getUserProfile } from "@/services/user.services";
 import { HomeSection } from "@/components/modules/home/HomeSection";
 import { getUserApprovedReviews } from "@/services/review.services";
-import PublicReviewCard from "@/components/modules/dashboard/user-dashboard/profile/PublicReviewCard";
+import ReviewStaggerGrid from "@/components/modules/dashboard/user-dashboard/profile/ReviewStaggerGrid"; // 🎯 The new wrapper
 
 export default async function PublicProfilePage({
   params,
@@ -18,7 +17,6 @@ export default async function PublicProfilePage({
   searchParams: Promise<{ page?: string }>;
 }) {
   const { id } = await params;
-  // 🎯 Fetch once at the top
   const { data: profile } = await getUserProfile(id);
   const { page } = await searchParams;
   const { data: reviews } = await getUserApprovedReviews(id, {
@@ -27,7 +25,6 @@ export default async function PublicProfilePage({
 
   return (
     <div className="max-w-6xl mx-auto py-12 px-6 space-y-16 animate-in fade-in duration-1000 mt-20">
-      {/* 🎭 Cinematic Header */}
       <Suspense
         fallback={
           <div className="h-64 w-full bg-white/5 rounded-[3rem] animate-pulse" />
@@ -38,14 +35,12 @@ export default async function PublicProfilePage({
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 space-y-8">
-          {/* 📊 Overview Stats */}
           <Suspense
             fallback={<SectionSkeleton count={4} className="grid-cols-2" />}
           >
             <ProfileStatsGrid overview={profile.overview} />
           </Suspense>
 
-          {/* 🏆 Trophy Case */}
           <Suspense
             fallback={
               <div className="h-96 w-full bg-white/5 rounded-[2rem] animate-pulse" />
@@ -56,7 +51,6 @@ export default async function PublicProfilePage({
         </div>
 
         <div className="space-y-8">
-          {/* 🍿 Taste Insights */}
           <Suspense
             fallback={
               <div className="h-[500px] w-full bg-white/5 rounded-[2rem] animate-pulse" />
@@ -72,13 +66,10 @@ export default async function PublicProfilePage({
         subtitle="See All The Reviews by This Account."
       >
         {reviews.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {reviews.map((review) => (
-              <PublicReviewCard key={review.id} review={review} />
-            ))}
-          </div>
+          // 🎯 THE FIX: Drop in the new Stagger Grid
+          <ReviewStaggerGrid reviews={reviews} />
         ) : (
-          <div className="py-20 text-center glass-panel rounded-[2rem] border-white/5">
+          <div className="py-24 text-center rounded-[2.5rem] bg-[#050505] border border-dashed border-white/5">
             <p className="text-xs font-black uppercase tracking-[0.3em] text-white/20">
               No data transmitted.
             </p>

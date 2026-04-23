@@ -13,40 +13,54 @@ export default async function CommunityPage({
 }: {
   searchParams: Promise<{ page?: string }>;
 }) {
-  // 🎯 THE FIX: Handle pagination params
   const params = await searchParams;
   const currentPage = Number(params.page) || 1;
 
   const [trendingRes, reviewRes] = await Promise.all([
     getTrendingMedia(),
-    getPublicCommunityFeed({ page: currentPage, limit: 12 }), // 🎯 Fetch specific page
+    getPublicCommunityFeed({ page: currentPage, limit: 12 }),
   ]);
 
   const spotlightMedia = trendingRes.data?.[0];
   const initialReviews = reviewRes.data || [];
-  const meta = reviewRes.meta; // 🎯 Extract pagination meta from backend
+  const meta = reviewRes.meta;
 
   return (
-    <div className="min-h-screen bg-[#030406] pb-20">
+    <div className="min-h-screen bg-[#030406] pb-24">
       <CommunityHero media={spotlightMedia} />
 
-      <main className="container mx-auto px-6 -mt-32 relative z-20">
-        <div className="space-y-4 mb-12">
-          <h2 className="text-xs font-black text-primary uppercase tracking-[0.4em]">
-            Multiverse Frequency
-          </h2>
-          <h3 className="text-4xl md:text-5xl font-black text-white uppercase italic tracking-tighter">
-            Latest <span className="text-white/20">Critiques.</span>
-          </h3>
+      {/* 🎯 Social Feed Layout Structure */}
+      <main className="max-w-7xl mx-auto px-6 -mt-16 relative z-20">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 bg-[#030406]/80 backdrop-blur-xl p-8 rounded-[2.5rem] border border-white/5 shadow-2xl">
+          <div className="space-y-2">
+            <h2 className="flex items-center gap-3 text-[10px] font-black text-primary uppercase tracking-[0.4em]">
+              <span className="size-2 rounded-full bg-primary animate-pulse shadow-[0_0_10px_rgba(225,29,72,0.8)]" />
+              Live Network
+            </h2>
+            <h3 className="text-3xl md:text-4xl font-black text-white uppercase italic tracking-tighter">
+              Global <span className="text-white/30">Feed.</span>
+            </h3>
+          </div>
+          <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest max-w-xs md:text-right">
+            Real-time critiques intercepted from across the cinematic
+            multiverse.
+          </p>
         </div>
 
-        <Suspense key={currentPage} fallback={<SectionSkeleton count={6} />}>
+        <Suspense
+          key={currentPage}
+          fallback={
+            <SectionSkeleton
+              count={6}
+              className="grid-cols-1 md:grid-cols-2 xl:grid-cols-3"
+            />
+          }
+        >
           <CommunityFeed initialReviews={initialReviews} />
         </Suspense>
 
-        {/* 🎯 THE FIX: Add Pagination Control */}
         {meta && meta.totalPages > 1 && (
-          <div className="mt-20">
+          <div className="mt-20 flex justify-center">
             <Pagination meta={meta} />
           </div>
         )}

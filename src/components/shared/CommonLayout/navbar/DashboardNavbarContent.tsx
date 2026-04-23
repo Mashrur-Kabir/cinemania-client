@@ -141,23 +141,31 @@ export default function DashboardNavbarContent({
             <DropdownMenuSeparator className="bg-white/5 mx-2" />
 
             <div className="p-1 space-y-1">
-              <DropdownMenuItem asChild>
+              <DropdownMenuItem asChild className="outline-none">
                 <Link
                   href="/dashboard/my-profile"
-                  className="flex items-center gap-3 px-3 py-2 rounded-xl cursor-pointer hover:bg-white/5 focus:bg-white/5 focus:text-primary group transition-all"
+                  className="flex items-center gap-3 px-3 py-2 rounded-xl cursor-pointer bg-transparent hover:bg-white/5 focus:bg-white/5 group transition-all duration-300"
                 >
-                  <Settings className="size-4 text-muted-foreground group-hover:text-primary transition-colors" />
-                  <span className="text-xs font-bold">Account Settings</span>
+                  <div className="size-7 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-primary/10 group-hover:border-primary/30 transition-all duration-300">
+                    <Settings className="size-3.5 text-muted-foreground group-hover:text-primary transition-all duration-500 group-hover:rotate-90" />
+                  </div>
+                  <span className="text-xs font-bold text-white/70 group-hover:text-white transition-all duration-300 transform-gpu group-hover:translate-x-1">
+                    Account Settings
+                  </span>
                 </Link>
               </DropdownMenuItem>
 
-              <DropdownMenuItem asChild>
+              <DropdownMenuItem asChild className="outline-none">
                 <Link
                   href="/dashboard/security"
-                  className="flex items-center gap-3 px-3 py-2 rounded-xl cursor-pointer hover:bg-white/5 focus:bg-white/5 focus:text-primary group transition-all"
+                  className="flex items-center gap-3 px-3 py-2 rounded-xl cursor-pointer bg-transparent hover:bg-white/5 focus:bg-white/5 group transition-all duration-300"
                 >
-                  <ShieldCheck className="size-4 text-muted-foreground group-hover:text-primary transition-colors" />
-                  <span className="text-xs font-bold">Access & Security</span>
+                  <div className="size-7 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-emerald-500/10 group-hover:border-emerald-500/30 transition-all duration-300">
+                    <ShieldCheck className="size-3.5 text-muted-foreground group-hover:text-emerald-500 transition-all duration-300 transform-gpu group-hover:scale-110" />
+                  </div>
+                  <span className="text-xs font-bold text-white/70 group-hover:text-white transition-all duration-300 transform-gpu group-hover:translate-x-1">
+                    Access & Security
+                  </span>
                 </Link>
               </DropdownMenuItem>
             </div>

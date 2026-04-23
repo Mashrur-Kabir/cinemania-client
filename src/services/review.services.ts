@@ -52,3 +52,11 @@ export const getPublicCommunityFeed = async (params?: IQueryOptions) => {
     },
   });
 };
+
+/**
+ * 🗄️ GET MY ARCHIVED REVIEWS
+ * Fetches rejected reviews specific to the logged-in user.
+ */
+export const getMyArchivedReviews = async (params?: IQueryOptions) => {
+  return httpClient.get<IReview[]>("/review/archive/my-archive", { params });
+};
