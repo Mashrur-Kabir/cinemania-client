@@ -8,7 +8,9 @@ export const handleActionError = (
   error: any,
   fallback: string,
 ): ApiErrorResponse => {
-  console.error("Action Error:", error); // Log for server-side debugging
+  if (process.env.NODE_ENV === "development") {
+    console.error("Action Error:", error);
+  }
   return {
     success: false,
     message: error.response?.data?.message || error.message || fallback,

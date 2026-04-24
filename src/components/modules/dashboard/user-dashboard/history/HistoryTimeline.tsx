@@ -8,9 +8,6 @@ export default async function HistoryTimeline({ page }: { page: number }) {
 
   const response = await getWatchedHistory({ page, limit });
 
-  // 🔍 Check your terminal (not browser console)
-  console.log("DIARY META:", response.meta);
-
   const history = response.data;
   const meta = response.meta;
 

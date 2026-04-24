@@ -17,10 +17,12 @@ export const getDiscoveryData = async (
     // 🎯 Use the generic <IDiscoveryData> to ensure response.data is typed
     return await httpClient.get<IDiscoveryData>("/discovery", { params });
   } catch (error: any) {
-    console.error(
-      "Discovery Signal Interrupted:",
-      error?.response?.data || error.message,
-    );
+    if (process.env.NODE_ENV === "development") {
+      console.error(
+        "Discovery Signal Interrupted:",
+        error?.response?.data || error.message,
+      );
+    }
 
     // 🛡️ Fallback to prevent UI crash, matching the ApiResponse structure
     return {

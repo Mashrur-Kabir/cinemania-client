@@ -17,7 +17,9 @@ const getTokenSecondsRemaining = (token: string): number => {
 
     return remainingSeconds > 0 ? remainingSeconds : 0;
   } catch (error) {
-    console.error("Error decoding token:", error);
+    if (process.env.NODE_ENV === "development") {
+      console.error("Error decoding token:", error);
+    }
     return 0;
   }
 };

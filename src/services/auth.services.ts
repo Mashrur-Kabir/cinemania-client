@@ -43,7 +43,9 @@ export async function getNewTokensWithRefreshToken(
 
     return true;
   } catch (error) {
-    console.error("Error refreshing token:", error);
+    if (process.env.NODE_ENV === "development") {
+      console.error("Error refreshing token:", error);
+    }
     return false;
   }
 }

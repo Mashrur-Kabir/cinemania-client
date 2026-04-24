@@ -66,7 +66,9 @@ export default function EditHistoryModal({
     onSubmit: async ({ value }) => {
       const result = updateHistorySchema.safeParse(value);
       if (!result.success) {
-        console.error("Zod Error Details:", z.treeifyError(result.error));
+        if (process.env.NODE_ENV === "development") {
+          console.error("Zod Error Details:", z.treeifyError(result.error));
+        }
         return;
       }
       await updateEntry(result.data);

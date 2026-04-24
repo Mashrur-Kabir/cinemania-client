@@ -25,15 +25,19 @@ export const getCommonNavItems = (role?: UserRole): NavItem[] => {
   ];
 
   if (role) {
+    // 1. Everyone gets a link to their respective dashboard
     items.push({
       title: "Dashboard",
       href: getDefaultDashboardRoute(role),
     });
 
-    items.push({
-      title: "My Watchlist",
-      href: "/dashboard/watchlist",
-    });
+    // 🎯 THE FIX: Only standard users get the Watchlist quick-link
+    if (role === "USER") {
+      items.push({
+        title: "My Watchlist",
+        href: "/dashboard/watchlist",
+      });
+    }
   }
 
   return items;

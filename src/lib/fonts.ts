@@ -1,4 +1,4 @@
-import { Ultra, Montserrat, Mulish, Geist_Mono } from "next/font/google";
+import { Montserrat, Mulish, Geist_Mono } from "next/font/google";
 
 // For regular headings and highlights
 export const fontHeading = Montserrat({

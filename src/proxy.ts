@@ -118,7 +118,10 @@ export async function proxy(request: NextRequest) {
 
     return NextResponse.next();
   } catch (error) {
-    console.error("Critical Proxy Error:", error);
+    console.error(
+      "Critical Proxy Error:",
+      error instanceof Error ? error.message : "Unknown Error",
+    );
     return NextResponse.next();
   }
 }
