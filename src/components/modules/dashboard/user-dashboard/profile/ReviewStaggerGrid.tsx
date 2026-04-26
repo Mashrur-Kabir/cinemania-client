@@ -22,7 +22,13 @@ const itemVariants: Variants = {
   },
 };
 
-export default function ReviewStaggerGrid({ reviews }: { reviews: IReview[] }) {
+export default function ReviewStaggerGrid({
+  reviews,
+  currentUserId,
+}: {
+  reviews: IReview[];
+  currentUserId?: string;
+}) {
   return (
     <motion.div
       variants={containerVariants}
@@ -32,7 +38,7 @@ export default function ReviewStaggerGrid({ reviews }: { reviews: IReview[] }) {
     >
       {reviews.map((review) => (
         <motion.div key={review.id} variants={itemVariants} className="h-full">
-          <PublicReviewCard review={review} />
+          <PublicReviewCard review={review} currentUserId={currentUserId} />
         </motion.div>
       ))}
     </motion.div>

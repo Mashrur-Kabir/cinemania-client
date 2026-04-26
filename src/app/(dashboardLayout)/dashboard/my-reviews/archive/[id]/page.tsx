@@ -1,10 +1,10 @@
 import { getSingleReview } from "@/services/review.services";
 import { redirect } from "next/navigation";
-import ArchivedReviewCard from "@/components/modules/dashboard/user-dashboard/review/ArchivedReviewCard";
 import Link from "next/link";
 import { ArrowLeft, ShieldAlert } from "lucide-react";
 import { getUserInfo } from "@/services/auth.services";
 import ArchiveNotFoundRedirect from "@/components/modules/dashboard/user-dashboard/review/ArchiveNotFoundRedirect";
+import ArchivedReviewCard from "@/components/modules/dashboard/user-dashboard/archive/ArchivedReviewCard";
 
 export default async function SingleArchivedReviewPage({
   params,

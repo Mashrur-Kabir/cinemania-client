@@ -47,4 +47,20 @@ export interface IReviewDetail extends IReview {
   comments: IComment[];
 }
 
+export interface IReportedReview {
+  id: string;
+  reviewId: string;
+  userId: string;
+  reason: string;
+  createdAt: string;
+
+  user: {
+    name: string;
+    email: string;
+  };
+
+  review: IReview; // ✅ reuse existing type
+}
+
 export type ReviewResponse = ApiResponse<IReview[]>;
+export type ReportedReviewResponse = ApiResponse<IReportedReview[]>;

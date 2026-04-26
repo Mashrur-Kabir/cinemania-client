@@ -66,3 +66,12 @@ export const updateReviewStatusAction = async (
     return handleActionError(error, "Failed to modify signal status");
   }
 };
+
+export const reportReviewAction = async (id: string, reason: string) => {
+  try {
+    const res = await httpClient.post(`/review/${id}/report`, { reason });
+    return { success: true, message: res.message };
+  } catch (error: any) {
+    return handleActionError(error, "Failed to submit report.");
+  }
+};

@@ -3,7 +3,11 @@ import {
   HydrationBoundary,
   QueryClient,
 } from "@tanstack/react-query";
-import { getAdminArchive, getPendingReviews } from "@/services/admin.services";
+import {
+  getAdminArchive,
+  getPendingReviews,
+  getReportedReviews,
+} from "@/services/admin.services";
 import ReportsManager from "@/components/modules/dashboard/admin-dashboard/reports/ReportsManager";
 import { ShieldHalf } from "lucide-react";
 import { getUserInfo } from "@/services/auth.services"; // 🎯 NEW IMPORT
@@ -46,6 +50,13 @@ const ReportsManagementPage = async ({
     await queryClient.prefetchQuery({
       queryKey: ["pending-reviews", queryString],
       queryFn: () => getPendingReviews(parsedParams),
+      staleTime: 1000 * 60 * 2,
+    });
+  } else if (currentTab === "reported") {
+    // 🎯 THE FIX: Prefetch the new Reported Reviews Queue
+    await queryClient.prefetchQuery({
+      queryKey: ["reported-reviews", queryString],
+      queryFn: () => getReportedReviews(parsedParams),
       staleTime: 1000 * 60 * 2,
     });
   } else {

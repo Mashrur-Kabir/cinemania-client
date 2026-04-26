@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { getMyArchivedReviews } from "@/services/review.services";
 import Pagination from "@/components/shared/pagination/Pagination";
 import { IReview } from "@/types/review.types";
@@ -6,11 +7,20 @@ import ArchivedReviewCard from "./ArchivedReviewCard";
 
 export default async function ArchivedReviewsTimeline({
   page,
+  searchTerm,
 }: {
   page: number;
+  searchTerm: string;
 }) {
   const limit = 6;
-  const { data: reviews, meta } = await getMyArchivedReviews({ page, limit });
+
+  // 🎯 THE FIX: Only attach searchTerm if it actually has text!
+  const queryParams: Record<string, any> = { page, limit };
+  if (searchTerm.trim()) {
+    queryParams.searchTerm = searchTerm;
+  }
+
+  const { data: reviews, meta } = await getMyArchivedReviews(queryParams);
 
   if (!reviews || reviews.length === 0) {
     return (

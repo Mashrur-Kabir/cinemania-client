@@ -25,8 +25,10 @@ const item: Variants = {
 
 export default function CommunityFeed({
   initialReviews,
+  currentUserId,
 }: {
   initialReviews: IReview[];
+  currentUserId?: string;
 }) {
   return (
     <motion.div
@@ -38,7 +40,7 @@ export default function CommunityFeed({
     >
       {initialReviews.map((review) => (
         <motion.div key={review.id} variants={item} className="h-full">
-          <CommunityReviewCard review={review} />
+          <CommunityReviewCard review={review} currentUserId={currentUserId} />
         </motion.div>
       ))}
     </motion.div>

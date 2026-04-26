@@ -12,12 +12,13 @@ import {
   Hash,
   Calendar,
   Star,
+  AlertTriangle,
 } from "lucide-react";
 import { IReview } from "@/types/review.types";
 import { updateReviewStatusAction } from "@/app/_actions/review.action";
 import { toast } from "sonner";
-import { useState, useEffect } from "react"; // 🎯 Added useEffect for Portals
-import { createPortal } from "react-dom"; // 🎯 Added createPortal
+import { useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 
@@ -29,19 +30,41 @@ export default function PendingModeration({
   const [items, setItems] = useState(initialItems);
   const [selectedReview, setSelectedReview] = useState<IReview | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
-  const [mounted, setMounted] = useState(false); // 🎯 Hydration safety for Portal
+  const [mounted, setMounted] = useState(false);
 
-  // 🎯 Ensure we only render the portal on the client
+  // 🎯 NEW STATES: For handling the rejection reasoning flow
+  const [isRejecting, setIsRejecting] = useState(false);
+  const [rejectReason, setRejectReason] = useState("");
+
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  const handleAction = async (id: string, status: "APPROVED" | "REJECTED") => {
+  useEffect(() => {
+    setItems(initialItems);
+  }, [initialItems]);
+
+  // Reset modal states when closing
+  const closeModal = () => {
+    setSelectedReview(null);
+    setIsRejecting(false);
+    setRejectReason("");
+  };
+
+  // 🎯 Updated to accept the reasoning string
+  const handleAction = async (
+    id: string,
+    status: "APPROVED" | "REJECTED",
+    reason?: string,
+  ) => {
     setIsProcessing(true);
-    const res = await updateReviewStatusAction(id, status);
+
+    // Pass the reason to your server action (make sure your action accepts it!)
+    const res = await updateReviewStatusAction(id, status, reason);
+
     if (res.success) {
       setItems((prev) => prev.filter((item) => item.id !== id));
-      setSelectedReview(null);
+      closeModal();
       toast.success(
         `Review ${status === "APPROVED" ? "Approved" : "Rejected"}`,
       );
@@ -63,7 +86,7 @@ export default function PendingModeration({
   }
 
   return (
-    <div className="space-y-4 relative">
+    <div className="flex flex-col gap-4 relative">
       <AnimatePresence mode="popLayout">
         {items.slice(0, 5).map((review) => (
           <motion.div
@@ -81,6 +104,7 @@ export default function PendingModeration({
             className={cn(
               "group relative p-4 rounded-2xl bg-white/[0.02] border border-white/5 cursor-pointer transition-all duration-300",
               "hover:shadow-[inset_0_0_15px_rgba(225,29,72,0.05)]",
+              "transform-gpu will-change-transform", // 🎯 Locks the card to the GPU
             )}
           >
             <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
@@ -111,30 +135,28 @@ export default function PendingModeration({
         ))}
       </AnimatePresence>
 
-      {/* 🚀 THE FIX: Detached Global Modal using Portal */}
+      {/* Detached Global Modal using Portal */}
       {mounted &&
         createPortal(
           <AnimatePresence>
             {selectedReview && (
               <div className="fixed inset-0 z-[999] flex items-center justify-center p-6 md:p-10 pointer-events-auto">
-                {/* Background Backdrop */}
                 <motion.div
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
-                  onClick={() => setSelectedReview(null)}
+                  onClick={closeModal}
                   className="absolute inset-0 bg-black/90 backdrop-blur-xl"
                 />
 
-                {/* Modal Content Container */}
                 <motion.div
                   initial={{ opacity: 0, scale: 0.9, y: 20 }}
                   animate={{ opacity: 1, scale: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                  className="relative w-full max-w-xl glass-panel border-primary/20 overflow-hidden shadow-2xl"
+                  className="relative w-full max-w-xl glass-panel border-primary/20 overflow-hidden shadow-2xl flex flex-col max-h-[90vh]"
                 >
                   {/* Modal Header */}
-                  <div className="p-8 border-b border-white/5 flex items-center justify-between bg-primary/[0.02]">
+                  <div className="p-8 border-b border-white/5 flex items-center justify-between bg-primary/[0.02] shrink-0">
                     <div className="flex items-center gap-4">
                       <div className="p-3 rounded-2xl bg-primary/10 border border-primary/20 shadow-[0_0_20px_rgba(225,29,72,0.1)]">
                         <Film className="size-6 text-primary" />
@@ -149,7 +171,7 @@ export default function PendingModeration({
                       </div>
                     </div>
                     <button
-                      onClick={() => setSelectedReview(null)}
+                      onClick={closeModal}
                       className="p-2 hover:bg-white/5 rounded-full transition-colors group"
                     >
                       <X className="size-5 text-white/40 group-hover:text-white transition-colors" />
@@ -157,7 +179,7 @@ export default function PendingModeration({
                   </div>
 
                   {/* Modal Body */}
-                  <div className="p-8 space-y-8 max-h-[60vh] overflow-y-auto chart-scrollbar-x">
+                  <div className="p-8 space-y-8 overflow-y-auto chart-scrollbar-x shrink">
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                       <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5 flex items-center gap-3">
                         <User className="size-4 text-blue-400" />
@@ -238,38 +260,100 @@ export default function PendingModeration({
                     )}
                   </div>
 
-                  {/* Modal Footer (Actions) */}
-                  <div className="p-8 bg-black/40 border-t border-white/5 flex gap-4">
-                    <button
-                      disabled={isProcessing}
-                      onClick={() =>
-                        handleAction(selectedReview.id, "APPROVED")
-                      }
-                      className={cn(
-                        "flex-1 py-4 rounded-2xl bg-emerald-500 text-white text-[11px] font-black uppercase tracking-widest transition-all flex items-center justify-center gap-2 active:scale-95 disabled:opacity-50",
-                        "hover:shadow-[0_0_30px_rgba(16,185,129,0.4)]",
+                  {/* 🎯 Modal Footer (Dynamic Action Area) */}
+                  <div className="p-8 bg-black/40 border-t border-white/5 shrink-0 overflow-hidden relative">
+                    <AnimatePresence mode="wait">
+                      {!isRejecting ? (
+                        <motion.div
+                          key="default-actions"
+                          initial={{ opacity: 0, y: 10 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          exit={{ opacity: 0, y: -10 }}
+                          transition={{ duration: 0.2 }}
+                          className="flex gap-4"
+                        >
+                          <button
+                            disabled={isProcessing}
+                            onClick={() =>
+                              handleAction(selectedReview.id, "APPROVED")
+                            }
+                            className={cn(
+                              "flex-1 py-4 rounded-2xl bg-emerald-500 text-white text-[11px] font-black uppercase tracking-widest transition-all flex items-center justify-center gap-2 active:scale-95 disabled:opacity-50",
+                              "hover:shadow-[0_0_30px_rgba(16,185,129,0.4)]",
+                            )}
+                          >
+                            <Check className="size-4" /> Approve
+                          </button>
+                          <button
+                            disabled={isProcessing}
+                            onClick={() => setIsRejecting(true)}
+                            className={cn(
+                              "px-8 py-4 rounded-2xl bg-rose-500/10 border border-rose-500/20 text-rose-500 text-[11px] font-black uppercase tracking-widest transition-all active:scale-95 disabled:opacity-50",
+                              "hover:bg-rose-500 hover:text-white",
+                            )}
+                          >
+                            Reject
+                          </button>
+                        </motion.div>
+                      ) : (
+                        <motion.div
+                          key="reject-form"
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: "auto" }}
+                          exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.3, ease: "easeOut" }}
+                          className="space-y-4"
+                        >
+                          <div className="space-y-2">
+                            <label className="text-[10px] font-black text-rose-500 uppercase tracking-widest flex items-center gap-2">
+                              <AlertTriangle className="size-3" /> Rejection
+                              Reasoning
+                            </label>
+                            <textarea
+                              value={rejectReason}
+                              onChange={(e) => setRejectReason(e.target.value)}
+                              placeholder="Detail the community guideline violation..."
+                              className="w-full min-h-[80px] bg-black/50 border border-rose-500/20 rounded-xl p-4 text-sm text-white focus:border-rose-500/50 outline-none transition-all placeholder:text-rose-500/30 resize-none shadow-[inset_0_0_20px_rgba(225,29,72,0.05)]"
+                              autoFocus
+                            />
+                          </div>
+                          <div className="flex gap-3">
+                            <button
+                              onClick={() => {
+                                setIsRejecting(false);
+                                setRejectReason("");
+                              }}
+                              disabled={isProcessing}
+                              className="px-6 py-3 rounded-xl bg-white/5 border border-white/10 text-white/50 text-[10px] font-black uppercase tracking-widest hover:bg-white/10 hover:text-white transition-all disabled:opacity-50"
+                            >
+                              Cancel
+                            </button>
+                            <button
+                              disabled={!rejectReason.trim() || isProcessing}
+                              onClick={() =>
+                                handleAction(
+                                  selectedReview.id,
+                                  "REJECTED",
+                                  rejectReason,
+                                )
+                              }
+                              className={cn(
+                                "flex-1 py-3 rounded-xl bg-rose-500 text-white text-[10px] font-black uppercase tracking-widest transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:bg-rose-500/50",
+                                "hover:shadow-[0_0_20px_rgba(225,29,72,0.4)] active:scale-95",
+                              )}
+                            >
+                              <X className="size-3" /> Confirm Rejection
+                            </button>
+                          </div>
+                        </motion.div>
                       )}
-                    >
-                      <Check className="size-4" /> Approve
-                    </button>
-                    <button
-                      disabled={isProcessing}
-                      onClick={() =>
-                        handleAction(selectedReview.id, "REJECTED")
-                      }
-                      className={cn(
-                        "px-8 py-4 rounded-2xl bg-rose-500/10 border border-rose-500/20 text-rose-500 text-[11px] font-black uppercase tracking-widest transition-all active:scale-95 disabled:opacity-50",
-                        "hover:bg-rose-500 hover:text-white",
-                      )}
-                    >
-                      Reject
-                    </button>
+                    </AnimatePresence>
                   </div>
                 </motion.div>
               </div>
             )}
           </AnimatePresence>,
-          document.body, // 🎯 Renders the modal directly to body
+          document.body,
         )}
 
       <Link href="/admin/dashboard/reports" className="block w-full pt-2">

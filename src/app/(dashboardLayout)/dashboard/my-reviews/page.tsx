@@ -5,8 +5,9 @@ import ReviewsTimeline from "@/components/modules/dashboard/user-dashboard/revie
 import SectionSkeleton from "@/components/shared/loaders/SectionSkeleton";
 import { getUserInfo } from "@/services/auth.services";
 import { redirect } from "next/navigation";
+import Link from "next/link";
+import { ArchiveX } from "lucide-react"; // 🎯 Added Icon
 
-// No "use server" directive here per your request
 export const revalidate = 0;
 
 export default async function MyReviewsPage({
@@ -14,10 +15,7 @@ export default async function MyReviewsPage({
 }: {
   searchParams: Promise<{ page?: string }>;
 }) {
-  // 1. Get the current user session
   const userInfo = await getUserInfo();
-
-  // 🛡️ Guard: Ensure the user is logged in
   if (!userInfo) redirect("/login");
 
   const params = await searchParams;
@@ -29,12 +27,18 @@ export default async function MyReviewsPage({
         title="MY REVIEWS"
         subtitle="Your critical footprint across the multiverse."
       >
-        {/* 🎯 Primary Action Zone: Kept here for easy access */}
-        <div className="flex justify-center md:justify-end mb-12 -mt-6">
+        {/* 🎯 THE FIX: Action Zone with the new Archive link */}
+        <div className="flex flex-col sm:flex-row items-center justify-center md:justify-end gap-4 mb-12 -mt-6">
+          <Link
+            href="/dashboard/my-reviews/archive"
+            className="flex items-center gap-2 px-6 py-3 rounded-2xl bg-rose-500/10 border border-rose-500/20 text-[10px] font-black uppercase tracking-widest text-rose-500 hover:bg-rose-500 hover:text-white transition-all active:scale-95 group"
+          >
+            <ArchiveX className="size-4 group-hover:-translate-y-0.5 transition-transform" />
+            View Quarantined Records
+          </Link>
           <AddReviewModal />
         </div>
 
-        {/* 🚀 One source of truth: The Timeline handles data and pagination */}
         <Suspense
           key={currentPage}
           fallback={

@@ -8,6 +8,7 @@ import { getUserProfile } from "@/services/user.services";
 import { HomeSection } from "@/components/modules/home/HomeSection";
 import { getUserApprovedReviews } from "@/services/review.services";
 import ReviewStaggerGrid from "@/components/modules/dashboard/user-dashboard/profile/ReviewStaggerGrid"; // 🎯 The new wrapper
+import { getUserInfo } from "@/services/auth.services";
 
 export default async function PublicProfilePage({
   params,
@@ -17,6 +18,11 @@ export default async function PublicProfilePage({
   searchParams: Promise<{ page?: string }>;
 }) {
   const { id } = await params;
+
+  // 🎯 Fetch current user
+  const userInfo = await getUserInfo();
+  const currentUserId = userInfo?.id;
+
   const { data: profile } = await getUserProfile(id);
   const { page } = await searchParams;
   const { data: reviews } = await getUserApprovedReviews(id, {
@@ -67,7 +73,7 @@ export default async function PublicProfilePage({
       >
         {reviews.length > 0 ? (
           // 🎯 THE FIX: Drop in the new Stagger Grid
-          <ReviewStaggerGrid reviews={reviews} />
+          <ReviewStaggerGrid reviews={reviews} currentUserId={currentUserId} />
         ) : (
           <div className="py-24 text-center rounded-[2.5rem] bg-[#050505] border border-dashed border-white/5">
             <p className="text-xs font-black uppercase tracking-[0.3em] text-white/20">

@@ -3,7 +3,7 @@
 
 import { httpClient } from "@/lib/axios/httpClient";
 import { IQueryOptions } from "./user.services";
-import { IReview } from "@/types/review.types";
+import { IReportedReview, IReview } from "@/types/review.types";
 import { IUser, IUserAnalytics } from "@/types/user.types";
 import {
   TUpdateUserRoleValues,
@@ -58,7 +58,10 @@ export const getAdminArchive = async (params?: IQueryOptions) => {
   return httpClient.get<IReview[]>("/review/admin/archive", { params });
 };
 
-// Add the fetch function
 export const getMyAdminProfile = async () => {
   return httpClient.get<IAdminProfileStats>("/profile/admin/me");
+};
+
+export const getReportedReviews = async (params?: IQueryOptions) => {
+  return httpClient.get<IReportedReview[]>("/review/reports/queue", { params });
 };

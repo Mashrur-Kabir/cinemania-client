@@ -19,7 +19,7 @@ import { format } from "date-fns";
 import { toast } from "sonner";
 import { useQueryClient } from "@tanstack/react-query";
 import { deleteReviewAction } from "@/app/_actions/review.action";
-import EditReviewModal from "./EditReviewModal";
+import EditReviewModal from "../review/EditReviewModal";
 import Image from "next/image";
 
 export default function ArchivedReviewCard({ review }: { review: IReview }) {
@@ -103,9 +103,9 @@ export default function ArchivedReviewCard({ review }: { review: IReview }) {
                 alt={review.media?.title || "Poster"}
                 fill
                 sizes="44px"
-                className="object-cover"
+                className="object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-500 ease-out transform-gpu will-change-transform [backface-visibility:hidden]"
               />
-              <div className="absolute inset-0 bg-rose-500/20 mix-blend-overlay group-hover:opacity-0 transition-opacity duration-500" />
+              <div className="absolute inset-0 bg-rose-500/20 mix-blend-overlay group-hover:opacity-0 transition-opacity duration-500 pointer-events-none" />
             </div>
 
             <div className="space-y-1.5 flex-1 min-w-0">
