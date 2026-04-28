@@ -30,6 +30,16 @@ const nextConfig: NextConfig = {
       // ... repeat for others as needed
     ],
   },
+
+  async rewrites() {
+    return [
+      {
+        // 🎯 One rule to rule them all: Catches /api/v1/auth, /api/v1/review, etc.
+        source: "/api/v1/:path*",
+        destination: process.env.NEXT_PUBLIC_BACKEND_URL + "/api/v1/:path*",
+      },
+    ];
+  },
 };
 
 export default nextConfig;

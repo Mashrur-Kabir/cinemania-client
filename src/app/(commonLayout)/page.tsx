@@ -16,6 +16,9 @@ import FeatureCard from "@/components/modules/home/FeatureCard";
 import HowItWorksSection from "@/components/modules/home/HowItWorksSection";
 import ScrollReveal from "@/components/modules/home/ScrollReveal";
 
+// 🎯 THE FIX: Force dynamic rendering so Next.js doesn't try to fetch data during build
+export const dynamic = "force-dynamic";
+
 export default async function HomePage() {
   return (
     <div className="relative min-h-screen overflow-x-hidden pb-32">

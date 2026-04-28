@@ -8,8 +8,8 @@ import {
   MessageSquare,
   TrendingUp,
 } from "lucide-react";
-import { IAdminStats } from "@/services/admin.services";
 import { cn } from "@/lib/utils";
+import { IAdminStats } from "@/types/admin.types";
 
 export default function AdminKpiGrid({ stats }: { stats: IAdminStats }) {
   const kpis = [

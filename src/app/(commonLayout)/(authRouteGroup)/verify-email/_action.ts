@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use server";
 
-import { getDefaultDashboardRoute, UserRole } from "@/lib/authUtils";
+import { getDefaultDashboardRoute } from "@/lib/authUtils";
 import { httpClient } from "@/lib/axios/httpClient";
 import { getUserInfo } from "@/services/auth.services";
 import { ApiErrorResponse, ApiResponse } from "@/types/api.types";
+import { UserRole } from "@/types/user.types";
 import {
   verifyEmailZodSchema,
   IVerifyEmailPayload,
