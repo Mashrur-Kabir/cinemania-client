@@ -7,12 +7,12 @@ export const metadata = {
 
 export default function MailUsPage() {
   return (
-    <div className="min-h-screen bg-black pt-24 pb-32">
+    <div className="min-h-screen bg-black pt-40 pb-32">
       <div className="mx-auto max-w-5xl px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
           {/* Contact Info */}
           <div>
-            <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl mb-6">
+            <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl mb-6 font-heading">
               Get in <span className="text-[#FF00FF]">Touch</span>
             </h1>
             <p className="text-zinc-400 mb-12 leading-relaxed">

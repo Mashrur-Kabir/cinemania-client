@@ -5,10 +5,10 @@ export const metadata = {
 
 export default function CookiePolicyPage() {
   return (
-    <div className="min-h-screen bg-black pt-24 pb-32">
+    <div className="min-h-screen bg-black pt-40 pb-32">
       <div className="mx-auto max-w-3xl px-6 lg:px-8">
         <div className="mb-12">
-          <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">
+          <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl font-heading">
             Cookie <span className="text-[#FF00FF]">Policy</span>
           </h1>
           <p className="mt-4 text-zinc-400">Last updated: April 29, 2026</p>

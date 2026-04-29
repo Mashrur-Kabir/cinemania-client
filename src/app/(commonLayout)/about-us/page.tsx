@@ -7,10 +7,10 @@ export const metadata = {
 
 export default function AboutUsPage() {
   return (
-    <div className="min-h-screen bg-black pt-24 pb-32">
+    <div className="min-h-screen bg-black pt-40 pb-32">
       <div className="mx-auto max-w-4xl px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl">
+          <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl font-heading">
             Welcome to the <span className="text-[#FF00FF]">Multiverse</span>
           </h1>
           <p className="mt-6 text-lg leading-8 text-zinc-400">

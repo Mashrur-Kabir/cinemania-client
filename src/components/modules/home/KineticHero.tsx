@@ -97,7 +97,7 @@ export default function KineticHero() {
   return (
     <section
       ref={heroRef}
-      className="relative z-10 flex min-h-[100svh] w-full flex-col items-center justify-center text-center px-6 will-change-transform"
+      className="relative z-10 flex min-h-[100svh] w-full mt-20 flex-col items-center justify-center text-center px-6 will-change-transform"
       style={{ opacity: 0 }} // JS controls this after mount
     >
       {/* Kicker */}

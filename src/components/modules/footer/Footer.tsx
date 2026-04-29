@@ -13,12 +13,7 @@ export default function Footer() {
           {/* Brand & Newsletter Section */}
           <div className="space-y-8 xl:col-span-1">
             <Link href="/" className="group flex items-center gap-2">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#FF00FF]/10 transition-colors group-hover:bg-[#FF00FF]/20">
-                <span className="text-2xl font-black text-[#FF00FF] drop-shadow-[0_0_8px_rgba(255,0,255,0.5)]">
-                  C
-                </span>
-              </div>
-              <span className="text-2xl font-bold tracking-widest text-white">
+              <span className="text-2xl font-bold tracking-widest text-white font-heading">
                 CINE<span className="text-[#FF00FF]">MANIA</span>
               </span>
             </Link>
