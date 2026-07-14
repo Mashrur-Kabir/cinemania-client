@@ -53,10 +53,28 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
     },
   });
 
+  const handleDemoLogin = (role: "admin" | "user") => {
+    const demoCredentials = {
+      admin: {
+        email: "superadmincm@gmail.com",
+        password: "superadmin456",
+      },
+      user: {
+        email: "riyen16-657@s.diu.edu.bd",
+        password: "riyen123",
+      },
+    };
+
+    const { email, password } = demoCredentials[role];
+
+    form.setFieldValue("email", email);
+    form.setFieldValue("password", password);
+  };
+
   return (
     <Card
       className={cn(
-        "w-full max-w-md border-white/5 bg-black/40 backdrop-blur-xl shadow-[0_0_50px_-12px_rgba(225,29,72,0.3)]",
+        "w-full max-w-md border-border/10 bg-surface/80 dark:bg-black/40 backdrop-blur-xl shadow-[0_0_50px_-12px_rgba(225,29,72,0.3)]",
         "animate-in fade-in zoom-in duration-500",
       )}
     >
@@ -68,6 +86,27 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
           Sign in to your streaming ecosystem
         </CardDescription>
       </CardHeader>
+      <div className="flex justify-center gap-4 mb-4 px-6">
+        <Button
+          type="button"
+          variant="outline"
+          size="sm"
+          className="w-40 h-9 text-xs"
+          onClick={() => handleDemoLogin("user")}
+        >
+          Demo User
+        </Button>
+
+        <Button
+          type="button"
+          variant="outline"
+          size="sm"
+          className="w-40 h-9 text-xs"
+          onClick={() => handleDemoLogin("admin")}
+        >
+          Demo Admin
+        </Button>
+      </div>
       <CardContent>
         <form
           noValidate
@@ -159,7 +198,7 @@ const LoginForm = ({ redirectPath }: LoginFormProps) => {
           </form.Subscribe>
         </form>
       </CardContent>
-      <CardFooter className="justify-center border-t border-white/5 pt-4">
+      <CardFooter className="justify-center border-t border-border/20 dark:border-white/5 pt-4">
         <p className="text-sm text-muted-foreground">
           New to CineMania?{" "}
           <Link

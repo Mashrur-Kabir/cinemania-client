@@ -54,12 +54,12 @@ const RegisterForm = () => {
   return (
     <Card
       className={cn(
-        "w-full max-w-md border-white/5 bg-black/40 backdrop-blur-xl shadow-[0_0_50px_-12px_rgba(225,29,72,0.3)]",
+        "w-full max-w-md border-border/10 bg-surface/80 dark:bg-black/40 backdrop-blur-xl shadow-[0_0_50px_-12px_rgba(225,29,72,0.3)]",
         "animate-in fade-in zoom-in duration-500",
       )}
     >
       <CardHeader className="space-y-1 text-center">
-        <CardTitle className="text-3xl font-black tracking-tighter text-white">
+        <CardTitle className="text-3xl font-black tracking-tighter text-foreground">
           JOIN <span className="text-primary">MANIA</span>
         </CardTitle>
         <CardDescription className="text-muted-foreground/80">
@@ -166,7 +166,7 @@ const RegisterForm = () => {
           </form.Subscribe>
         </form>
       </CardContent>
-      <CardFooter className="justify-center border-t border-white/5 pt-4 text-center flex-col gap-2">
+      <CardFooter className="justify-center border-t border-border/20 dark:border-white/5 pt-4 text-center flex-col gap-2">
         <p className="text-sm text-muted-foreground">
           Already have an account?{" "}
           <Link
