@@ -55,7 +55,7 @@ export default function HowItWorksSection() {
           return (
             <div
               key={step.number}
-              className="relative flex flex-col items-center text-center p-8 rounded-3xl border bg-white/[0.025] backdrop-blur-xl"
+              className="relative flex flex-col items-center text-center p-8 rounded-3xl border bg-surface/80 dark:bg-white/[0.025] backdrop-blur-xl"
               style={{
                 borderColor: step.border,
                 boxShadow: `0 0 40px -12px ${step.glow}`,
@@ -63,11 +63,9 @@ export default function HowItWorksSection() {
             >
               {/* Number badge */}
               <div
-                className="absolute -top-3 left-8 text-[10px] font-black tracking-[0.25em] px-2 py-0.5 rounded-full border"
+                className={`absolute -top-3 left-8 text-[10px] font-black tracking-[0.25em] px-2 py-0.5 rounded-full border bg-surface/60 dark:bg-white/10 ${step.color}`}
                 style={{
                   borderColor: step.border,
-                  color: step.color.replace("text-", ""),
-                  background: "#030406",
                 }}
               >
                 {step.number}

@@ -70,8 +70,8 @@ export default function ReportedModeration({
   if (items.length === 0) {
     return (
       <div className="py-10 text-center opacity-20">
-        <Check className="size-8 mx-auto mb-2 text-white" />
-        <p className="text-[10px] font-black uppercase tracking-widest text-white">
+        <Check className="size-8 mx-auto mb-2 text-muted-foreground/60" />
+        <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
           No Reports Active
         </p>
       </div>
@@ -114,7 +114,7 @@ export default function ReportedModeration({
             </div>
 
             <div className="relative">
-              <p className="text-[10px] leading-relaxed text-white/70 line-clamp-2 px-1 italic">
+              <p className="text-[10px] leading-relaxed text-muted-foreground line-clamp-2 px-1 italic">
                 <span className="text-rose-500 font-black not-italic mr-1">
                   REASON:
                 </span>
@@ -135,14 +135,14 @@ export default function ReportedModeration({
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   onClick={closeModal}
-                  className="absolute inset-0 bg-black/90 backdrop-blur-xl"
+                  className="absolute inset-0 bg-background/80 backdrop-blur-xl"
                 />
 
                 <motion.div
                   initial={{ opacity: 0, scale: 0.9, y: 20 }}
                   animate={{ opacity: 1, scale: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                  className="relative w-full max-w-xl border border-rose-500/30 bg-[#0a0c10] overflow-hidden shadow-2xl flex flex-col max-h-[90vh] rounded-[2rem]"
+                  className="relative w-full max-w-xl border border-rose-500/30 bg-surface-strong overflow-hidden shadow-2xl flex flex-col max-h-[90vh] rounded-[2rem]"
                 >
                   {/* Header */}
                   <div className="p-8 border-b border-rose-500/10 flex items-center justify-between bg-rose-500/[0.02] shrink-0">
@@ -151,7 +151,7 @@ export default function ReportedModeration({
                         <AlertTriangle className="size-6 text-rose-500" />
                       </div>
                       <div>
-                        <h2 className="text-xl font-black text-white uppercase tracking-tighter">
+                        <h2 className="text-xl font-black text-foreground uppercase tracking-tighter">
                           Report Analysis
                         </h2>
                         <p className="text-[10px] font-black text-rose-500 uppercase tracking-[0.2em] flex items-center gap-1.5 mt-0.5">
@@ -170,21 +170,21 @@ export default function ReportedModeration({
                         <Flag className="size-3" /> Violation Report by{" "}
                         {selectedReport.user.name}
                       </p>
-                      <p className="text-sm font-medium text-white/90">
+                      <p className="text-sm font-medium text-foreground/90">
                         {selectedReport.reason}
                       </p>
                     </div>
 
                     {/* Original Review Content */}
                     <div className="space-y-3">
-                      <div className="flex items-center gap-2 text-white/40">
+                      <div className="flex items-center gap-2 text-muted-foreground">
                         <Quote className="size-4" />
                         <span className="text-[10px] font-black uppercase tracking-widest flex items-center gap-1.5">
                           Offending Critique by <User className="size-3 ml-1" />
                           {selectedReport.review.user?.name || "Unknown User"}
                         </span>
                       </div>
-                      <p className="text-sm leading-relaxed text-white/70 italic bg-white/[0.01] p-6 rounded-3xl border border-white/5 shadow-[inset_0_0_20px_rgba(255,255,255,0.01)]">
+                      <p className="text-sm leading-relaxed text-foreground/80 italic bg-foreground/[0.01] p-6 rounded-3xl border border-border/50 shadow-[inset_0_0_20px_rgba(255,255,255,0.01)]">
                         ❝{selectedReport.review.content}❞
                       </p>
                     </div>
@@ -192,8 +192,8 @@ export default function ReportedModeration({
                     {/* Tags */}
                     {selectedReport.review.tags &&
                       selectedReport.review.tags.length > 0 && (
-                        <div className="space-y-3 pt-2 border-t border-white/5">
-                          <div className="flex items-center gap-2 text-white/20 mt-4">
+                        <div className="space-y-3 pt-2 border-t border-border/50">
+                          <div className="flex items-center gap-2 text-muted-foreground/60 mt-4">
                             <Hash className="size-3" />
                             <span className="text-[9px] font-black uppercase tracking-[0.2em]">
                               Metadata Tags
@@ -203,7 +203,7 @@ export default function ReportedModeration({
                             {selectedReport.review.tags.map((tag) => (
                               <span
                                 key={tag}
-                                className="px-3 py-1 rounded-full bg-white/[0.03] border border-white/10 text-[9px] font-bold text-white/60 uppercase tracking-tighter"
+                                className="px-3 py-1 rounded-full bg-foreground/[0.03] border border-border text-[9px] font-bold text-muted-foreground uppercase tracking-tighter"
                               >
                                 #{tag}
                               </span>
@@ -213,21 +213,21 @@ export default function ReportedModeration({
                       )}
 
                     {/* Admin Rejection Reasoning Input */}
-                    <div className="space-y-2 pt-6 border-t border-white/5">
-                      <label className="text-[10px] font-black text-white/50 uppercase tracking-widest">
+                    <div className="space-y-2 pt-6 border-t border-border/50">
+                      <label className="text-[10px] font-black text-muted-foreground uppercase tracking-widest">
                         Admin Action Reasoning (Sent to Author)
                       </label>
                       <textarea
                         value={rejectReason}
                         onChange={(e) => setRejectReason(e.target.value)}
                         placeholder="Detail the community guideline violation..."
-                        className="w-full min-h-[80px] bg-black/50 border border-rose-500/20 rounded-xl p-4 text-sm text-white focus:border-rose-500/50 outline-none transition-all placeholder:text-white/20 resize-none shadow-[inset_0_0_20px_rgba(225,29,72,0.05)]"
+                        className="w-full min-h-[80px] bg-foreground/30 border border-rose-500/20 rounded-xl p-4 text-sm text-foreground focus:border-rose-500/50 outline-none transition-all placeholder:text-muted-foreground resize-none shadow-[inset_0_0_20px_rgba(225,29,72,0.05)]"
                       />
                     </div>
                   </div>
 
                   {/* Footer Actions */}
-                  <div className="p-8 bg-black/40 border-t border-rose-500/10 shrink-0 flex gap-4">
+                  <div className="p-8 bg-surface border-t border-rose-500/10 flex flex-col gap-3 md:flex-row">
                     <button
                       disabled={isProcessing}
                       onClick={() =>
@@ -237,7 +237,7 @@ export default function ReportedModeration({
                           "APPROVED",
                         )
                       }
-                      className="flex-1 py-4 rounded-xl bg-white/5 text-white/50 hover:bg-white/10 hover:text-white text-[11px] font-black uppercase tracking-widest transition-all flex items-center justify-center gap-2"
+                      className="flex-1 py-4 rounded-xl bg-foreground/10 text-foreground hover:bg-foreground/20 hover:text-foreground text-[11px] font-black uppercase tracking-widest transition-all flex items-center justify-center gap-2 border border-border/50 shadow-sm shadow-foreground/5 disabled:opacity-50 disabled:pointer-events-none"
                     >
                       Dismiss Report
                     </button>
@@ -252,8 +252,8 @@ export default function ReportedModeration({
                         )
                       }
                       className={cn(
-                        "flex-[1.5] py-4 rounded-xl bg-rose-500 text-white text-[11px] font-black uppercase tracking-widest transition-all flex items-center justify-center gap-2 disabled:opacity-50",
-                        "hover:shadow-[0_0_30px_rgba(225,29,72,0.4)] active:scale-95",
+                        "flex-[1.5] py-4 rounded-xl bg-rose-500/10 text-rose-500 border border-rose-500/20 text-[11px] font-black uppercase tracking-widest transition-all flex items-center justify-center gap-2 disabled:opacity-50 disabled:pointer-events-none",
+                        "hover:bg-rose-500/15 hover:text-rose-500 hover:shadow-[0_0_30px_rgba(225,29,72,0.15)] active:scale-95",
                       )}
                     >
                       <X className="size-4" /> Enforce Ban & Archive

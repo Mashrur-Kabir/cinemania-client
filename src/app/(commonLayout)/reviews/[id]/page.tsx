@@ -17,7 +17,7 @@ export default async function PublicReviewDetailPage({
 
   return (
     // 3. Add top padding so it doesn't hide under your fixed navbar
-    <div className="pt-32 bg-[#030406] min-h-screen">
+    <div className="pt-32 bg-surface min-h-screen">
       <ReviewDetailView review={review} />
     </div>
   );

@@ -11,7 +11,7 @@ export default async function PaymentSuccessPage({
 
   return (
     // Wrap in Suspense to prevent blocking the entire route layout during parameter resolution
-    <Suspense fallback={<div className="min-h-screen bg-[#030406]" />}>
+    <Suspense fallback={<div className="min-h-screen bg-surface" />}>
       <PaymentSuccessContent sessionId={session_id || null} />
     </Suspense>
   );

@@ -164,20 +164,20 @@ export default function CreateMediaModal({
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={handleClose}
-              className="absolute inset-0 bg-black/80 backdrop-blur-xl"
+              className="absolute inset-0 bg-background/80 backdrop-blur-xl"
             />
 
             <motion.div
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
-              className="relative w-full max-w-2xl bg-black/90 glass-panel border border-white/10 shadow-2xl overflow-hidden flex flex-col max-h-screen"
+              className="relative w-full max-w-2xl bg-surface-strong glass-panel border border-white/10 shadow-2xl overflow-hidden flex flex-col max-h-screen"
             >
               {/* Header & Step Indicator */}
-              <div className="p-6 border-b border-white/10 bg-white/2">
+              <div className="p-6 border-b border-border/50 bg-white/2">
                 <div className="flex items-center justify-between mb-6">
                   <div>
-                    <h2 className="text-xl font-black text-white uppercase tracking-tighter">
+                    <h2 className="text-xl font-black text-foreground uppercase tracking-tighter">
                       Initialize Media
                     </h2>
                     <p className="text-[10px] font-bold text-primary uppercase tracking-widest">
@@ -186,7 +186,7 @@ export default function CreateMediaModal({
                   </div>
                   <button
                     onClick={handleClose}
-                    className="p-2 rounded-full hover:bg-white/10 text-white/40 hover:text-white transition-colors"
+                    className="p-2 rounded-full hover:bg-foreground/10 text-muted-foreground hover:text-foreground transition-colors"
                   >
                     <X className="size-5" />
                   </button>
@@ -211,7 +211,7 @@ export default function CreateMediaModal({
                           "size-8 rounded-full flex items-center justify-center border-2 transition-all duration-500 bg-black",
                           step >= s.id
                             ? "bg-primary border-primary shadow-[0_0_15px_rgba(225,29,72,0.4)] text-white"
-                            : "bg-white/5 border-white/10 text-white/40",
+                            : "bg-foreground/5 border-border text-muted-foreground",
                         )}
                       >
                         <s.icon className="size-3.5" />
@@ -235,13 +235,13 @@ export default function CreateMediaModal({
                         className="space-y-5"
                       >
                         <div className="space-y-2">
-                          <Label className="text-[10px] font-black uppercase tracking-widest text-white/60">
+                          <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
                             Title
                           </Label>
                           <Input
                             {...form.register("title")}
                             placeholder="e.g. Inception"
-                            className="bg-white/5 border-white/10 text-white focus-visible:ring-primary/50"
+                            className="bg-foreground/5 border-border text-foreground focus-visible:ring-primary/50"
                           />
                           {errors.title && (
                             <p className="text-[10px] font-bold text-rose-500 uppercase">
@@ -250,13 +250,13 @@ export default function CreateMediaModal({
                           )}
                         </div>
                         <div className="space-y-2">
-                          <Label className="text-[10px] font-black uppercase tracking-widest text-white/60">
+                          <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
                             Release Year
                           </Label>
                           <Input
                             type="number"
                             {...form.register("releaseYear")}
-                            className="bg-white/5 border-white/10 text-white focus-visible:ring-primary/50"
+                            className="bg-foreground/5 border-border text-foreground focus-visible:ring-primary/50"
                           />
                           {errors.releaseYear && (
                             <p className="text-[10px] font-bold text-rose-500 uppercase">
@@ -265,13 +265,13 @@ export default function CreateMediaModal({
                           )}
                         </div>
                         <div className="space-y-2">
-                          <Label className="text-[10px] font-black uppercase tracking-widest text-white/60">
+                          <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
                             Description
                           </Label>
                           <Textarea
                             {...form.register("description")}
                             placeholder="Plot summary..."
-                            className="bg-white/5 border-white/10 text-white focus-visible:ring-primary/50 min-h-25 resize-none"
+                            className="bg-foreground/5 border-border text-foreground focus-visible:ring-primary/50 min-h-25 resize-none"
                           />
                           {errors.description && (
                             <p className="text-[10px] font-bold text-rose-500 uppercase">
@@ -292,13 +292,13 @@ export default function CreateMediaModal({
                         className="space-y-5"
                       >
                         <div className="space-y-2">
-                          <Label className="text-[10px] font-black uppercase tracking-widest text-white/60">
+                          <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
                             Director
                           </Label>
                           <Input
                             {...form.register("director")}
                             placeholder="e.g. Christopher Nolan"
-                            className="bg-white/5 border-white/10 text-white focus-visible:ring-primary/50"
+                            className="bg-foreground/5 border-border text-foreground focus-visible:ring-primary/50"
                           />
                           {errors.director && (
                             <p className="text-[10px] font-bold text-rose-500 uppercase">
@@ -308,7 +308,7 @@ export default function CreateMediaModal({
                         </div>
 
                         <div className="space-y-2">
-                          <Label className="text-[10px] font-black uppercase tracking-widest text-white/60">
+                          <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
                             Cast Members (Press Enter to Add)
                           </Label>
                           <Input
@@ -316,7 +316,7 @@ export default function CreateMediaModal({
                             onChange={(e) => setCastInput(e.target.value)}
                             onKeyDown={handleAddCast}
                             placeholder="Type a name and press Enter..."
-                            className="bg-white/5 border-white/10 text-white focus-visible:ring-primary/50"
+                            className="bg-foreground/5 border-border text-foreground focus-visible:ring-primary/50"
                           />
                           {errors.cast && (
                             <p className="text-[10px] font-bold text-rose-500 uppercase">
@@ -341,7 +341,7 @@ export default function CreateMediaModal({
                                   <button
                                     type="button"
                                     onClick={() => removeCast(actor)}
-                                    className="text-white/40 hover:text-rose-400 transition-colors"
+                                    className="text-muted-foreground hover:text-rose-400 transition-colors"
                                   >
                                     <X className="size-3" />
                                   </button>
@@ -363,13 +363,13 @@ export default function CreateMediaModal({
                         className="space-y-6"
                       >
                         <div className="space-y-2">
-                          <Label className="text-[10px] font-black uppercase tracking-widest text-white/60">
+                          <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
                             Platform / Studio
                           </Label>
                           <Input
                             {...form.register("platform")}
                             placeholder="e.g. HBO Max, 20th Century Studios"
-                            className="bg-white/5 border-white/10 text-white focus-visible:ring-primary/50"
+                            className="bg-foreground/5 border-border text-foreground focus-visible:ring-primary/50"
                           />
                           {errors.platform && (
                             <p className="text-[10px] font-bold text-rose-500 uppercase">
@@ -379,7 +379,7 @@ export default function CreateMediaModal({
                         </div>
 
                         <div className="space-y-3">
-                          <Label className="text-[10px] font-black uppercase tracking-widest text-white/60">
+                          <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
                             Access Pricing Tier
                           </Label>
                           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -398,7 +398,7 @@ export default function CreateMediaModal({
                                     "p-4 rounded-xl border flex flex-col items-center gap-2 transition-all duration-300",
                                     isSelected
                                       ? "bg-primary/10 border-primary text-primary shadow-[0_0_15px_rgba(225,29,72,0.2)]"
-                                      : "bg-white/2 border-white/10 text-white/40 hover:bg-white/5 hover:border-white/20",
+                                      : "bg-foreground/[0.02] border-border text-muted-foreground hover:bg-white/5 hover:border-white/20",
                                   )}
                                 >
                                   {isSelected && <Check className="size-4" />}
@@ -417,7 +417,7 @@ export default function CreateMediaModal({
                         </div>
 
                         <div className="space-y-3">
-                          <Label className="text-[10px] font-black uppercase tracking-widest text-white/60">
+                          <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
                             Genres Map
                           </Label>
                           {isLoadingGenres ? (
@@ -439,7 +439,7 @@ export default function CreateMediaModal({
                                       "px-3 py-1.5 rounded-full border text-[10px] font-bold uppercase tracking-wider transition-all",
                                       isSelected
                                         ? "bg-emerald-500/10 border-emerald-500/50 text-emerald-400"
-                                        : "bg-white/2 border-white/10 text-white/40 hover:bg-white/10",
+                                        : "bg-foreground/[0.02] border-border text-muted-foreground hover:bg-white/10",
                                     )}
                                   >
                                     {genre.name}
@@ -467,13 +467,13 @@ export default function CreateMediaModal({
                         className="space-y-5"
                       >
                         <div className="space-y-2">
-                          <Label className="text-[10px] font-black uppercase tracking-widest text-white/60">
+                          <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
                             Poster URL
                           </Label>
                           <Input
                             {...form.register("posterUrl")}
                             placeholder="https://..."
-                            className="bg-white/5 border-white/10 text-white focus-visible:ring-primary/50"
+                            className="bg-foreground/5 border-border text-foreground focus-visible:ring-primary/50"
                           />
                           {errors.posterUrl && (
                             <p className="text-[10px] font-bold text-rose-500 uppercase">
@@ -482,13 +482,13 @@ export default function CreateMediaModal({
                           )}
                         </div>
                         <div className="space-y-2">
-                          <Label className="text-[10px] font-black uppercase tracking-widest text-white/60">
+                          <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
                             Secure Streaming URL (Optional)
                           </Label>
                           <Input
                             {...form.register("streamingUrl")}
                             placeholder="https://..."
-                            className="bg-white/5 border-white/10 text-white focus-visible:ring-primary/50"
+                            className="bg-foreground/5 border-border text-foreground focus-visible:ring-primary/50"
                           />
                           {errors.streamingUrl && (
                             <p className="text-[10px] font-bold text-rose-500 uppercase">
@@ -503,10 +503,10 @@ export default function CreateMediaModal({
                             <Check className="size-5" />
                           </div>
                           <div>
-                            <h4 className="text-[11px] font-black text-white uppercase tracking-widest">
+                            <h4 className="text-[11px] font-black text-foreground uppercase tracking-widest">
                               Ready for Deployment
                             </h4>
-                            <p className="text-[10px] text-white/50 leading-relaxed mt-1">
+                            <p className="text-[10px] text-muted-foreground leading-relaxed mt-1">
                               Review all data. Upon deployment, this media will
                               be immediately accessible in the public multiverse
                               based on its designated pricing tier.
@@ -520,13 +520,13 @@ export default function CreateMediaModal({
               </div>
 
               {/* Footer Actions */}
-              <div className="p-6 border-t border-white/10 bg-black/40 flex items-center justify-between">
+              <div className="p-6 border-t border-border/50  bg-surface flex items-center justify-between">
                 <Button
                   type="button"
                   variant="ghost"
                   disabled={step === 1 || isPending}
                   onClick={() => setStep((p) => p - 1)}
-                  className="text-white/50 hover:text-white hover:bg-white/5"
+                  className="text-muted-foreground hover:text-foreground hover:bg-foreground/5"
                 >
                   <ChevronLeft className="size-4 mr-1" /> Back
                 </Button>
@@ -535,7 +535,7 @@ export default function CreateMediaModal({
                   <Button
                     type="button"
                     onClick={handleNext}
-                    className="bg-white/10 text-white hover:bg-white/20 border border-white/10"
+                    className="bg-foreground/10 text-foreground hover:bg-foreground/20 border border-white/10"
                   >
                     Next Sector <ChevronRight className="size-4 ml-1" />
                   </Button>

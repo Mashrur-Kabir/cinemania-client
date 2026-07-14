@@ -60,7 +60,7 @@ export default function BackgroundMain() {
   return (
     <>
       {/* ══ LAYER A: Fixed ambient ══ */}
-      <div className="fixed inset-0 -z-20 overflow-hidden bg-[#030406]">
+      <div className="fixed inset-0 -z-20 overflow-hidden bg-background">
         <div
           ref={blobPlaneRef}
           className="absolute inset-[-4%] will-change-transform"
@@ -112,7 +112,7 @@ export default function BackgroundMain() {
           className="absolute inset-0 pointer-events-none"
           style={{
             background:
-              "radial-gradient(ellipse 85% 75% at 50% 40%, transparent 20%, #030406 92%), linear-gradient(to bottom, #030406 0%, transparent 10%, transparent 85%, #030406 100%)",
+              "radial-gradient(ellipse 85% 75% at 50% 40%, transparent 20%, var(--background) 92%), linear-gradient(to bottom, var(--background) 0%, transparent 10%, transparent 85%, var(--background) 100%)",
           }}
         />
       </div>

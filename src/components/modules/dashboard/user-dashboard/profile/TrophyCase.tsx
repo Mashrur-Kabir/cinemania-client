@@ -17,7 +17,7 @@ export default function TrophyCase({
   const selectedBadge = badges.find((b) => b.id === selectedId);
 
   return (
-    <div className="p-8 rounded-[3rem] bg-[#050505] border border-white/5 relative group transition-colors duration-500 hover:border-white/10">
+    <div className="p-8 rounded-[3rem] bg-surface border border-border/50 relative group transition-colors duration-500 hover:border-border">
       {/* 🔮 Ambient Background Glow */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none rounded-[3rem]" />
 
@@ -26,7 +26,7 @@ export default function TrophyCase({
           <div className="size-10 rounded-full bg-primary/10 border border-primary/20 flex items-center justify-center">
             <Trophy className="size-5 text-primary" />
           </div>
-          <h3 className="text-xl font-black uppercase tracking-tighter text-white">
+          <h3 className="text-xl font-black uppercase tracking-tighter text-foreground">
             Trophy Case
           </h3>
         </div>
@@ -58,7 +58,7 @@ export default function TrophyCase({
                     "relative size-24 flex items-center justify-center rounded-3xl border shadow-lg transition-all duration-500 ease-out transform-gpu will-change-transform [backface-visibility:hidden]",
                     isSelected
                       ? "scale-110 border-primary/50 bg-primary/20 shadow-[0_0_40px_-10px_rgba(225,29,72,0.6)]"
-                      : "bg-[#0c0d10] border-white/5 group-hover/trophy:scale-110 group-hover/trophy:border-primary/40 group-hover/trophy:bg-primary/10 group-hover/trophy:shadow-[0_0_40px_-10px_rgba(225,29,72,0.5)]",
+                      : "bg-surface-strong border-border/50 group-hover/trophy:scale-110 group-hover/trophy:border-primary/40 group-hover/trophy:bg-primary/10 group-hover/trophy:shadow-[0_0_40px_-10px_rgba(225,29,72,0.5)]",
                   )}
                 >
                   <div
@@ -75,7 +75,7 @@ export default function TrophyCase({
                       "size-10 transition-all duration-500 transform-gpu",
                       isSelected
                         ? "text-primary scale-110"
-                        : "text-white/20 group-hover/trophy:text-primary group-hover/trophy:scale-110",
+                        : "text-muted-foreground/60 group-hover/trophy:text-primary group-hover/trophy:scale-110",
                     )}
                   />
                 </div>
@@ -86,7 +86,7 @@ export default function TrophyCase({
                       "text-[11px] font-black uppercase tracking-tight transition-colors line-clamp-1 px-1",
                       isSelected
                         ? "text-primary"
-                        : "text-white/80 group-hover/trophy:text-white",
+                        : "text-foreground/80 group-hover/trophy:text-foreground",
                     )}
                   >
                     {badge.name}
@@ -106,9 +106,9 @@ export default function TrophyCase({
             );
           })
         ) : (
-          <div className="w-full py-12 flex flex-col items-center justify-center border border-dashed border-white/5 rounded-3xl bg-white/[0.01]">
-            <Award className="size-10 text-white/10 mb-3" />
-            <p className="text-[10px] font-black uppercase tracking-widest text-white/30">
+          <div className="w-full py-12 flex flex-col items-center justify-center border border-dashed border-border/50 bg-foreground/[0.01] rounded-3xl">
+            <Award className="size-10 text-muted-foreground/60 mb-3" />
+            <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/60">
               No trophies unlocked yet
             </p>
           </div>
@@ -126,10 +126,10 @@ export default function TrophyCase({
             transition={{ duration: 0.4, ease: [0.23, 1, 0.32, 1] }}
             className="overflow-hidden relative z-0"
           >
-            <div className="mt-4 p-6 rounded-[2rem] bg-white/[0.02] border border-white/10 relative group/panel">
+            <div className="mt-4 p-6 rounded-[2rem] bg-foreground/[0.02] border border-border relative group/panel">
               <button
                 onClick={() => setSelectedId(null)}
-                className="absolute top-6 right-6 text-white/20 hover:text-white transition-colors"
+                className="absolute top-6 right-6 text-muted-foreground/60 hover:text-foreground transition-colors"
               >
                 <X className="size-4" />
               </button>
@@ -137,7 +137,7 @@ export default function TrophyCase({
               <div className="flex items-start gap-4 pr-8">
                 <Sparkles className="size-5 text-primary shrink-0 mt-0.5" />
                 <div className="space-y-2">
-                  <h4 className="text-sm font-black text-white uppercase tracking-tight">
+                  <h4 className="text-sm font-black text-foreground uppercase tracking-tight">
                     {selectedBadge.name}
                   </h4>
                   <p className="text-xs leading-relaxed text-muted-foreground font-medium">

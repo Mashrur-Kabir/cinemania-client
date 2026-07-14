@@ -30,7 +30,7 @@ export default async function AdminDashboardPage() {
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
             <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500"></span>
           </span>
-          <h1 className="text-4xl font-black text-white tracking-tighter uppercase italic">
+          <h1 className="text-4xl font-black text-foreground tracking-tighter uppercase italic">
             System <span className="text-primary">Nexus</span>
           </h1>
         </div>
@@ -42,7 +42,7 @@ export default async function AdminDashboardPage() {
       {/* 📊 Key Performance Indicators */}
       <Suspense
         fallback={
-          <div className="h-32 w-full animate-pulse bg-white/5 rounded-3xl" />
+          <div className="h-32 w-full animate-pulse bg-foreground/5 rounded-3xl" />
         }
       >
         {stats && <AdminKpiGrid stats={stats} />}
@@ -52,10 +52,10 @@ export default async function AdminDashboardPage() {
         {/* 📈 Financial & Growth Visuals */}
         <section className="lg:col-span-2 space-y-8">
           <div className="flex items-center justify-between">
-            <h2 className="text-xs font-black uppercase tracking-[0.3em] text-white/40">
+            <h2 className="text-xs font-black uppercase tracking-[0.3em] text-muted-foreground">
               Revenue & Engagement Flux
             </h2>
-            <div className="h-px flex-1 bg-white/5 mx-6" />
+            <div className="h-px flex-1 bg-border/50 mx-6" />
           </div>
           <RevenueMatrix data={stats?.revenueData || []} />
         </section>

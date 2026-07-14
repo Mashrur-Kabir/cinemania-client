@@ -49,7 +49,7 @@ const MediaLibraryPage = async ({
   return (
     <div className="max-w-7xl mx-auto space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
       <header className="flex flex-col gap-2">
-        <h1 className="text-4xl font-black text-white tracking-tighter uppercase italic">
+        <h1 className="text-4xl font-black text-foreground tracking-tighter uppercase italic">
           Media <span className="text-primary">Library</span>
         </h1>
         <p className="text-muted-foreground font-medium uppercase text-xs tracking-widest">

@@ -36,7 +36,7 @@ export default function AppPagination({
       <button
         disabled={currentPage === 1}
         onClick={onPrevious}
-        className="group relative flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-white/50 hover:text-white disabled:opacity-20 disabled:cursor-not-allowed transition-all duration-300"
+        className="group relative flex items-center gap-2 px-4 py-2 rounded-xl bg-foreground/5 border border-border text-muted-foreground hover:text-white disabled:opacity-20 disabled:cursor-not-allowed transition-all duration-300"
       >
         <ChevronLeft className="size-4 group-hover:-translate-x-1 transition-transform" />
         <span className="text-[10px] font-black uppercase tracking-widest hidden md:block">
@@ -65,7 +65,7 @@ export default function AppPagination({
                 "relative flex items-center justify-center size-10 rounded-xl text-xs font-black transition-all duration-500",
                 isActive
                   ? "text-white"
-                  : "text-white/40 hover:text-white hover:bg-white/5",
+                  : "text-white/40 hover:text-foreground hover:bg-foreground/5",
               )}
             >
               <span className="relative z-10">{pageNumber}</span>
@@ -87,7 +87,7 @@ export default function AppPagination({
       <button
         disabled={currentPage === totalPages}
         onClick={onNext}
-        className="group relative flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-white/50 hover:text-white disabled:opacity-20 disabled:cursor-not-allowed transition-all duration-300"
+        className="group relative flex items-center gap-2 px-4 py-2 rounded-xl bg-foreground/5 border border-border text-muted-foreground hover:text-white disabled:opacity-20 disabled:cursor-not-allowed transition-all duration-300"
       >
         <span className="text-[10px] font-black uppercase tracking-widest hidden md:block">
           Next

@@ -19,7 +19,7 @@ export default async function AdminProfilePage() {
     <div className="max-w-6xl mx-auto space-y-10 animate-in fade-in slide-in-from-bottom-8 duration-1000 ease-out">
       {/* 🚀 HEADER */}
       <header className="flex flex-col gap-2 mb-8">
-        <h1 className="text-4xl md:text-5xl font-black text-white tracking-tighter uppercase italic flex items-center gap-3">
+        <h1 className="text-4xl md:text-5xl font-black text-foreground tracking-tighter uppercase italic flex items-center gap-3">
           System{" "}
           <span className="text-primary drop-shadow-[0_0_15px_rgba(225,29,72,0.5)]">
             Identity
@@ -40,7 +40,7 @@ export default async function AdminProfilePage() {
 
           <div
             className={cn(
-              "glass-panel p-8 rounded-[2.5rem] border-primary/20 bg-black/40 backdrop-blur-xl relative overflow-hidden h-full flex flex-col",
+              "glass-panel p-8 rounded-[2.5rem] border-primary/20 bg-surface backdrop-blur-xl relative overflow-hidden h-full flex flex-col",
               "transition-all duration-500 hover:border-primary/40 hover:shadow-[0_0_40px_rgba(225,29,72,0.15)]",
             )}
           >
@@ -48,7 +48,7 @@ export default async function AdminProfilePage() {
             <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-transparent via-primary to-transparent opacity-70" />
 
             <div className="flex flex-col items-center text-center space-y-6 flex-1 justify-center">
-              <div className="relative size-36 rounded-[2.5rem] overflow-hidden border border-white/10 bg-white/[0.02] shadow-2xl group-hover:scale-105 transition-transform duration-700 ease-out">
+              <div className="relative size-36 rounded-[2.5rem] overflow-hidden border border-border bg-foreground/[0.02] shadow-2xl group-hover:scale-105 transition-transform duration-700 ease-out">
                 {profile.user.image ? (
                   <Image
                     src={profile.user.image}
@@ -66,21 +66,21 @@ export default async function AdminProfilePage() {
               </div>
 
               <div className="space-y-1">
-                <h2 className="text-2xl font-black text-white uppercase tracking-tight group-hover:text-primary transition-colors duration-300">
+                <h2 className="text-2xl font-black text-foreground uppercase tracking-tight group-hover:text-primary transition-colors duration-300">
                   {profile.user.name}
                 </h2>
-                <p className="text-[10px] font-black text-white/40 uppercase tracking-[0.2em]">
+                <p className="text-[10px] font-black text-muted-foreground uppercase tracking-[0.2em]">
                   {profile.user.email}
                 </p>
               </div>
 
-              <div className="flex flex-wrap justify-center gap-3 w-full pt-6 border-t border-white/5">
+              <div className="flex flex-wrap justify-center gap-3 w-full pt-6 border-t border-border/50">
                 <span className="px-4 py-2 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-[10px] font-black text-emerald-400 uppercase tracking-widest flex items-center gap-2 shadow-[inset_0_0_15px_rgba(16,185,129,0.05)]">
                   <ShieldCheck className="size-3.5" /> {profile.user.role}
                 </span>
-                <span className="px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-[10px] font-black text-white/60 uppercase tracking-widest">
+                <span className="px-4 py-2 rounded-xl bg-foreground/5 border border-border text-[10px] font-black text-muted-foreground uppercase tracking-widest">
                   Status:{" "}
-                  <span className="text-white">{profile.user.status}</span>
+                  <span className="text-foreground">{profile.user.status}</span>
                 </span>
               </div>
             </div>
@@ -92,19 +92,19 @@ export default async function AdminProfilePage() {
           {/* Security Clearance Strip */}
           <div
             className={cn(
-              "glass-panel p-8 md:p-10 rounded-[2.5rem] border-white/5 bg-white/[0.01] flex items-center justify-between group cursor-default",
-              "hover:bg-white/[0.03] hover:border-white/10 transition-all duration-500",
+              "glass-panel p-8 md:p-10 rounded-[2.5rem] border-border/50 bg-foreground/[0.01] flex items-center justify-between group cursor-default",
+              "hover:bg-foreground/[0.03] hover:border-border transition-all duration-500",
             )}
           >
             <div className="space-y-2">
-              <p className="text-[10px] font-black uppercase tracking-[0.3em] text-white/40 group-hover:text-white/60 transition-colors">
+              <p className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground group-hover:text-foreground/70 transition-colors">
                 Security Clearance
               </p>
-              <h3 className="text-3xl md:text-4xl font-black text-white tracking-widest uppercase drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]">
+              <h3 className="text-3xl md:text-4xl font-black text-foreground tracking-widest uppercase drop-shadow-[0_0_15px_rgba(255,255,255,0.2)]">
                 {profile.systemAccess.clearanceLevel}
               </h3>
             </div>
-            <div className="p-5 rounded-3xl bg-white/5 border border-white/10 text-white/20 group-hover:text-white group-hover:border-white/30 group-hover:bg-white/10 transition-all duration-500 group-hover:rotate-12 group-hover:scale-110 shadow-2xl">
+            <div className="p-5 rounded-3xl bg-foreground/5 border border-border text-muted-foreground/60 group-hover:text-foreground group-hover:border-foreground/30 group-hover:bg-foreground/10 transition-all duration-500 group-hover:rotate-12 group-hover:scale-110 shadow-2xl">
               <Key className="size-8" />
             </div>
           </div>
@@ -128,7 +128,7 @@ export default async function AdminProfilePage() {
                   <Activity className="size-4 group-hover:animate-spin-slow" />
                 </div>
               </div>
-              <p className="text-5xl font-black text-white drop-shadow-md">
+              <p className="text-5xl font-black text-foreground drop-shadow-md">
                 {profile.actionQueue.pendingModerations}
               </p>
             </div>
@@ -150,7 +150,7 @@ export default async function AdminProfilePage() {
                   <Server className="size-4 group-hover:scale-110" />
                 </div>
               </div>
-              <p className="text-5xl font-black text-white drop-shadow-md">
+              <p className="text-5xl font-black text-foreground drop-shadow-md">
                 {profile.actionQueue.activeUsers}
               </p>
             </div>
@@ -172,7 +172,7 @@ export default async function AdminProfilePage() {
                   <ShieldAlert className="size-4 group-hover:animate-pulse" />
                 </div>
               </div>
-              <p className="text-5xl font-black text-white drop-shadow-md">
+              <p className="text-5xl font-black text-foreground drop-shadow-md">
                 {profile.actionQueue.reportedReviews}
               </p>
             </div>
@@ -194,7 +194,7 @@ export default async function AdminProfilePage() {
                   <Cpu className="size-4 group-hover:rotate-12" />
                 </div>
               </div>
-              <p className="text-5xl font-black text-white drop-shadow-md">
+              <p className="text-5xl font-black text-foreground drop-shadow-md">
                 {profile.systemAccess.modulesActive}
               </p>
             </div>

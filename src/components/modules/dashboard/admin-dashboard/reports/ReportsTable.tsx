@@ -86,7 +86,7 @@ export default function ReportsTable({
           </div>
           <button
             onClick={clearTargetLock}
-            className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-white/5 border border-white/10 text-[10px] font-black uppercase tracking-widest text-white/50 hover:text-white hover:bg-rose-500 hover:border-rose-500 hover:shadow-[0_0_20px_rgba(225,29,72,0.4)] transition-all active:scale-95"
+            className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-foreground/5 border border-border text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-foreground hover:bg-rose-500 hover:border-rose-500 hover:shadow-[0_0_20px_rgba(225,29,72,0.4)] transition-all active:scale-95"
           >
             Clear Lock <X className="size-3.5" />
           </button>
@@ -99,7 +99,7 @@ export default function ReportsTable({
           "p-6 rounded-[2rem] transition-all duration-700",
           targetId
             ? "bg-rose-500/[0.01] border-rose-500/20 shadow-[inset_0_0_50px_rgba(225,29,72,0.03)] border"
-            : "border-white/5 bg-white/[0.01] border",
+            : "border-border/50 bg-foreground/[0.01] border",
         )}
       >
         <DataTable

@@ -30,7 +30,7 @@ export default async function FollowersPage({
 
         <Tabs defaultValue="followers" className="w-full">
           <div className="flex justify-center mb-12">
-            <TabsList className="bg-white/5 border border-white/10 p-1 rounded-2xl h-14">
+            <TabsList className="bg-foreground/5 border border-border p-1 rounded-2xl h-14">
               <TabsTrigger
                 value="followers"
                 className="rounded-xl px-8 h-full data-[state=active]:bg-primary data-[state=active]:text-white font-black uppercase text-[10px] tracking-widest transition-all"

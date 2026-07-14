@@ -110,7 +110,7 @@ export default function DiscoveryFeed({ data }: { data: IDiscoveryData }) {
                   </AvatarFallback>
                 </Avatar>
                 <div className="text-[10px] font-bold">
-                  <p className="text-white/60 line-clamp-1 group-hover:text-white transition-colors">
+                  <p className="text-muted-foreground line-clamp-1 group-hover:text-white transition-colors">
                     {session.user.name}{" "}
                     <span className="text-muted-foreground font-medium italic">
                       is watching

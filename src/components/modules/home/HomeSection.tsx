@@ -15,7 +15,7 @@ export const HomeSection = ({
 }: HomeSectionProps) => (
   <section className={cn("w-full space-y-8 motion-reveal", className)}>
     <div className="flex flex-col items-start gap-2">
-      <h2 className="font-heading text-3xl font-black tracking-tighter text-white md:text-4xl">
+      <h2 className="font-heading text-3xl font-black tracking-tighter text-foreground md:text-4xl">
         {title.split(" ")[0]}{" "}
         <span className="text-primary">
           {title.split(" ").slice(1).join(" ")}

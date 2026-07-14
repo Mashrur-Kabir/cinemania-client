@@ -35,6 +35,31 @@
 }
 
 :root {
+  --background: oklch(0.99 0.005 264);
+  --foreground: oklch(0.16 0.02 264);
+
+  --surface: oklch(0.97 0.006 264 / 0.85);
+  --surface-strong: oklch(0.93 0.008 264 / 0.92);
+
+  --primary: oklch(0.55 0.24 18);
+  --primary-foreground: oklch(1 0 0);
+
+  --accent: oklch(0.42 0.2 285);
+  --accent-foreground: oklch(1 0 0);
+
+  --glow: oklch(0.55 0.24 18 / 0.25);
+
+  --card: var(--surface);
+  --card-foreground: var(--foreground);
+
+  --border: oklch(0 0 0 / 0.1);
+  --input: oklch(0 0 0 / 0.08);
+  --ring: oklch(0.55 0.24 18);
+
+  --radius: 0.875rem;
+}
+
+.dark {
   --background: oklch(0.08 0.02 264);
   --foreground: oklch(0.98 0.01 264);
 
@@ -55,8 +80,6 @@
   --border: oklch(1 0 0 / 0.1);
   --input: oklch(1 0 0 / 0.14);
   --ring: oklch(0.63 0.25 18);
-
-  --radius: 0.875rem;
 }
 
 @layer base {
@@ -71,7 +94,7 @@
 @layer components {
   /* ── Glass Panel ── */
   .glass-panel {
-    @apply relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.035] backdrop-blur-2xl;
+    @apply relative overflow-hidden rounded-3xl border border-border bg-surface backdrop-blur-2xl;
     box-shadow:
       0 20px 80px rgba(0, 0, 0, 0.35),
       inset 0 1px 0 rgba(255, 255, 255, 0.08);

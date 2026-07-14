@@ -27,7 +27,7 @@ export default async function MyArchivedReviewsPage({
       {/* 🔙 Navigation Back to Active Reviews */}
       <Link
         href="/dashboard/my-reviews"
-        className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-[10px] font-black uppercase tracking-widest text-white/50 hover:text-white hover:bg-white/10 transition-all mb-8 group"
+        className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-foreground/5 border border-border text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-foreground hover:bg-foreground/10 transition-all mb-8 group"
       >
         <ArrowLeft className="size-3 group-hover:-translate-x-1 transition-transform" />
         Back to Active Feed

@@ -17,7 +17,7 @@ const FeatureCard = ({
   const variantClasses = {
     primary: "feature-card--primary text-primary",
     accent: "feature-card--accent text-accent",
-    white: "feature-card--white text-white",
+    white: "feature-card--white text-foreground",
   };
 
   return (
@@ -33,12 +33,12 @@ const FeatureCard = ({
             "absolute inset-0 blur-lg opacity-0 transition-opacity duration-500 group-hover:opacity-100",
             variant === "primary" && "bg-primary/50",
             variant === "accent" && "bg-accent/50",
-            variant === "white" && "bg-white/20",
+            variant === "white" && "bg-surface/30",
           )}
         />
         <Icon className="relative size-10 transition-transform duration-500 ease-out group-hover:-translate-y-1 group-hover:scale-110 will-change-transform" />
       </div>
-      <h3 className="mb-3 text-xl font-bold text-white">{title}</h3>
+      <h3 className="mb-3 text-xl font-bold text-foreground">{title}</h3>
       <p className="text-sm leading-relaxed text-muted-foreground">
         {description}
       </p>

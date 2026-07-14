@@ -93,16 +93,16 @@ export default function ExploreAllMovies({
         </div>
 
         {/* Edge fades */}
-        <div className="pointer-events-none absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-[#030406] to-transparent z-10" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-[#030406] to-transparent z-10" />
+        <div className="pointer-events-none absolute inset-y-0 left-0 w-32 bg-gradient-to-r from-surface/90 to-transparent z-10" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-32 bg-gradient-to-l from-surface/90 to-transparent z-10" />
       </div>
 
       <div className="mt-12 flex justify-center">
         <Link
           href="/media"
-          className="group relative flex items-center gap-3 px-10 py-4 rounded-full bg-white/5 border border-white/10 overflow-hidden transition-[border-color,background-color] duration-500 hover:border-primary/50 hover:bg-primary/5"
+          className="group relative flex items-center gap-3 px-10 py-4 rounded-full bg-foreground/20 border border-border overflow-hidden transition-[border-color,background-color] duration-500 hover:border-primary/50 hover:bg-primary/5"
         >
-          <span className="relative z-10 font-black text-xs tracking-[0.2em] text-white uppercase">
+          <span className="relative z-10 font-black text-xs tracking-[0.2em] text-foreground uppercase">
             Access Full Multiverse
           </span>
           <ChevronRight className="relative z-10 size-4 text-primary transition-transform duration-300 group-hover:translate-x-1" />

@@ -17,7 +17,7 @@ export default async function WatchlistPage({
       {/* 🎭 Header Section */}
       <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 px-6 mb-12">
         <div className="space-y-1">
-          <h1 className="text-4xl font-black text-white tracking-tighter italic uppercase">
+          <h1 className="text-4xl font-black text-foreground tracking-tighter italic uppercase">
             MY <span className="text-primary">WATCHLIST.</span>
           </h1>
           <p className="text-muted-foreground text-sm font-medium">

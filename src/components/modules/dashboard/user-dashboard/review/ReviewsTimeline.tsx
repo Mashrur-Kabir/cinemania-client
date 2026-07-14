@@ -18,7 +18,7 @@ export default async function ReviewsTimeline({
   // 🛡️ Handles the empty state locally
   if (!reviews || reviews.length === 0) {
     return (
-      <div className="text-center py-32 rounded-[2.5rem] border border-dashed border-white/5 bg-white/[0.01] flex flex-col items-center gap-6">
+      <div className="text-center py-32 rounded-[2.5rem] border border-dashed border-border/50 bg-foreground/[0.01] flex flex-col items-center gap-6">
         <div className="space-y-2">
           <p className="text-lg font-bold text-white/20 uppercase tracking-widest">
             No hot takes yet.

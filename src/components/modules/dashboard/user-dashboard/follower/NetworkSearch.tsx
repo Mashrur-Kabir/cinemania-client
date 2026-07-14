@@ -57,10 +57,10 @@ export default function NetworkSearch() {
 
       <div
         className={cn(
-          "relative flex items-center h-14 bg-white/[0.02] border rounded-2xl overflow-hidden transition-all duration-500 transform-gpu", // 🎯 Added transform-gpu
+          "relative flex items-center h-14 bg-foreground/[0.02] border rounded-2xl overflow-hidden transition-all duration-500 transform-gpu", // 🎯 Added transform-gpu
           isFocused
             ? "border-primary/50 shadow-[0_0_20px_rgba(225,29,72,0.15)]"
-            : "border-white/10 hover:border-white/20 hover:bg-white/[0.04]",
+            : "border-border hover:border-foreground/20 hover:bg-foreground/[0.04]",
         )}
       >
         <div className="pl-5 pr-3 text-muted-foreground transition-colors group-focus-within:text-primary">
@@ -82,13 +82,13 @@ export default function NetworkSearch() {
           onBlur={() => setIsFocused(false)}
           placeholder="Search network by name..."
           // 🎯 Removed cursor-pointer
-          className="flex-1 h-full bg-transparent border-none outline-none text-sm text-white placeholder:text-white/20"
+          className="flex-1 h-full bg-transparent border-none outline-none text-sm text-foreground placeholder:text-muted-foreground"
         />
 
         {inputValue && (
           <button
             onClick={() => setInputValue("")}
-            className="p-3 text-muted-foreground hover:text-white transition-colors active:scale-95"
+            className="p-3 text-muted-foreground hover:text-foreground transition-colors active:scale-95"
           >
             <X className="size-4" />
           </button>

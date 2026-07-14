@@ -67,15 +67,15 @@ export default function UserReviewCard({ review }: { review: IReview }) {
       },
       classNames: {
         toast:
-          "bg-[#080808] border border-white/10 text-white rounded-2xl shadow-2xl p-5",
-        title: "text-white font-bold text-sm tracking-tight",
-        description: "text-white/40 text-[11px] font-medium",
+          "bg-surface-strong border border-border text-foreground rounded-2xl shadow-2xl p-5",
+        title: "text-foreground font-bold text-sm tracking-tight",
+        description: "text-muted-foreground text-[11px] font-medium",
         actionButton: cn(
           "bg-rose-600 text-white font-bold text-[11px] px-4 py-2 rounded-lg transition-all duration-300 ease-out",
           "transform-gpu will-change-transform hover:bg-rose-500 hover:shadow-[0_0_15px_rgba(225,29,72,0.3)] hover:-translate-y-0.5 active:scale-95",
         ),
         cancelButton:
-          "text-white/30 hover:text-white font-bold text-[11px] px-4 py-2 transition-colors duration-200",
+          "text-muted-foreground hover:text-foreground font-bold text-[11px] px-4 py-2 transition-colors duration-200",
       },
     });
   };
@@ -93,7 +93,7 @@ export default function UserReviewCard({ review }: { review: IReview }) {
       {/* 🎯 THE FIX: Pure CSS ambient glow instead of state-driven React render */}
       <div className="absolute inset-0 rounded-[2.5rem] bg-primary opacity-0 blur-3xl transition-opacity duration-700 group-hover:opacity-10 pointer-events-none" />
 
-      <div className="relative flex h-full flex-col overflow-hidden rounded-[2.5rem] border border-white/5 bg-[#050505]/40 transition-colors duration-500 hover:bg-[#0a0b0d]/80 hover:border-white/10">
+      <div className="relative flex h-full flex-col overflow-hidden rounded-[2.5rem] border border-border/50 bg-surface transition-colors duration-500 hover:bg-surface-strong hover:border-border">
         <Link
           href={detailHref}
           className="flex flex-col flex-1 p-8 pb-0 gap-5 z-10 outline-none"
@@ -104,7 +104,7 @@ export default function UserReviewCard({ review }: { review: IReview }) {
                 <Clapperboard className="size-3" />
                 <span>CineMania Critic</span>
               </div>
-              <h3 className="text-xl font-black text-white tracking-tight group-hover:text-primary transition-colors duration-300">
+              <h3 className="text-xl font-black text-foreground tracking-tight group-hover:text-primary transition-colors duration-300">
                 {review.media?.title}
               </h3>
               <div className="flex items-center gap-2 text-muted-foreground/40">
@@ -117,9 +117,9 @@ export default function UserReviewCard({ review }: { review: IReview }) {
               </div>
             </div>
 
-            <div className="flex items-center gap-1.5 rounded-xl bg-white/5 px-3 py-2 border border-white/10 shadow-lg group-hover:border-yellow-500/30 transition-colors">
+            <div className="flex items-center gap-1.5 rounded-xl bg-foreground/5 border border-border px-3 py-2 shadow-lg group-hover:border-yellow-500/30 transition-colors">
               <Star className="size-3.5 text-yellow-500 fill-yellow-500" />
-              <span className="text-sm font-black text-white">
+              <span className="text-sm font-black text-foreground">
                 {review.rating.toFixed(1)}
               </span>
             </div>
@@ -131,7 +131,7 @@ export default function UserReviewCard({ review }: { review: IReview }) {
                 <ShieldAlert className="size-3" /> Spoiler Alert
               </div>
             )}
-            <p className="text-sm leading-relaxed text-muted-foreground/70 group-hover:text-white/90 transition-colors duration-500 italic">
+            <p className="text-sm leading-relaxed text-muted-foreground/70 group-hover:text-foreground/90 transition-colors duration-500 italic">
               ❝{review.content}❞
             </p>
           </div>
@@ -145,7 +145,7 @@ export default function UserReviewCard({ review }: { review: IReview }) {
                   key={tag}
                   className={cn(
                     "group/tag relative flex items-center gap-1.5 px-3 py-1 rounded-lg",
-                    "bg-white/[0.02] border border-white/5",
+                    "bg-foreground/[0.02] border border-border/50",
                     "text-[9px] font-black uppercase tracking-[0.1em] text-muted-foreground/50",
                     "transition-all duration-300 ease-out cursor-default",
                     "hover:border-primary/40 hover:bg-primary/5 hover:text-primary hover:shadow-[0_0_20px_rgba(225,29,72,0.15)]",
@@ -164,7 +164,7 @@ export default function UserReviewCard({ review }: { review: IReview }) {
             </div>
           )}
 
-          <div className="flex items-center justify-between border-t border-white/5 pt-6 relative z-10">
+          <div className="flex items-center justify-between border-t border-border/50 pt-6 relative z-10">
             <div className="flex items-center gap-5">
               <button
                 onClick={() => handleLike()}
@@ -178,7 +178,7 @@ export default function UserReviewCard({ review }: { review: IReview }) {
                       : "text-muted-foreground/30 group-hover/icon:text-primary",
                   )}
                 />
-                <span className="text-xs font-bold text-muted-foreground group-hover/icon:text-white">
+                <span className="text-xs font-bold text-muted-foreground group-hover/icon:text-foreground">
                   {review.likeCount}
                 </span>
               </button>
@@ -188,7 +188,7 @@ export default function UserReviewCard({ review }: { review: IReview }) {
                 className="flex items-center gap-2 group/icon cursor-pointer"
               >
                 <MessageSquare className="size-4 text-muted-foreground/30 group-hover:icon:text-primary transition-colors" />
-                <span className="text-xs font-bold text-muted-foreground group-hover/icon:text-white">
+                <span className="text-xs font-bold text-muted-foreground group-hover/icon:text-foreground">
                   {review.commentCount}
                 </span>
               </Link>
@@ -196,13 +196,13 @@ export default function UserReviewCard({ review }: { review: IReview }) {
 
             <div className="relative flex items-center justify-end">
               {/* 🎯 THE FIX: Pure CSS hover menu. No AnimatePresence, no mounting delays! */}
-              <div className="absolute right-full mr-4 flex items-center gap-1.5 opacity-0 translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 ease-out pointer-events-none group-hover:pointer-events-auto">
+              <div className="absolute right-full top-1/2 mr-4 flex items-center gap-1.5 rounded-full border border-border/50 bg-surface p-1.5 shadow-lg opacity-0 -translate-y-1/2 translate-x-4 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-500 ease-out pointer-events-none group-hover:pointer-events-auto z-30">
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
                     setIsEditOpen(true);
                   }}
-                  className="p-2.5 text-muted-foreground hover:text-white hover:bg-white/10 rounded-full transition-all"
+                  className="p-2.5 text-muted-foreground hover:text-foreground hover:bg-foreground/10 rounded-full transition-all"
                 >
                   <Edit3 className="size-4" />
                 </button>
@@ -219,7 +219,7 @@ export default function UserReviewCard({ review }: { review: IReview }) {
 
               <div
                 className={cn(
-                  "px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest border transition-all duration-500 shadow-sm relative bg-black/50 z-20",
+                  "px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest border transition-all duration-500 shadow-sm relative bg-surface z-20",
                   review.status === "APPROVED"
                     ? "bg-emerald-500/10 border-emerald-500/30 text-emerald-500"
                     : "bg-amber-500/10 border-amber-500/30 text-amber-500",

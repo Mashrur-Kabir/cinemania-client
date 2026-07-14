@@ -140,15 +140,15 @@ export default function AddReviewModal() {
         </button>
       </DialogTrigger>
 
-      <DialogContent className="sm:max-w-[650px] bg-[#030406]/95 border-white/5 backdrop-blur-3xl p-0 overflow-hidden rounded-[2.5rem] shadow-2xl focus:outline-none [&>button]:hidden">
-        <DialogClose className="absolute right-8 top-8 z-50 rounded-full p-2 text-white/30 hover:bg-white/10 transition-all border border-transparent hover:border-white/10">
+      <DialogContent className="sm:max-w-[650px] bg-surface-strong border border-border/50 backdrop-blur-3xl p-0 overflow-hidden rounded-[2.5rem] shadow-2xl focus:outline-none [&>button]:hidden">
+        <DialogClose className="absolute right-8 top-8 z-50 rounded-full p-2 text-muted-foreground hover:bg-foreground/10 hover:border-border transition-all border border-transparent">
           <X className="size-5" />
         </DialogClose>
 
         {!selectedMedia ? (
           <div className="p-10 animate-in fade-in duration-500">
             <DialogHeader>
-              <DialogTitle className="text-3xl font-black text-white italic uppercase text-center">
+              <DialogTitle className="text-3xl font-black text-foreground italic uppercase text-center">
                 WRITE A <span className="text-accent">CRITIQUE.</span>
               </DialogTitle>
               <DialogDescription className="sr-only">
@@ -161,7 +161,7 @@ export default function AddReviewModal() {
                 value={text}
                 onChange={(e) => setText(e.target.value)}
                 placeholder="Which title are we reviewing?"
-                className="pl-12 bg-white/5 border-white/10 h-14 rounded-2xl focus:ring-accent/20"
+                className="pl-12 bg-foreground/5 border border-border h-14 rounded-2xl focus:ring-accent/20"
               />
             </div>
             <div className="min-h-[350px] mt-6 space-y-3">
@@ -174,9 +174,9 @@ export default function AddReviewModal() {
                   <button
                     key={media.id}
                     onClick={() => setSelectedMedia(media)}
-                    className="w-full flex items-center gap-4 p-3 rounded-2xl bg-white/[0.02] border border-white/5 hover:bg-accent/10 transition-all text-left group"
+                    className="w-full flex items-center gap-4 p-3 rounded-2xl bg-foreground/[0.02] border border-border/50 hover:bg-accent/10 transition-all text-left group"
                   >
-                    <div className="relative h-14 aspect-[2/3] rounded-lg overflow-hidden border border-white/10">
+                    <div className="relative h-14 aspect-[2/3] rounded-lg overflow-hidden border border-border">
                       <Image
                         src={media.posterUrl || ""}
                         alt=""
@@ -184,7 +184,7 @@ export default function AddReviewModal() {
                         className="object-cover"
                       />
                     </div>
-                    <h4 className="font-bold text-white group-hover:text-accent transition-colors">
+                    <h4 className="font-bold text-foreground group-hover:text-accent transition-colors">
                       {media.title}
                     </h4>
                     <Plus className="ml-auto size-4 opacity-30" />
@@ -195,7 +195,7 @@ export default function AddReviewModal() {
           </div>
         ) : (
           <div className="animate-in zoom-in-95 duration-500 max-h-[90vh] overflow-y-auto custom-scrollbar">
-            <div className="relative h-48 w-full overflow-hidden border-b border-white/5">
+            <div className="relative h-48 w-full overflow-hidden border-b border-border/50">
               <Image
                 src={selectedMedia.posterUrl || ""}
                 alt=""
@@ -205,7 +205,7 @@ export default function AddReviewModal() {
               <div className="absolute inset-0 bg-gradient-to-t from-[#030406] to-transparent" />
               <button
                 onClick={() => setSelectedMedia(null)}
-                className="absolute top-8 left-8 flex items-center gap-2 text-[10px] font-black uppercase text-white/50 hover:text-accent transition-colors z-20"
+                className="absolute top-8 left-8 flex items-center gap-2 text-[10px] font-black uppercase text-muted-foreground hover:text-accent transition-colors z-20"
               >
                 <ChevronLeft className="size-4" /> Change Movie
               </button>
@@ -219,7 +219,7 @@ export default function AddReviewModal() {
                     className="object-cover"
                   />
                 </div>
-                <DialogTitle className="text-3xl font-black text-white uppercase tracking-tighter leading-none pt-4">
+                <DialogTitle className="text-3xl font-black text-foreground uppercase tracking-tighter leading-none pt-4">
                   {selectedMedia.title}
                 </DialogTitle>
               </div>
@@ -244,7 +244,7 @@ export default function AddReviewModal() {
               <form.Field name="content">
                 {(field) => (
                   <div className="space-y-1.5">
-                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40">
+                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground">
                       The Critique
                     </label>
                     <div className="relative group mt-2">
@@ -253,7 +253,7 @@ export default function AddReviewModal() {
                         value={field.state.value}
                         onChange={(e) => field.handleChange(e.target.value)}
                         placeholder="Was it a masterpiece or a disaster?"
-                        className="w-full min-h-[140px] bg-white/[0.03] border border-white/10 rounded-2xl p-5 pl-12 text-sm focus:border-accent/50 outline-none transition-all placeholder:text-white/5"
+                        className="w-full min-h-[140px] bg-foreground/[0.03] border border-border rounded-2xl p-5 pl-12 text-sm focus:border-accent/50 outline-none transition-all placeholder:text-muted-foreground/30"
                       />
                     </div>
                   </div>
@@ -263,7 +263,7 @@ export default function AddReviewModal() {
               <form.Field name="tags">
                 {(field) => (
                   <div className="space-y-1.5">
-                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40">
+                    <label className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground">
                       Context Tags
                     </label>
                     <div className="relative group mt-2">
@@ -273,7 +273,7 @@ export default function AddReviewModal() {
                         onChange={(e) => setTagInput(e.target.value)}
                         onKeyDown={(e) => handleAddTag(e, field)}
                         placeholder="Type and press Enter to add tags..."
-                        className="h-12 bg-white/[0.03] border-white/10 rounded-xl pl-12 focus:ring-accent/20"
+                        className="h-12 bg-foreground/[0.03] border-border rounded-xl pl-12 focus:ring-accent/20"
                       />
                     </div>
                     {(field.state.value || []).length > 0 && (
@@ -300,18 +300,18 @@ export default function AddReviewModal() {
                 )}
               </form.Field>
 
-              <div className="flex items-center justify-between p-5 rounded-2xl bg-white/[0.02] border border-white/5">
+              <div className="flex items-center justify-between p-5 rounded-2xl bg-foreground/[0.02] border border-border/50">
                 <div className="flex items-center gap-3">
                   <ShieldAlert
                     className={cn(
                       "size-5 transition-colors",
                       form.getFieldValue("isSpoiler")
                         ? "text-rose-500"
-                        : "text-white/20",
+                        : "text-muted-foreground/60",
                     )}
                   />
                   <div>
-                    <p className="text-[10px] font-black uppercase text-white">
+                    <p className="text-[10px] font-black uppercase text-foreground">
                       Contains Spoilers?
                     </p>
                     <p className="text-[9px] text-muted-foreground italic">
@@ -326,7 +326,7 @@ export default function AddReviewModal() {
                       onClick={() => field.handleChange(!field.state.value)}
                       className={cn(
                         "w-12 h-6 rounded-full transition-all relative",
-                        field.state.value ? "bg-rose-500" : "bg-white/10",
+                        field.state.value ? "bg-rose-500" : "bg-foreground/10",
                       )}
                     >
                       <div

@@ -49,7 +49,7 @@ export default async function PublicProfilePage({
 
           <Suspense
             fallback={
-              <div className="h-96 w-full bg-white/5 rounded-[2rem] animate-pulse" />
+              <div className="h-96 w-full bg-surface/80/80 rounded-[2rem] animate-pulse" />
             }
           >
             <TrophyCase badges={profile.badges} />
@@ -59,7 +59,7 @@ export default async function PublicProfilePage({
         <div className="space-y-8">
           <Suspense
             fallback={
-              <div className="h-[500px] w-full bg-white/5 rounded-[2rem] animate-pulse" />
+              <div className="h-[500px] w-full bg-surface/80/80 rounded-[2rem] animate-pulse" />
             }
           >
             <GenreInsight genres={profile.genres} />
@@ -75,8 +75,8 @@ export default async function PublicProfilePage({
           // 🎯 THE FIX: Drop in the new Stagger Grid
           <ReviewStaggerGrid reviews={reviews} currentUserId={currentUserId} />
         ) : (
-          <div className="py-24 text-center rounded-[2.5rem] bg-[#050505] border border-dashed border-white/5">
-            <p className="text-xs font-black uppercase tracking-[0.3em] text-white/20">
+          <div className="py-24 text-center rounded-[2.5rem] bg-surface/80 border border-dashed border-border">
+            <p className="text-xs font-black uppercase tracking-[0.3em] text-muted-foreground/80">
               No data transmitted.
             </p>
           </div>

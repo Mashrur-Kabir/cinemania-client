@@ -29,7 +29,7 @@ export default async function UserDashboardPage() {
     <div className="max-w-6xl mx-auto space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
       {/* 🚀 Header Area */}
       <header className="flex flex-col gap-2">
-        <h1 className="text-4xl font-black text-white tracking-tighter">
+        <h1 className="text-4xl font-black text-foreground tracking-tighter">
           YOUR{" "}
           <span className="text-primary underline decoration-primary/20 underline-offset-8">
             CINEMA
@@ -44,7 +44,7 @@ export default async function UserDashboardPage() {
       {/* 📊 High-Performance Stats */}
       <Suspense
         fallback={
-          <div className="h-32 w-full animate-pulse bg-white/5 rounded-3xl" />
+          <div className="h-32 w-full animate-pulse bg-foreground/5 rounded-3xl" />
         }
       >
         {statsData.data && <StatsOverview stats={statsData.data} />}
@@ -54,10 +54,10 @@ export default async function UserDashboardPage() {
         {/* 🎬 Left Column: Social Activity Feed */}
         <section className="lg:col-span-2 space-y-6">
           <div className="flex items-center justify-between">
-            <h2 className="text-sm font-black uppercase tracking-widest text-white/40">
+            <h2 className="text-sm font-black uppercase tracking-widest text-muted-foreground">
               Community Pulse
             </h2>
-            <div className="h-px flex-1 bg-white/5 mx-4" />
+            <div className="h-px flex-1 bg-border/50 mx-4" />
           </div>
           <Suspense fallback={<SectionSkeleton count={3} />}>
             <ActivityFeed activities={feedData.data || []} />
@@ -77,7 +77,7 @@ export default async function UserDashboardPage() {
                   .slice(0, 5)
                   .map(([genre, count]) => (
                     <div key={genre} className="space-y-1.5">
-                      <div className="flex justify-between text-[10px] font-bold uppercase text-white/70">
+                      <div className="flex justify-between text-[10px] font-bold uppercase text-muted-foreground">
                         <span>{genre}</span>
                         <span className="text-primary">{count} Entries</span>
                       </div>
@@ -93,7 +93,7 @@ export default async function UserDashboardPage() {
           </div>
 
           {/* 🎯 FIX: Quick Watchlist Widget using watchlistData */}
-          <div className="glass-panel p-6 border-white/5">
+          <div className="glass-panel p-6 border-border/50">
             <WatchlistPreview items={watchlistData.data || []} />
           </div>
         </aside>

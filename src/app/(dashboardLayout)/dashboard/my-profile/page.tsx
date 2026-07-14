@@ -14,7 +14,7 @@ export default async function ProfilePage() {
     <div className="max-w-6xl mx-auto py-12 px-6 space-y-16 animate-in fade-in duration-1000">
       <Suspense
         fallback={
-          <div className="h-64 w-full bg-white/5 rounded-[3rem] animate-pulse" />
+          <div className="h-64 w-full bg-foreground/5 rounded-[3rem] animate-pulse" />
         }
       >
         {/* 🎯 Pass the data as props */}
@@ -31,7 +31,7 @@ export default async function ProfilePage() {
 
           <Suspense
             fallback={
-              <div className="h-96 w-full bg-white/5 rounded-[2rem] animate-pulse" />
+              <div className="h-96 w-full bg-foreground/5 rounded-[2rem] animate-pulse" />
             }
           >
             <TrophyCase badges={profile.badges} />
@@ -41,7 +41,7 @@ export default async function ProfilePage() {
         <div className="space-y-8">
           <Suspense
             fallback={
-              <div className="h-[500px] w-full bg-white/5 rounded-[2rem] animate-pulse" />
+              <div className="h-[500px] w-full bg-foreground/5 rounded-[2rem] animate-pulse" />
             }
           >
             <GenreInsight genres={profile.genres} />

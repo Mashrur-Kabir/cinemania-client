@@ -15,7 +15,7 @@ export const userColumns: ColumnDef<IUser>[] = [
       const user = row.original;
       return (
         <div className="flex items-center gap-4">
-          <div className="relative size-10 rounded-full overflow-hidden border border-white/10 bg-white/5 shrink-0 group-hover:border-cyan-500/40 group-hover:shadow-[0_0_15px_rgba(6,182,212,0.2)] transition-all duration-300">
+          <div className="relative size-10 rounded-full overflow-hidden border border-border bg-foreground/5 shrink-0 group-hover:border-cyan-500/40 group-hover:shadow-[0_0_15px_rgba(6,182,212,0.2)] transition-all duration-300">
             {user.image ? (
               <Image
                 src={user.image}
@@ -25,14 +25,14 @@ export const userColumns: ColumnDef<IUser>[] = [
                 className="object-cover"
               />
             ) : (
-              <User className="absolute left-1/2 top-1/2 size-5 -translate-x-1/2 -translate-y-1/2 text-white/20" />
+              <User className="absolute left-1/2 top-1/2 size-5 -translate-x-1/2 -translate-y-1/2 text-muted-foreground/60" />
             )}
           </div>
           <div className="flex flex-col min-w-0">
-            <span className="font-bold text-white tracking-tight truncate group-hover:text-cyan-400 transition-colors duration-300">
+            <span className="font-bold text-foreground tracking-tight truncate group-hover:text-cyan-400 transition-colors duration-300">
               {user.name}
             </span>
-            <span className="text-[10px] font-black uppercase tracking-widest text-white/40 truncate">
+            <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground truncate">
               {user.email}
             </span>
           </div>
@@ -94,7 +94,7 @@ export const userColumns: ColumnDef<IUser>[] = [
     accessorKey: "createdAt",
     header: "Registration",
     cell: ({ row }) => (
-      <span className="text-[11px] font-bold text-white/50 uppercase">
+      <span className="text-[11px] font-bold text-muted-foreground uppercase">
         {new Date(row.original.createdAt).toLocaleDateString("en-US", {
           month: "short",
           day: "numeric",

@@ -44,7 +44,7 @@ export default function StatsOverview({ stats }: { stats: IUserStats }) {
           <div className="flex items-center gap-4">
             <div
               className={cn(
-                "p-3 rounded-2xl bg-white/5 border border-white/10 transition-transform duration-500 group-hover:rotate-12",
+                "p-3 rounded-2xl bg-foreground/5 border border-border transition-transform duration-500 group-hover:rotate-12",
                 card.color,
               )}
             >
@@ -54,7 +54,7 @@ export default function StatsOverview({ stats }: { stats: IUserStats }) {
               <p className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/60">
                 {card.label}
               </p>
-              <h3 className="text-2xl font-black text-white tracking-tighter capitalize">
+              <h3 className="text-2xl font-black text-foreground tracking-tighter capitalize">
                 {typeof card.value === "number" ? (
                   <motion.span
                     initial={{ opacity: 0 }}

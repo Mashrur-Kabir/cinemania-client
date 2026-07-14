@@ -65,13 +65,13 @@ const TIERS = [
 
 export default function PricingPage() {
   return (
-    <div className="min-h-screen bg-black pt-40 pb-32">
+    <div className="min-h-screen bg-surface pt-40 pb-32">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <h1 className="text-4xl font-bold tracking-tight text-white sm:text-6xl font-heading">
-            Choose Your <span className="text-[#FF00FF]">Access</span>
+          <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-6xl font-heading">
+            Choose Your <span className="text-primary">Access</span>
           </h1>
-          <p className="mt-6 text-lg leading-8 text-zinc-400">
+          <p className="mt-6 text-lg leading-8 text-muted-foreground">
             Whether you are a casual weekend watcher or a hardcore cinematic
             archivist, we have a tier designed for your viewing habits.
           </p>
@@ -83,47 +83,47 @@ export default function PricingPage() {
               key={tier.id}
               className={`relative flex flex-col p-8 ${
                 tier.popular
-                  ? "bg-[#2D0B3E]/20 border-2 border-[#FF00FF] md:-mt-8 md:mb-8"
-                  : "bg-zinc-900/30 border border-zinc-800"
+                  ? "bg-surface/90 border-2 border-primary/40 md:-mt-8 md:mb-8"
+                  : "bg-surface/80 border border-border"
               }`}
             >
               {tier.popular && (
-                <div className="absolute -top-4 left-0 right-0 mx-auto w-32 rounded-full bg-[#FF00FF] px-3 py-1 text-center text-xs font-bold text-white uppercase tracking-wider drop-shadow-[0_0_8px_rgba(255,0,255,0.6)]">
+                <div className="absolute -top-4 left-0 right-0 mx-auto w-32 rounded-full bg-primary text-primary-foreground px-3 py-1 text-center text-xs font-bold uppercase tracking-wider shadow-sm">
                   Most Popular
                 </div>
               )}
 
               <div className="mb-6">
-                <h3 className="text-xl font-bold text-white mb-2">
+                <h3 className="text-xl font-bold text-foreground mb-2">
                   {tier.name}
                 </h3>
-                <p className="text-sm text-zinc-400 min-h-[40px]">
+                <p className="text-sm text-muted-foreground min-h-[40px]">
                   {tier.description}
                 </p>
               </div>
 
-              <div className="mb-8 flex items-baseline text-white">
+              <div className="mb-8 flex items-baseline text-foreground">
                 <span className="text-4xl font-extrabold tracking-tight">
                   {tier.price}
                 </span>
-                <span className="text-sm font-semibold text-zinc-400 ml-1">
+                <span className="text-sm font-semibold text-muted-foreground ml-1">
                   /month
                 </span>
               </div>
 
-              <ul className="mb-8 flex-1 space-y-4 text-sm text-zinc-300">
+              <ul className="mb-8 flex-1 space-y-4 text-sm text-muted-foreground">
                 {tier.features.map((feature) => (
                   <li key={feature.name} className="flex items-start gap-3">
                     {feature.included ? (
-                      <Check className="h-5 w-5 text-[#FF00FF] shrink-0" />
+                      <Check className="h-5 w-5 text-primary shrink-0" />
                     ) : (
-                      <X className="h-5 w-5 text-zinc-600 shrink-0" />
+                      <X className="h-5 w-5 text-muted-foreground shrink-0" />
                     )}
                     <span
                       className={
                         feature.included
-                          ? "text-zinc-200"
-                          : "text-zinc-600 line-through"
+                          ? "text-foreground"
+                          : "text-muted-foreground line-through"
                       }
                     >
                       {feature.name}
@@ -136,8 +136,8 @@ export default function PricingPage() {
                 href={tier.href}
                 className={`mt-auto block w-full text-center py-3 text-sm font-bold uppercase tracking-widest transition-all ${
                   tier.popular
-                    ? "bg-[#FF00FF] text-white hover:bg-[#d900d9] hover:drop-shadow-[0_0_12px_rgba(255,0,255,0.6)]"
-                    : "bg-transparent border border-[#FF00FF] text-[#FF00FF] hover:bg-[#FF00FF]/10"
+                    ? "bg-primary text-primary-foreground hover:bg-primary/90"
+                    : "bg-transparent border border-primary text-primary hover:bg-primary/10"
                 }`}
               >
                 {tier.buttonText}

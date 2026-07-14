@@ -31,8 +31,8 @@ export default function ReportedQueueView({
 
   if (isLoading) {
     return (
-      <div className="w-full h-64 bg-white/[0.02] border border-white/5 rounded-[2rem] animate-pulse flex items-center justify-center">
-        <p className="text-[10px] font-black uppercase tracking-widest text-white/20">
+      <div className="w-full h-64 bg-foreground/[0.02] border border-border/50 rounded-[2rem] animate-pulse flex items-center justify-center">
+        <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/60">
           Decrypting User Reports...
         </p>
       </div>
@@ -45,7 +45,7 @@ export default function ReportedQueueView({
   return (
     <div className="p-6 border border-rose-500/20 bg-rose-500/[0.02] rounded-3xl shadow-xl">
       {isFetching && !isLoading && (
-        <p className="text-[10px] font-black uppercase tracking-widest text-white/20 mb-4">
+        <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground/60 mb-4">
           Syncing latest reports...
         </p>
       )}

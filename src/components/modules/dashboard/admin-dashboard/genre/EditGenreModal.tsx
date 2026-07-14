@@ -65,29 +65,29 @@ export default function EditGenreModal({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => !isPending && onOpenChange(false)}
-            className="absolute inset-0 bg-black/80 backdrop-blur-xl"
+            className="absolute inset-0 bg-background/80 backdrop-blur-xl"
           />
 
           <motion.div
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            className="relative w-full max-w-md bg-black/95 glass-panel border border-purple-500/20 shadow-[0_0_50px_rgba(168,85,247,0.15)] overflow-hidden flex flex-col"
+            className="relative w-full max-w-md bg-surface-strong glass-panel border border-purple-500/20 shadow-[0_0_50px_rgba(168,85,247,0.15)] overflow-hidden flex flex-col"
           >
-            <div className="p-6 border-b border-white/5 bg-purple-500/[0.02] flex items-center justify-between">
+            <div className="p-6 border-b border-border/50 bg-purple-500/[0.02] flex items-center justify-between">
               <div className="flex items-center gap-3">
                 <div className="p-2 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400">
                   <PencilLine className="size-4" />
                 </div>
                 <div>
-                  <h2 className="text-lg font-black text-white uppercase tracking-tighter">
+                  <h2 className="text-lg font-black text-foreground uppercase tracking-tighter">
                     Modify Tag
                   </h2>
                 </div>
               </div>
               <button
                 onClick={() => onOpenChange(false)}
-                className="p-2 rounded-full hover:bg-white/10 text-white/40 hover:text-white transition-colors"
+                className="p-2 rounded-full hover:bg-foreground/10 text-muted-foreground hover:text-foreground transition-colors"
               >
                 <X className="size-4" />
               </button>
@@ -98,12 +98,12 @@ export default function EditGenreModal({
               className="p-6 space-y-6"
             >
               <div className="space-y-2">
-                <Label className="text-[10px] font-black uppercase tracking-widest text-white/60">
+                <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
                   Taxonomy Name
                 </Label>
                 <Input
                   {...form.register("name")}
-                  className="bg-white/5 border-white/10 text-white focus-visible:ring-purple-500/50 h-12"
+                  className="bg-foreground/5 border-border text-foreground focus-visible:ring-purple-500/50 h-12"
                 />
                 {errors.name && (
                   <p className="text-[10px] font-bold text-rose-500 uppercase">

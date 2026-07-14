@@ -19,7 +19,7 @@ export default async function ExploreMoviesPage({
   return (
     <div className="relative min-h-screen pb-32">
       <header className="container mx-auto pt-32 pb-10 px-6 text-center space-y-4">
-        <h1 className="text-6xl md:text-8xl font-black text-white tracking-tighter italic uppercase animate-in fade-in slide-in-from-top-8 duration-1000">
+        <h1 className="text-6xl md:text-8xl font-black text-foreground tracking-tighter italic uppercase animate-in fade-in slide-in-from-top-8 duration-1000">
           EXPLORE <span className="text-primary">MOVIES.</span>
         </h1>
         <p className="text-muted-foreground max-w-2xl mx-auto font-medium text-lg">
@@ -89,7 +89,7 @@ async function MediaGridContainer({ params }: { params: any }) {
 
       {/* 🎯 REUSABLE PAGINATION INTEGRATION */}
       {meta && meta.totalPages > 1 && (
-        <div className="mt-24 flex justify-center border-t border-white/5 pt-12">
+        <div className="mt-24 flex justify-center border-t border-border pt-12">
           <Pagination meta={meta} />
         </div>
       )}

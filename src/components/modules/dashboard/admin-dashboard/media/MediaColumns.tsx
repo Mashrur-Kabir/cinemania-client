@@ -15,7 +15,7 @@ export const mediaColumns: ColumnDef<TMediaPreview>[] = [
     cell: ({ row }) => {
       const poster = row.original.posterUrl;
       return (
-        <div className="relative h-12 w-8 overflow-hidden rounded border border-white/10 bg-white/5 shrink-0 group-hover:border-primary/40 group-hover:shadow-[0_0_10px_rgba(225,29,72,0.2)] transition-all duration-300">
+        <div className="relative h-12 w-8 overflow-hidden rounded border border-border bg-foreground/5 shrink-0 group-hover:border-primary/40 group-hover:shadow-[0_0_10px_rgba(225,29,72,0.2)] transition-all duration-300">
           {poster ? (
             <Image
               src={poster}
@@ -26,7 +26,7 @@ export const mediaColumns: ColumnDef<TMediaPreview>[] = [
               className="object-cover transition-transform duration-500 will-change-transform transform-gpu group-hover:scale-110"
             />
           ) : (
-            <Video className="absolute left-1/2 top-1/2 size-4 -translate-x-1/2 -translate-y-1/2 text-white/20 group-hover:text-primary/50 transition-colors" />
+            <Video className="absolute left-1/2 top-1/2 size-4 -translate-x-1/2 -translate-y-1/2 text-muted-foreground/60 group-hover:text-primary/50 transition-colors" />
           )}
         </div>
       );
@@ -37,10 +37,10 @@ export const mediaColumns: ColumnDef<TMediaPreview>[] = [
     header: "Title & Year",
     cell: ({ row }) => (
       <div className="flex flex-col gap-1 min-w-[150px]">
-        <span className="font-bold text-white tracking-tight truncate group-hover:text-primary transition-colors duration-300">
+        <span className="font-bold text-foreground tracking-tight truncate group-hover:text-primary transition-colors duration-300">
           {row.original.title}
         </span>
-        <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground group-hover:text-white/50 transition-colors">
+        <span className="text-[10px] font-black uppercase tracking-widest text-muted-foreground group-hover:text-muted-foreground transition-colors">
           {row.original.releaseYear}
         </span>
       </div>
@@ -63,7 +63,7 @@ export const mediaColumns: ColumnDef<TMediaPreview>[] = [
             pricing === "BASIC" &&
               "border-emerald-500/30 text-emerald-400 bg-emerald-500/10 group-hover:bg-emerald-500/20 group-hover:border-emerald-500/50",
             pricing === "FREE" &&
-              "border-white/20 text-white/60 bg-white/5 group-hover:bg-white/10 group-hover:border-white/40",
+              "border-border text-muted-foreground bg-foreground/5 group-hover:bg-foreground/10 group-hover:border-foreground/40",
           )}
         >
           {pricing}
@@ -75,7 +75,7 @@ export const mediaColumns: ColumnDef<TMediaPreview>[] = [
     accessorKey: "platform",
     header: "Platform",
     cell: ({ row }) => (
-      <div className="flex items-center gap-2 text-xs font-medium text-white/70 min-w-[100px] group-hover:text-white transition-colors duration-300">
+      <div className="flex items-center gap-2 text-xs font-medium text-muted-foreground min-w-[100px] group-hover:text-foreground transition-colors duration-300">
         <Tv className="size-3 text-primary shrink-0" />
         <span className="truncate">{row.original.platform}</span>
       </div>
@@ -87,7 +87,7 @@ export const mediaColumns: ColumnDef<TMediaPreview>[] = [
     cell: ({ row }) => (
       <div className="flex items-center gap-1.5">
         <Star className="size-3 text-amber-400 fill-amber-400 shrink-0 group-hover:drop-shadow-[0_0_8px_rgba(251,191,36,0.5)] transition-all duration-300" />
-        <span className="text-xs font-bold text-white group-hover:text-amber-400 transition-colors duration-300">
+        <span className="text-xs font-bold text-foreground group-hover:text-amber-400 transition-colors duration-300">
           {row.original.averageRating > 0
             ? row.original.averageRating.toFixed(1)
             : "N/A"}

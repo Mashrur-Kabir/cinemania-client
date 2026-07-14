@@ -37,7 +37,7 @@ export default function CommentInput({
         toast.success(parentId ? "Reply broadcasted." : "Comment published.", {
           icon: <CheckCircle2 className="size-4 text-emerald-500" />,
           className:
-            "bg-[#030406] border-white/10 text-white rounded-2xl shadow-2xl",
+            "bg-surface/95 border border-border text-foreground rounded-2xl shadow-lg",
         });
         setContent("");
         queryClient.invalidateQueries({ queryKey: ["review", reviewId] });
@@ -46,7 +46,7 @@ export default function CommentInput({
         toast.error(res.message || "Failed to broadcast signal.", {
           icon: <AlertCircle className="size-4 text-rose-500" />,
           className:
-            "bg-[#030406] border-white/10 text-white rounded-2xl shadow-2xl",
+            "bg-surface/95 border border-border text-foreground rounded-2xl shadow-lg",
         });
       }
     },
@@ -61,8 +61,8 @@ export default function CommentInput({
         className={cn(
           // 🎯 THE FIX: Added 'block' to remove the baseline gap at the bottom.
           // Added 'border-none' to prevent default browser borders from creating gaps.
-          "block w-full bg-transparent p-5 pr-14 text-sm text-white placeholder:text-white/10 outline-none resize-none min-h-[80px] transition-all border-none",
-          "rounded-[1.5rem] focus:bg-white/[0.02]",
+          "block w-full bg-transparent p-5 pr-14 text-sm text-foreground placeholder:text-muted-foreground/50 outline-none resize-none min-h-[80px] transition-all border-none",
+          "rounded-[1.5rem] focus:bg-surface/[0.1]",
         )}
       />
       <button
@@ -73,7 +73,7 @@ export default function CommentInput({
           "transform-gpu will-change-transform [backface-visibility:hidden]", // 🎯 THE FIX: Hardware acceleration
           content.trim() && !isPending
             ? "bg-primary text-white shadow-[0_0_20px_rgba(225,29,72,0.4)] hover:scale-110 active:scale-95" // 🎯 Increased hover scale slightly for better feel
-            : "bg-white/5 text-white/10",
+            : "bg-surface/10 text-muted-foreground/60 hover:bg-surface/15",
         )}
       >
         {isPending ? (

@@ -78,7 +78,7 @@ export default function GenreTable() {
 
   return (
     <div className="space-y-6">
-      <div className="p-6 border-white/5 bg-white/[0.01]">
+      <div className="p-6 border-border/50 bg-foreground/[0.01]">
         <DataTable
           data={paginatedGenres} // 🎯 Pass the sliced data!
           columns={genreColumns}

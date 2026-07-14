@@ -31,7 +31,7 @@ export default async function MyReviewsPage({
         <div className="flex flex-col sm:flex-row items-center justify-center md:justify-end gap-4 mb-12 -mt-6">
           <Link
             href="/dashboard/my-reviews/archive"
-            className="flex items-center gap-2 px-6 py-3 rounded-2xl bg-rose-500/10 border border-rose-500/20 text-[10px] font-black uppercase tracking-widest text-rose-500 hover:bg-rose-500 hover:text-white transition-all active:scale-95 group"
+            className="flex items-center gap-2 px-6 py-3 rounded-2xl bg-rose-500/10 border border-rose-500/20 text-[10px] font-black uppercase tracking-widest text-rose-500 hover:bg-rose-500 hover:text-primary-foreground transition-all active:scale-95 group"
           >
             <ArchiveX className="size-4 group-hover:-translate-y-0.5 transition-transform" />
             View Quarantined Records

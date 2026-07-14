@@ -28,7 +28,7 @@ export default function ArchiveNotFoundRedirect() {
   return (
     <div className="flex flex-col items-center justify-center min-h-[50vh] space-y-4 animate-in fade-in duration-500">
       <Loader2 className="size-8 text-rose-500 animate-spin" />
-      <p className="text-[10px] font-black uppercase tracking-widest text-white/40">
+      <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
         Rerouting Connection...
       </p>
     </div>

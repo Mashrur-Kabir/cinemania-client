@@ -18,7 +18,7 @@ export default function ActivityFeed({
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: i * 0.05, type: "spring", stiffness: 100 }}
-          className="flex items-start gap-4 p-4 rounded-2xl border border-white/5 bg-white/[0.02] hover:bg-white/[0.04] transition-colors group"
+          className="flex items-start gap-4 p-4 rounded-2xl border border-border/50 bg-foreground/[0.02] hover:bg-foreground/[0.04] transition-colors group"
         >
           <Avatar className="size-10 border border-primary/20">
             <AvatarImage src={item.user.image || ""} />
@@ -28,8 +28,10 @@ export default function ActivityFeed({
           </Avatar>
 
           <div className="flex-1">
-            <p className="text-sm text-white/90 leading-tight">
-              <span className="font-bold text-white">{item.user.name}</span>{" "}
+            <p className="text-sm text-foreground/90 leading-tight">
+              <span className="font-bold text-foreground">
+                {item.user.name}
+              </span>{" "}
               <span className="text-muted-foreground">
                 {item.summary.replace(item.user.name, "")}
               </span>

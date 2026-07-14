@@ -140,7 +140,7 @@ const MultiSelectFilterControl = ({
           return (
             <label
               key={option.value}
-              className="flex cursor-pointer items-center gap-3 text-sm p-2 rounded-lg hover:bg-white/5 transition-colors group"
+              className="flex cursor-pointer items-center gap-3 text-sm p-2 rounded-lg hover:bg-foreground/5 transition-colors group"
             >
               <Checkbox
                 checked={checked}
@@ -152,9 +152,9 @@ const MultiSelectFilterControl = ({
                   setSelectedValues(nextValues);
                 }}
                 disabled={isLoading}
-                className="data-[state=checked]:bg-primary data-[state=checked]:border-primary border-white/20"
+                className="data-[state=checked]:bg-primary data-[state=checked]:border-primary border-foreground/20"
               />
-              <span className="text-white/80 group-hover:text-primary transition-colors">
+              <span className="text-foreground group-hover:text-primary transition-colors">
                 {option.label}
               </span>
             </label>
@@ -162,12 +162,12 @@ const MultiSelectFilterControl = ({
         })}
       </div>
 
-      <div className="flex items-center justify-between gap-2 pt-2 border-t border-white/10">
+      <div className="flex items-center justify-between gap-2 pt-2 border-t border-border">
         <Button
           type="button"
           size="sm"
           variant="ghost"
-          className="hover:bg-white/5 text-white/60 hover:text-white"
+          className="hover:bg-foreground/5 text-muted-foreground hover:text-foreground"
           onClick={() => setSelectedValues([])}
           disabled={isLoading}
         >
@@ -177,7 +177,7 @@ const MultiSelectFilterControl = ({
         <Button
           type="button"
           size="sm"
-          className="bg-primary hover:bg-primary/80 text-white font-bold"
+          className="bg-primary hover:bg-primary/80 text-primary-foreground font-bold"
           onClick={applyNow}
           disabled={isLoading}
         >
@@ -215,12 +215,12 @@ const SingleSelectFilterControl = ({
       >
         <SelectTrigger
           disabled={isLoading}
-          className="bg-white/5 border-white/10 text-white focus:ring-primary/50"
+          className="bg-foreground/5 border-border text-foreground focus:ring-primary/50"
         >
           <SelectValue placeholder={filter.label} />
         </SelectTrigger>
         {/* 🎯 THE FIX: Glassmorphic Select Dropdown */}
-        <SelectContent className="bg-black/95 backdrop-blur-xl border-white/10 text-white">
+        <SelectContent className="bg-surface-strong backdrop-blur-xl border-border text-foreground">
           <SelectItem
             value="all"
             className="focus:bg-primary/20 focus:text-primary cursor-pointer transition-colors"
@@ -292,18 +292,18 @@ const RangeFilterControl = ({
               }}
               placeholder="0"
               disabled={isLoading}
-              className="bg-white/5 border-white/10 text-white focus-visible:ring-primary/50"
+              className="bg-foreground/5 border-border text-foreground focus-visible:ring-primary/50"
             />
           </div>
         ))}
       </div>
 
-      <div className="flex items-center justify-between gap-2 pt-2 border-t border-white/10">
+      <div className="flex items-center justify-between gap-2 pt-2 border-t border-border">
         <Button
           type="button"
           size="sm"
           variant="ghost"
-          className="hover:bg-white/5 text-white/60 hover:text-white"
+          className="hover:bg-foreground/5 text-muted-foreground hover:text-foreground"
           onClick={clearRange}
           disabled={isLoading}
         >
@@ -313,7 +313,7 @@ const RangeFilterControl = ({
         <Button
           type="button"
           size="sm"
-          className="bg-primary hover:bg-primary/80 text-white font-bold"
+          className="bg-primary hover:bg-primary/80 text-primary-foreground font-bold"
           onClick={applyNow}
           disabled={isLoading}
         >
@@ -406,7 +406,7 @@ const DataTableFilters = ({
 
           // 🎯 THE FIX: Stylized filter buttons
           const triggerClass = cn(
-            "h-9 bg-white/[0.02] border-white/10 hover:bg-white/10 hover:border-white/20 text-white/80 transition-all",
+            "h-9 bg-foreground/[0.02] border-border hover:bg-foreground/10 hover:border-foreground/20 text-foreground transition-all",
             activeCount > 0 &&
               "border-primary/40 text-primary bg-primary/10 hover:bg-primary/20 shadow-[0_0_15px_rgba(225,29,72,0.1)]",
           );
@@ -424,7 +424,7 @@ const DataTableFilters = ({
                   {filter.label}
                   {activeCount > 0 && (
                     <Badge
-                      className="h-5 min-w-5 px-1.5 ml-2 bg-primary text-white border-none"
+                      className="h-5 min-w-5 px-1.5 ml-2 bg-primary text-primary-foreground border-none"
                       variant="secondary"
                     >
                       {activeCount}
@@ -436,9 +436,9 @@ const DataTableFilters = ({
               {/* 🎯 THE FIX: Glassmorphic Popover Content */}
               <PopoverContent
                 align="start"
-                className="w-80 bg-black/95 backdrop-blur-xl border-white/10 shadow-[0_0_40px_rgba(0,0,0,0.8)] text-white p-5 rounded-xl"
+                className="w-80 bg-surface-strong backdrop-blur-xl border-border shadow-[0_0_40px_rgba(0,0,0,0.25)] text-foreground p-5 rounded-xl"
               >
-                <div className="mb-4 flex items-center justify-between border-b border-white/10 pb-3">
+                <div className="mb-4 flex items-center justify-between border-b border-border pb-3">
                   <h3 className="text-xs font-black uppercase tracking-widest text-primary">
                     {filter.label}
                   </h3>
@@ -488,7 +488,7 @@ const DataTableFilters = ({
           </Button>
         )}
 
-        <div className="ml-auto flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground bg-white/5 px-3 py-1.5 rounded-full border border-white/10">
+        <div className="ml-auto flex items-center gap-2 text-[10px] font-black uppercase tracking-widest text-muted-foreground bg-foreground/5 px-3 py-1.5 rounded-full border border-border">
           <Filter className="h-3 w-3 text-primary" />
           <span>{totalActiveFilters} active</span>
         </div>
@@ -507,7 +507,7 @@ const DataTableFilters = ({
                 type="button"
                 onClick={badge.onRemove}
                 disabled={isLoading}
-                className="ml-1 rounded-full p-0.5 hover:bg-primary hover:text-white transition-colors disabled:pointer-events-none"
+                className="ml-1 rounded-full p-0.5 hover:bg-primary hover:text-primary-foreground transition-colors disabled:pointer-events-none"
                 aria-label={`Remove ${badge.label}`}
               >
                 <X className="h-3 w-3" />

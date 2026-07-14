@@ -40,7 +40,7 @@ export default function ReviewDetailView({
   return (
     <div className="max-w-4xl mx-auto space-y-8 pb-24 px-4 sm:px-6 animate-in fade-in slide-in-from-bottom-8 duration-1000 ease-out">
       {/* 🎭 Cinematic Header (Static, no sudden jumps) */}
-      <div className="relative h-[300px] w-full rounded-[3rem] overflow-hidden bg-[#050505] border border-white/5 shadow-2xl">
+      <div className="relative h-[300px] w-full rounded-[3rem] overflow-hidden bg-surface border border-border/50 shadow-2xl">
         {/* Parallax-style backdrop */}
         <div className="absolute inset-0">
           <Image
@@ -49,13 +49,12 @@ export default function ReviewDetailView({
             fill
             className="object-cover opacity-15 blur-[40px] scale-110 saturate-150"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/60 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-surface/90 via-surface/70 to-transparent" />
         </div>
 
-        {/* Content Overlay */}
         <div className="absolute inset-0 p-8 sm:p-12 flex flex-col justify-end">
           <div className="flex items-end gap-6 sm:gap-8">
-            <div className="relative h-32 sm:h-40 aspect-[2/3] rounded-xl overflow-hidden border border-white/10 shadow-[0_0_30px_rgba(255,255,255,0.05)] shrink-0 z-10">
+            <div className="relative h-32 sm:h-40 aspect-[2/3] rounded-xl overflow-hidden border border-border shadow-[0_0_30px_rgba(15,23,42,0.08)] shrink-0 z-10">
               <Image
                 src={review.media?.posterUrl || ""}
                 alt={mediaTitle}
@@ -70,7 +69,7 @@ export default function ReviewDetailView({
                 <Clapperboard className="size-4" />
                 <span>Logged Critique</span>
               </div>
-              <h1 className="text-3xl sm:text-5xl font-black text-white tracking-tighter uppercase leading-none drop-shadow-lg">
+              <h1 className="text-3xl sm:text-5xl font-black text-foreground tracking-tighter uppercase leading-none drop-shadow-lg">
                 {mediaTitle}
               </h1>
 
@@ -89,20 +88,20 @@ export default function ReviewDetailView({
       </div>
 
       {/* 📝 The Critique Block */}
-      <section className="relative px-8 sm:px-12 py-10 rounded-[3rem] bg-[#0c0d10] border border-white/5">
+      <section className="relative px-8 sm:px-12 py-10 rounded-[3rem] bg-surface-strong border border-border/50">
         <Quote className="absolute top-10 left-6 size-12 text-primary/5 -z-0" />
 
         <div className="relative z-10 mb-10">
-          <p className="text-lg sm:text-xl leading-loose text-white/80 italic font-medium">
+          <p className="text-lg sm:text-xl leading-loose text-foreground/80 italic font-medium">
             ❝{review.content}❞
           </p>
         </div>
 
         {/* Action & Author Footer */}
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 pt-8 border-t border-white/5 relative z-10">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6 pt-8 border-t border-border/50 relative z-10">
           {/* Author Tag */}
           <div className="flex items-center gap-4">
-            <div className="relative size-12 rounded-full overflow-hidden border border-white/10 bg-white/5">
+            <div className="relative size-12 rounded-full overflow-hidden border border-border bg-foreground/5">
               {review.user?.image ? (
                 <Image
                   src={review.user.image}
@@ -119,7 +118,7 @@ export default function ReviewDetailView({
               )}
             </div>
             <div>
-              <p className="text-sm font-black text-white uppercase tracking-tight">
+              <p className="text-sm font-black text-foreground uppercase tracking-tight">
                 {userName}
               </p>
               {/* 🎯 THE FIX: Sleek Badge with forced hardware antialiasing */}
@@ -141,7 +140,7 @@ export default function ReviewDetailView({
               // 🎯 THE FIX: Use review.likeCount instead of review.likes.length
               review.likeCount > 0
                 ? "bg-rose-500/10 border-rose-500/30 text-rose-500 hover:bg-rose-500/20"
-                : "bg-white/5 border-white/10 text-white/50 hover:bg-white/10 hover:text-white",
+                : "bg-foreground/5 border-border text-muted-foreground hover:bg-foreground/10 hover:text-foreground",
             )}
           >
             <Heart

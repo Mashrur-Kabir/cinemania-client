@@ -46,7 +46,7 @@ export default function StatCard({
       initial="initial"
       whileHover="hover"
       variants={parentVariants}
-      className="relative p-6 rounded-[2rem] bg-white/[0.02] border border-white/5 cursor-default group overflow-hidden"
+      className="relative p-6 rounded-[2rem] bg-foreground/[0.02] border border-border/50 cursor-default group overflow-hidden"
     >
       {/* 🔮 Background Bloom Effect */}
       <div
@@ -67,11 +67,11 @@ export default function StatCard({
         <Icon className="size-5" />
       </motion.div>
 
-      <p className="relative z-10 text-3xl font-black text-white tracking-tight">
+      <p className="relative z-10 text-3xl font-black text-foreground tracking-tight">
         {value}
       </p>
 
-      <p className="relative z-10 text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 group-hover:text-white/60 transition-colors mt-1">
+      <p className="relative z-10 text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground group-hover:text-foreground transition-colors mt-1">
         {label}
       </p>
     </motion.div>

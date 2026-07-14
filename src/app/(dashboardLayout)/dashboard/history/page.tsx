@@ -18,7 +18,7 @@ export default async function HistoryPage({
     <div className="relative max-w-6xl mx-auto py-12 px-6">
       {/* 🎭 Page Header */}
       <header className="mb-24 text-center space-y-4 animate-in fade-in slide-in-from-top-4 duration-1000">
-        <h1 className="text-5xl md:text-7xl font-black text-white tracking-tighter italic">
+        <h1 className="text-5xl md:text-7xl font-black text-foreground tracking-tighter italic">
           THE <span className="text-primary">DIARY.</span>
         </h1>
         <div className="flex items-center justify-center gap-8">
@@ -26,11 +26,11 @@ export default async function HistoryPage({
             <p className="text-[10px] font-black uppercase text-muted-foreground tracking-widest">
               Total Entries
             </p>
-            <p className="text-2xl font-black text-white">
+            <p className="text-2xl font-black text-foreground">
               {stats?.totalMoviesWatched || 0}
             </p>
           </div>
-          <div className="w-px h-8 bg-white/10" />
+          <div className="w-px h-8 bg-border" />
           <div className="text-center">
             <p className="text-[10px] font-black uppercase text-muted-foreground tracking-widest">
               Fresh This Month

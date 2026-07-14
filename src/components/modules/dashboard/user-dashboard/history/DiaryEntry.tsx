@@ -68,7 +68,7 @@ export default function DiaryEntry({
         onClick: () => toast.dismiss(),
       },
       className:
-        "bg-[#030406] border-white/10 text-white rounded-2xl shadow-2xl",
+        "bg-surface-strong border-border text-foreground rounded-2xl shadow-2xl",
     });
   };
 
@@ -110,12 +110,12 @@ export default function DiaryEntry({
           )}
         >
           <DropdownMenu>
-            <DropdownMenuTrigger className="p-2 rounded-full bg-white/5 border border-white/10 hover:bg-white/10 transition-all outline-none group/btn">
-              <MoreHorizontal className="size-5 text-muted-foreground group-hover/btn:text-white transition-colors" />
+            <DropdownMenuTrigger className="p-2 rounded-full bg-foreground/5 border border-border hover:bg-foreground/10 transition-all outline-none group/btn">
+              <MoreHorizontal className="size-5 text-muted-foreground group-hover/btn:text-foreground transition-colors" />
             </DropdownMenuTrigger>
             <DropdownMenuContent
               align={isEven ? "start" : "end"}
-              className="bg-[#030406]/95 backdrop-blur-xl border-white/10 text-white min-w-[180px] rounded-xl shadow-2xl"
+              className="bg-surface-strong backdrop-blur-xl border-border text-foreground min-w-[180px] rounded-xl shadow-2xl"
             >
               <DropdownMenuItem
                 onClick={() => setIsEditOpen(true)}
@@ -145,7 +145,7 @@ export default function DiaryEntry({
           <div className="absolute inset-4 bg-primary/20 blur-[40px] rounded-full opacity-0 group-hover/poster:opacity-100 transition-opacity duration-1000 -z-10" />
 
           {/* 🎯 THE FIX: Removed hover:-translate-y-2 and updated to transition-all for buttery smoothness */}
-          <div className="relative aspect-[2/3] overflow-hidden rounded-[2rem] shadow-2xl border border-white/10 group-hover/poster:border-primary/30 transition-all duration-700 ease-out hover:shadow-[0_20px_40px_-10px_rgba(225,29,72,0.3)]">
+          <div className="relative aspect-[2/3] overflow-hidden rounded-[2rem] shadow-2xl border border-border group-hover/poster:border-primary/30 transition-all duration-700 ease-out hover:shadow-[0_20px_40px_-10px_rgba(225,29,72,0.3)]">
             <motion.div
               style={{ y }}
               className="absolute inset-0 h-[120%] -top-[10%] w-full"
@@ -184,7 +184,7 @@ export default function DiaryEntry({
             {format(new Date(entry.watchedAt), "MMMM dd, yyyy")}
           </div>
 
-          <h3 className="text-4xl md:text-5xl font-black text-white tracking-tighter uppercase leading-[0.9] drop-shadow-md">
+          <h3 className="text-4xl md:text-5xl font-black text-foreground tracking-tighter uppercase leading-[0.9] drop-shadow-md">
             {entry.media.title}
           </h3>
 
@@ -196,7 +196,7 @@ export default function DiaryEntry({
           >
             <Badge
               variant="outline"
-              className="bg-white/5 border-white/10 text-white/50 px-3 py-1 rounded-lg font-bold backdrop-blur-sm"
+              className="bg-foreground/5 border-border text-muted-foreground px-3 py-1 rounded-lg font-bold backdrop-blur-sm"
             >
               {entry.media.releaseYear}
             </Badge>
@@ -211,7 +211,7 @@ export default function DiaryEntry({
           {entry.notes && (
             <div
               className={cn(
-                "mt-6 p-6 rounded-[1.5rem] bg-white/[0.02] border border-white/5 italic text-sm text-white/60 leading-relaxed relative hover:bg-white/[0.04] transition-colors duration-500",
+                "mt-6 p-6 rounded-[1.5rem] bg-foreground/[0.02] border border-border/50 italic text-sm text-muted-foreground leading-relaxed relative hover:bg-foreground/[0.04] transition-colors duration-500",
                 isEven ? "text-right" : "text-left",
               )}
             >

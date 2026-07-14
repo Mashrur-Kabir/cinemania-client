@@ -65,8 +65,8 @@ export default function AdminKpiGrid({ stats }: { stats: IAdminStats }) {
           }}
           whileHover={{ y: -5 }} // Snappy upward lift
           className={cn(
-            "glass-panel p-6 border border-white/5 relative group overflow-hidden transition-all duration-300",
-            "bg-white/[0.01] hover:bg-white/[0.03]",
+            "glass-panel p-6 border border-border/50 relative group overflow-hidden transition-all duration-300",
+            "bg-foreground/[0.01] hover:bg-foreground/[0.03]",
             kpi.border,
             kpi.shadow,
             "transform-gpu will-change-transform",
@@ -85,10 +85,10 @@ export default function AdminKpiGrid({ stats }: { stats: IAdminStats }) {
           <div className="flex flex-col gap-6 relative z-10">
             <div className="flex items-start justify-between">
               <div className="space-y-1">
-                <p className="text-[10px] font-black uppercase tracking-[0.25em] text-white/30">
+                <p className="text-[10px] font-black uppercase tracking-[0.25em] text-muted-foreground/60">
                   {kpi.label}
                 </p>
-                <h3 className="text-3xl font-black text-white tracking-tighter">
+                <h3 className="text-3xl font-black text-foreground tracking-tighter">
                   {kpi.value}
                 </h3>
               </div>
@@ -106,7 +106,7 @@ export default function AdminKpiGrid({ stats }: { stats: IAdminStats }) {
                 />
                 <div
                   className={cn(
-                    "relative p-3 rounded-xl bg-white/[0.03] border border-white/5 group-hover:border-white/10 transition-colors duration-300",
+                    "relative p-3 rounded-xl bg-foreground/[0.03] border border-border/50 group-hover:border-border transition-colors duration-300",
                   )}
                 >
                   <kpi.icon
@@ -120,7 +120,7 @@ export default function AdminKpiGrid({ stats }: { stats: IAdminStats }) {
             </div>
 
             {/* 📈 3. Bottom Growth Indicator */}
-            <div className="flex items-center justify-between pt-4 border-t border-white/5">
+            <div className="flex items-center justify-between pt-4 border-t border-border/50">
               <div className="flex items-center gap-1.5">
                 <div
                   className={cn(
@@ -128,7 +128,7 @@ export default function AdminKpiGrid({ stats }: { stats: IAdminStats }) {
                     kpi.accent,
                   )}
                 />
-                <span className="text-[10px] font-bold text-white/40 uppercase tracking-widest">
+                <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
                   Live Sync
                 </span>
               </div>

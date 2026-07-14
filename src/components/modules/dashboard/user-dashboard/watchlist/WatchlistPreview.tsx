@@ -23,7 +23,7 @@ export default function WatchlistPreview({
         </h2>
         <Link
           href="/dashboard/watchlist"
-          className="text-[10px] font-bold text-muted-foreground hover:text-white flex items-center transition-colors"
+          className="text-[10px] font-bold text-muted-foreground hover:text-foreground flex items-center transition-colors"
         >
           VIEW ALL <ChevronRight className="ml-1 size-3" />
         </Link>
@@ -34,9 +34,9 @@ export default function WatchlistPreview({
           <Link
             key={item.id}
             href={`/media/${item.media.slug}`}
-            className="flex items-center gap-3 group p-1.5 rounded-xl hover:bg-white/[0.03] transition-colors"
+            className="flex items-center gap-3 group p-1.5 rounded-xl hover:bg-foreground/[0.03] transition-colors"
           >
-            <div className="relative size-12 rounded-lg overflow-hidden border border-white/10">
+            <div className="relative size-12 rounded-lg overflow-hidden border border-border">
               <Image
                 src={item.media.posterUrl || "..."}
                 alt={item.media.title}
@@ -47,7 +47,7 @@ export default function WatchlistPreview({
               />
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-xs font-bold text-white truncate group-hover:text-primary transition-colors">
+              <p className="text-xs font-bold text-foreground truncate group-hover:text-primary transition-colors">
                 {item.media.title}
               </p>
               <p className="text-[10px] text-muted-foreground font-medium">

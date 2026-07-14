@@ -4,6 +4,7 @@ import QueryProviders from "@/providers/queryProvider";
 import { fontSans, fontHeading, fontMono } from "@/lib/fonts";
 import { cn } from "@/lib/utils"; // Uses your existing utility
 import "./globals.css";
+import { ThemeProvider } from "@/components/providers/theme-provider";
 import NextTopLoader from "nextjs-toploader";
 
 export const metadata: Metadata = {
@@ -18,7 +19,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <body
         className={cn(
           "min-h-screen bg-background font-sans antialiased bg-grid-pattern",
@@ -41,10 +42,16 @@ export default function RootLayout({
           zIndex={1600} // Ensures it renders over any fixed headers/modals
         />
 
-        <QueryProviders>
-          {children}
-          <Toaster position="top-right" richColors closeButton />
-        </QueryProviders>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="dark"
+          enableSystem={false}
+        >
+          <QueryProviders>
+            {children}
+            <Toaster position="top-right" richColors closeButton />
+          </QueryProviders>
+        </ThemeProvider>
       </body>
     </html>
   );

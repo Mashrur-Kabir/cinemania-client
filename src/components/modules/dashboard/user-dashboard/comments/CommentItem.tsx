@@ -36,45 +36,43 @@ export default function CommentItem({
         toast.success("Comment deleted", {
           icon: <CheckCircle2 className="size-4 text-emerald-500" />,
           className:
-            "bg-[#030406] border-white/10 text-white rounded-2xl shadow-2xl",
+            "bg-surface/95 border border-border text-foreground rounded-2xl shadow-lg",
         });
         queryClient.invalidateQueries({ queryKey: ["review", reviewId] });
       } else {
         toast.error(res.message || "Failed to terminate signal.", {
           icon: <AlertCircle className="size-4 text-rose-500" />,
           className:
-            "bg-[#030406] border-white/10 text-white rounded-2xl shadow-2xl",
+            "bg-surface/95 border border-border text-foreground rounded-2xl shadow-lg",
         });
       }
     },
   });
 
   return (
-    <div className="group/item relative">
+    <div className="group/item">
       <div className="flex gap-4">
         {/* Visual Connectors */}
         <div className="flex flex-col items-center shrink-0">
-          <Avatar className="size-10 border border-white/10 ring-2 ring-transparent group-hover/item:ring-primary/20 transition-all">
+          <Avatar className="size-10 border border-border/30 ring-2 ring-transparent group-hover/item:ring-primary/20 transition-all">
             <AvatarImage src={comment.user.image || ""} />
-            <AvatarFallback className="bg-white/5 font-black text-xs">
+            <AvatarFallback className="bg-surface/80 font-black text-xs">
               {comment.user.name[0]}
             </AvatarFallback>
           </Avatar>
           {comment.replies?.length > 0 && (
-            <div className="w-px flex-1 bg-white/5 my-3" />
+            <div className="w-px flex-1 bg-border/30 my-3" />
           )}
         </div>
 
         <div className="flex-1 min-w-0 space-y-3">
-          <div className="glass-panel p-5 rounded-[1.5rem] border-white/5 bg-white/[0.02] group-hover/item:bg-white/[0.04] transition-all">
+          <div className="glass-panel p-5 rounded-[1.5rem] border-border/20 bg-surface/[0.08] group-hover/item:bg-surface/[0.12] transition-all">
             <div className="flex items-center justify-between mb-2">
-              <span className="text-[11px] font-black text-white uppercase tracking-wider">
+              <span className="text-[11px] font-black text-foreground uppercase tracking-wider">
                 {comment.user.name}
               </span>
               <div className="flex items-center gap-3">
-                {/* 🎯 THE PRO FIX: 
-                    'suppressHydrationWarning' solves the error from image_bcb90d.jpg 
-                    without needing useEffect or extra state. */}
+                {/* suppressHydrationWarning avoids the relative-time mismatch on hydration */}
                 <span
                   className="text-[9px] font-bold text-muted-foreground/40 uppercase tracking-tighter"
                   suppressHydrationWarning
@@ -97,7 +95,7 @@ export default function CommentItem({
                 </button>
               </div>
             </div>
-            <p className="text-[13px] text-white/70 leading-relaxed font-medium">
+            <p className="text-[13px] text-foreground/85 leading-relaxed font-medium">
               {comment.content}
             </p>
           </div>
@@ -109,7 +107,7 @@ export default function CommentItem({
                 "flex items-center gap-1.5 text-[9px] font-black uppercase tracking-widest transition-colors",
                 isReplying
                   ? "text-primary"
-                  : "text-muted-foreground hover:text-white",
+                  : "text-muted-foreground hover:text-foreground",
               )}
             >
               <Reply className={cn("size-3", isReplying && "fill-current")} />
@@ -127,7 +125,7 @@ export default function CommentItem({
               >
                 <div className="flex gap-3">
                   <div className="pt-4">
-                    <CornerDownRight className="size-4 text-white/10" />
+                    <CornerDownRight className="size-4 text-muted-foreground/40" />
                   </div>
                   <div className="flex-1">
                     <CommentInput
@@ -143,7 +141,7 @@ export default function CommentItem({
           </AnimatePresence>
 
           {comment.replies?.length > 0 && (
-            <div className="pt-6 pl-4 border-l border-white/5 space-y-8">
+            <div className="pt-6 pl-4 border-l border-border/20 space-y-8">
               {comment.replies.map((reply) => (
                 <CommentItem
                   key={reply.id}

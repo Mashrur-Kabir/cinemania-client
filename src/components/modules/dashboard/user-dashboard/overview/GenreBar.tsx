@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 export default function GenreBar({ percent }: { percent: number }) {
   return (
-    <div className="h-1 w-full bg-white/5 rounded-full overflow-hidden">
+    <div className="h-1 w-full bg-foreground/5 rounded-full overflow-hidden">
       <motion.div
         initial={{ width: 0 }}
         whileInView={{ width: `${percent}%` }}

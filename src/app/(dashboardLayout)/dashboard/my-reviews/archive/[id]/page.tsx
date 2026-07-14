@@ -36,7 +36,7 @@ export default async function SingleArchivedReviewPage({
     <div className="max-w-2xl mx-auto py-12 px-6 animate-in fade-in slide-in-from-bottom-4 duration-700">
       <Link
         href="/dashboard/my-reviews/archive"
-        className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-[10px] font-black uppercase tracking-widest text-white/50 hover:text-white hover:bg-white/10 transition-all mb-10 group"
+        className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-foreground/5 border border-border text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:text-foreground hover:bg-foreground/10 transition-all mb-10 group"
       >
         <ArrowLeft className="size-3 group-hover:-translate-x-1 transition-transform" />
         Back to Archive
@@ -47,7 +47,7 @@ export default async function SingleArchivedReviewPage({
           <ShieldAlert className="size-6 text-rose-500" />
         </div>
         <div>
-          <h1 className="text-2xl font-black text-white uppercase tracking-tighter">
+          <h1 className="text-2xl font-black text-foreground uppercase tracking-tighter">
             Quarantined Record
           </h1>
           <p className="text-[10px] font-black text-rose-500/50 uppercase tracking-widest mt-1">

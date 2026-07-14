@@ -42,7 +42,7 @@ const UserDropdown = ({ userInfo }: UserDropdownProps) => {
   // 🎯 Extracting common styles for Menu Items to keep the JSX clean
   const menuItemClasses = cn(
     "flex items-center gap-3 px-3 py-2.5 rounded-xl cursor-pointer transition-all group outline-none",
-    "text-muted-foreground hover:text-white hover:bg-white/5 focus:bg-white/5",
+    "text-muted-foreground hover:text-foreground hover:bg-foreground/5 focus:bg-foreground/10",
   );
 
   return (
@@ -51,7 +51,7 @@ const UserDropdown = ({ userInfo }: UserDropdownProps) => {
         <button
           className={cn(
             "flex items-center gap-3 p-1 pr-3 rounded-full outline-none transition-all duration-300 group",
-            "bg-white/[0.03] border border-white/5 hover:bg-white/10 hover:border-primary/30",
+            "bg-surface/70 border border-border hover:bg-surface hover:border-primary/30",
           )}
         >
           <div
@@ -61,23 +61,23 @@ const UserDropdown = ({ userInfo }: UserDropdownProps) => {
             )}
           >
             {userInfo.name.charAt(0).toUpperCase()}
-            <div className="absolute -bottom-0.5 -right-0.5 size-2.5 bg-emerald-500 border-2 border-[#030406] rounded-full" />
+            <div className="absolute -bottom-0.5 -right-0.5 size-2.5 bg-emerald-500 border-2 border-surface rounded-full" />
           </div>
-          <ChevronDown className="size-3 text-muted-foreground group-hover:text-white transition-colors" />
+          <ChevronDown className="size-3 text-muted-foreground group-hover:text-foreground transition-colors" />
         </button>
       </DropdownMenuTrigger>
 
       <DropdownMenuContent
         align="end"
         className={cn(
-          "w-64 mt-2 p-2 rounded-[1.5rem] border-white/5 shadow-[0_20px_50px_rgba(0,0,0,0.5)]",
-          "bg-[#030406]/80 backdrop-blur-2xl",
+          "w-64 mt-2 p-2 rounded-[1.5rem] border-border shadow-[0_20px_50px_rgba(15,23,42,0.15)]",
+          "bg-surface/95 backdrop-blur-2xl",
           "animate-in fade-in zoom-in-95 duration-200",
         )}
       >
         <DropdownMenuLabel className="px-4 py-3">
           <div className="flex flex-col gap-1">
-            <span className="text-sm font-black text-white truncate">
+            <span className="text-sm font-black text-foreground truncate">
               {userInfo.name}
             </span>
             <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest truncate">
@@ -97,7 +97,7 @@ const UserDropdown = ({ userInfo }: UserDropdownProps) => {
           </div>
         </DropdownMenuLabel>
 
-        <DropdownMenuSeparator className="bg-white/5 mx-2" />
+        <DropdownMenuSeparator className="bg-border mx-2" />
 
         <div className="p-1 space-y-1">
           <DropdownMenuItem asChild>
@@ -115,7 +115,7 @@ const UserDropdown = ({ userInfo }: UserDropdownProps) => {
           </DropdownMenuItem>
         </div>
 
-        <DropdownMenuSeparator className="bg-white/5 mx-2" />
+        <DropdownMenuSeparator className="bg-border mx-2" />
 
         <DropdownMenuItem
           onClick={handleLogout}

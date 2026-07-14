@@ -77,8 +77,8 @@ export default function EditHistoryModal({
 
   return (
     <Dialog open={isOpen} onOpenChange={setIsOpen}>
-      <DialogContent className="sm:max-w-[600px] bg-[#030406]/95 border-white/5 backdrop-blur-3xl p-0 overflow-hidden rounded-[2.5rem] shadow-2xl focus:outline-none [&>button]:hidden">
-        <DialogClose className="absolute right-8 top-8 z-50 rounded-full p-2 text-white/30 hover:bg-white/10 transition-all border border-transparent hover:border-white/10">
+      <DialogContent className="sm:max-w-[600px] bg-surface-strong border-border backdrop-blur-3xl p-0 overflow-hidden rounded-[2.5rem] shadow-2xl focus:outline-none [&>button]:hidden">
+        <DialogClose className="absolute right-8 top-8 z-50 rounded-full p-2 text-muted-foreground hover:bg-foreground/10 transition-all border border-transparent hover:border-border">
           <X className="size-5" />
         </DialogClose>
 
@@ -93,7 +93,7 @@ export default function EditHistoryModal({
               className="object-cover opacity-10 blur-xl scale-125"
               priority
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#030406] via-[#030406]/20 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent" />
 
             {/* 🎯 Grid/Flex Row for Poster Left, Title Right */}
             <div className="absolute inset-0 flex items-center gap-6 px-10 pt-6">
@@ -106,10 +106,10 @@ export default function EditHistoryModal({
                 />
               </div>
               <div className="flex flex-col items-start gap-1 pb-2">
-                <DialogTitle className="text-3xl font-black text-white uppercase tracking-tighter leading-none">
+                <DialogTitle className="text-3xl font-black text-foreground uppercase tracking-tighter leading-none">
                   {entry.media.title}
                 </DialogTitle>
-                <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 mt-1">
+                <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-foreground/10 border border-primary/20 mt-1">
                   <Clapperboard className="size-3 text-primary" />
                   <p className="text-[9px] text-primary font-black uppercase tracking-[0.2em]">
                     Editing Entry
@@ -135,7 +135,7 @@ export default function EditHistoryModal({
                     field={field}
                     label="Watched Date"
                     type="date"
-                    className="flex-1 text-white/70"
+                    className="flex-1 text-muted-foreground"
                     prepend={<Calendar className="size-4 text-primary/60" />}
                   />
                 )}
@@ -144,7 +144,7 @@ export default function EditHistoryModal({
               <form.Field name="isRewatch">
                 {(field) => (
                   <div className="space-y-1.5 flex-1">
-                    <label className="text-sm font-medium text-white/70">
+                    <label className="text-sm font-medium text-muted-foreground">
                       Experience Type
                     </label>
                     <div
@@ -153,7 +153,7 @@ export default function EditHistoryModal({
                         "flex items-center justify-between px-4 mt-1.5 h-8 rounded-md border transition-all duration-300",
                         field.state.value
                           ? "bg-primary/5 border-primary/40 text-primary"
-                          : "bg-white/[0.03] border-white/10 text-muted-foreground hover:border-white/20",
+                          : "bg-foreground/[0.03] border-border text-muted-foreground hover:border-border",
                       )}
                     >
                       <span className="text-[10px] font-black uppercase tracking-widest">
@@ -175,7 +175,7 @@ export default function EditHistoryModal({
             <form.Field name="notes">
               {(field) => (
                 <div className="space-y-1.5">
-                  <label className="text-sm font-medium text-white/70">
+                  <label className="text-sm font-medium text-muted-foreground">
                     Diary Notes
                   </label>
                   <div className="relative group">
@@ -184,7 +184,7 @@ export default function EditHistoryModal({
                       value={field.state.value}
                       onChange={(e) => field.handleChange(e.target.value)}
                       placeholder="What made this watch special?"
-                      className="w-full min-h-[120px] bg-white/[0.03] border border-white/10 rounded-xl p-4 mt-1.5 pl-12 text-sm focus:border-primary/50 outline-none transition-all placeholder:text-muted-foreground/20"
+                      className="w-full min-h-[120px] bg-foreground/[0.03] border border-border rounded-xl p-4 mt-1.5 pl-12 text-sm focus:border-primary/50 outline-none transition-all placeholder:text-muted-foreground/20"
                     />
                   </div>
                   {field.state.meta.errors.length > 0 && (

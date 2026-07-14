@@ -28,11 +28,11 @@ const COLORS = {
 const CustomTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-black/90 backdrop-blur-xl border border-white/10 p-4 rounded-xl shadow-[0_0_30px_rgba(6,182,212,0.15)]">
-        <p className="text-[10px] font-black uppercase tracking-widest text-white/50 mb-2">
+      <div className="bg-surface-strong backdrop-blur-xl border border-border p-4 rounded-xl shadow-[0_0_30px_rgba(6,182,212,0.15)]">
+        <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mb-2">
           {label || payload[0].name}
         </p>
-        <p className="text-sm font-bold text-white flex items-center">
+        <p className="text-sm font-bold text-foreground flex items-center">
           <span
             className="size-2 rounded-full mr-2 shadow-[0_0_8px_currentColor]"
             style={{
@@ -62,7 +62,7 @@ const CustomLegend = ({ payload, onHover, onLeave }: any) => {
           onMouseLeave={onLeave}
           style={{ color: entry.color }}
         >
-          <span className="flex items-center gap-2 text-white/70">
+          <span className="flex items-center gap-2 text-muted-foreground">
             <div
               className="size-2.5 rounded-full shadow-[0_0_10px_currentColor]"
               style={{
@@ -72,7 +72,9 @@ const CustomLegend = ({ payload, onHover, onLeave }: any) => {
             />
             {entry.value}
           </span>
-          <span className="text-white text-sm">{entry.payload?.value}</span>
+          <span className="text-foreground text-sm">
+            {entry.payload?.value}
+          </span>
         </li>
       ))}
     </ul>
@@ -96,7 +98,7 @@ export default function UserAnalyticsDashboard() {
           {[...Array(4)].map((_, i) => (
             <div
               key={i}
-              className="h-28 bg-white/[0.02] border border-white/5 rounded-2xl animate-pulse"
+              className="h-28 bg-foreground/[0.02] border border-border/50 rounded-2xl animate-pulse"
             />
           ))}
         </div>
@@ -182,7 +184,7 @@ export default function UserAnalyticsDashboard() {
             key={i}
             variants={item}
             className={cn(
-              "p-6 rounded-2xl glass-panel bg-white/[0.01] border border-white/5 relative overflow-hidden group transition-all duration-500",
+              "p-6 rounded-2xl glass-panel bg-foreground/[0.01] border border-border/50 relative overflow-hidden group transition-all duration-500",
               stat.shadow,
             )}
           >
@@ -194,10 +196,12 @@ export default function UserAnalyticsDashboard() {
             />
             <div className="flex items-center justify-between relative z-10">
               <div>
-                <p className="text-[10px] font-black uppercase tracking-widest text-white/40 mb-1 group-hover:text-white/70 transition-colors">
+                <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground mb-1 group-hover:text-foreground transition-colors">
                   {stat.label}
                 </p>
-                <h3 className="text-3xl font-black text-white">{stat.value}</h3>
+                <h3 className="text-3xl font-black text-foreground">
+                  {stat.value}
+                </h3>
               </div>
               <div
                 className={cn(
@@ -219,13 +223,13 @@ export default function UserAnalyticsDashboard() {
         {/* Left: Bar Chart (Growth) */}
         <motion.div
           variants={item}
-          className="lg:col-span-2 p-6 rounded-2xl glass-panel bg-white/[0.01] border border-white/5 shadow-lg relative overflow-hidden group"
+          className="lg:col-span-2 p-6 rounded-2xlglass-panel bg-foreground/[0.01] border border-border/50 shadow-lg relative overflow-hidden group"
         >
           {/* Subtle Background Glow on Hover */}
           <div className="absolute inset-0 bg-gradient-to-tr from-cyan-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none" />
 
           <div className="mb-8 relative z-10">
-            <h3 className="text-xs font-black uppercase tracking-widest text-white/60 flex items-center gap-2">
+            <h3 className="text-xs font-black uppercase tracking-widest text-muted-foreground flex items-center gap-2">
               <div className="size-1.5 rounded-full bg-cyan-400 shadow-[0_0_10px_rgba(6,182,212,0.8)] animate-pulse" />
               Registration Vector (6 Months)
             </h3>
@@ -297,10 +301,10 @@ export default function UserAnalyticsDashboard() {
         {/* Right: Donut Charts (Demographics) */}
         <motion.div
           variants={item}
-          className="p-8 rounded-2xl glass-panel bg-white/[0.01] border border-white/5 shadow-lg flex flex-col justify-between"
+          className="p-8 rounded-2xl glass-panel bg-foreground/[0.01] border border-border/50 shadow-lg flex flex-col justify-between"
         >
           <div>
-            <h3 className="text-xs font-black uppercase tracking-widest text-white/60 mb-6 text-center">
+            <h3 className="text-xs font-black uppercase tracking-widest text-muted-foreground mb-6 text-center">
               Population Status
             </h3>
 
@@ -330,21 +334,21 @@ export default function UserAnalyticsDashboard() {
                   key={activePieSector || "total"}
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="text-3xl font-black text-white"
+                  className="text-3xl font-black text-foreground"
                 >
                   {activePieSector
                     ? pieDataWithFill.find((d) => d.name === activePieSector)
                         ?.value
                     : overview.totalUsers}
                 </motion.span>
-                <span className="text-[9px] font-bold uppercase tracking-widest text-white/40">
+                <span className="text-[9px] font-bold uppercase tracking-widest text-muted-foreground">
                   {activePieSector ? activePieSector : "Total"}
                 </span>
               </div>
             </div>
           </div>
 
-          <div className="pt-6 border-t border-white/5 mt-6">
+          <div className="pt-6 border-t border-border/50 mt-6">
             <Legend
               content={(props) => (
                 <CustomLegend

@@ -190,20 +190,20 @@ export default function EditMediaModal({
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={() => onOpenChange(false)}
-            className="absolute inset-0 bg-black/80 backdrop-blur-xl"
+            className="absolute inset-0 bg-background/80 backdrop-blur-xl"
           />
 
           <motion.div
             initial={{ opacity: 0, scale: 0.95, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            className="relative w-full max-w-2xl bg-black/90 glass-panel border border-white/10 shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
+            className="relative w-full max-w-2xl bg-surface-strong glass-panel border border-white/10 shadow-2xl overflow-hidden flex flex-col max-h-[90vh]"
           >
             {/* Header */}
-            <div className="p-6 border-b border-white/10 bg-white/[0.02]">
+            <div className="p-6 border-b border-border/50 bg-white/[0.02]">
               <div className="flex items-center justify-between mb-6">
                 <div>
-                  <h2 className="text-xl font-black text-white uppercase tracking-tighter">
+                  <h2 className="text-xl font-black text-foreground uppercase tracking-tighter">
                     Modify Entry
                   </h2>
                   <p className="text-[10px] font-bold text-blue-400 uppercase tracking-widest">
@@ -212,7 +212,7 @@ export default function EditMediaModal({
                 </div>
                 <button
                   onClick={() => onOpenChange(false)}
-                  className="p-2 rounded-full hover:bg-white/10 text-white/40 hover:text-white transition-colors"
+                  className="p-2 rounded-full hover:bg-foreground/10 text-muted-foreground hover:text-foreground transition-colors"
                 >
                   <X className="size-5" />
                 </button>
@@ -237,7 +237,7 @@ export default function EditMediaModal({
                         "size-8 rounded-full flex items-center justify-center border-2 transition-all duration-500 bg-black",
                         step >= s.id
                           ? "bg-blue-500 border-blue-500 shadow-[0_0_15px_rgba(59,130,246,0.4)] text-white"
-                          : "bg-white/5 border-white/10 text-white/40",
+                          : "bg-foreground/5 border-border text-muted-foreground",
                       )}
                     >
                       <s.icon className="size-3.5" />
@@ -278,12 +278,12 @@ export default function EditMediaModal({
                       className="space-y-5"
                     >
                       <div className="space-y-2">
-                        <Label className="text-[10px] font-black uppercase tracking-widest text-white/60">
+                        <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
                           Title
                         </Label>
                         <Input
                           {...form.register("title")}
-                          className="bg-white/5 border-white/10 text-white focus-visible:ring-blue-500/50"
+                          className="bg-foreground/5 border-border text-foreground focus-visible:ring-blue-500/50"
                         />
                         {errors.title && (
                           <p className="text-[10px] font-bold text-rose-500 uppercase">
@@ -292,13 +292,13 @@ export default function EditMediaModal({
                         )}
                       </div>
                       <div className="space-y-2">
-                        <Label className="text-[10px] font-black uppercase tracking-widest text-white/60">
+                        <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
                           Release Year
                         </Label>
                         <Input
                           type="number"
                           {...form.register("releaseYear")}
-                          className="bg-white/5 border-white/10 text-white focus-visible:ring-blue-500/50"
+                          className="bg-foreground/5 border-border text-foreground focus-visible:ring-blue-500/50"
                         />
                         {errors.releaseYear && (
                           <p className="text-[10px] font-bold text-rose-500 uppercase">
@@ -307,12 +307,12 @@ export default function EditMediaModal({
                         )}
                       </div>
                       <div className="space-y-2">
-                        <Label className="text-[10px] font-black uppercase tracking-widest text-white/60">
+                        <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
                           Description
                         </Label>
                         <Textarea
                           {...form.register("description")}
-                          className="bg-white/5 border-white/10 text-white focus-visible:ring-blue-500/50 min-h-25 resize-none"
+                          className="bg-foreground/5 border-border text-foreground focus-visible:ring-blue-500/50 min-h-25 resize-none"
                         />
                         {errors.description && (
                           <p className="text-[10px] font-bold text-rose-500 uppercase">
@@ -333,16 +333,16 @@ export default function EditMediaModal({
                       className="space-y-5"
                     >
                       <div className="space-y-2">
-                        <Label className="text-[10px] font-black uppercase tracking-widest text-white/60">
+                        <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
                           Director
                         </Label>
                         <Input
                           {...form.register("director")}
-                          className="bg-white/5 border-white/10 text-white focus-visible:ring-blue-500/50"
+                          className="bg-foreground/5 border-border text-foreground focus-visible:ring-blue-500/50"
                         />
                       </div>
                       <div className="space-y-2">
-                        <Label className="text-[10px] font-black uppercase tracking-widest text-white/60">
+                        <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
                           Cast Members
                         </Label>
                         <Input
@@ -350,7 +350,7 @@ export default function EditMediaModal({
                           onChange={(e) => setCastInput(e.target.value)}
                           onKeyDown={handleAddCast}
                           placeholder="Add and press Enter..."
-                          className="bg-white/5 border-white/10 text-white focus-visible:ring-blue-500/50"
+                          className="bg-foreground/5 border-border text-foreground focus-visible:ring-blue-500/50"
                         />
                         <div className="flex flex-wrap gap-2 pt-2">
                           <AnimatePresence>
@@ -368,7 +368,7 @@ export default function EditMediaModal({
                                 <button
                                   type="button"
                                   onClick={() => removeCast(actor)}
-                                  className="text-white/40 hover:text-rose-400 transition-colors"
+                                  className="text-muted-foreground hover:text-rose-400 transition-colors"
                                 >
                                   <X className="size-3" />
                                 </button>
@@ -390,16 +390,16 @@ export default function EditMediaModal({
                       className="space-y-6"
                     >
                       <div className="space-y-2">
-                        <Label className="text-[10px] font-black uppercase tracking-widest text-white/60">
+                        <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
                           Platform / Studio
                         </Label>
                         <Input
                           {...form.register("platform")}
-                          className="bg-white/5 border-white/10 text-white focus-visible:ring-blue-500/50"
+                          className="bg-foreground/5 border-border text-foreground focus-visible:ring-blue-500/50"
                         />
                       </div>
                       <div className="space-y-3">
-                        <Label className="text-[10px] font-black uppercase tracking-widest text-white/60">
+                        <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
                           Access Pricing Tier
                         </Label>
                         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -419,7 +419,7 @@ export default function EditMediaModal({
                                   "p-4 rounded-xl border flex flex-col items-center gap-2 transition-all duration-300",
                                   isSelected
                                     ? "bg-blue-500/10 border-blue-500 text-blue-400 shadow-[0_0_15px_rgba(59,130,246,0.2)]"
-                                    : "bg-white/[0.02] border-white/10 text-white/40 hover:bg-white/5 hover:border-white/20",
+                                    : "foreground/[0.02] border-border text-muted-foreground hover:bg-white/5 hover:border-white/20",
                                 )}
                               >
                                 {isSelected && <Check className="size-4" />}
@@ -432,7 +432,7 @@ export default function EditMediaModal({
                         </div>
                       </div>
                       <div className="space-y-3">
-                        <Label className="text-[10px] font-black uppercase tracking-widest text-white/60">
+                        <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
                           Genres Map
                         </Label>
                         {isLoadingGenres ? (
@@ -454,7 +454,7 @@ export default function EditMediaModal({
                                     "px-3 py-1.5 rounded-full border text-[10px] font-bold uppercase tracking-wider transition-all",
                                     isSelected
                                       ? "bg-blue-500/10 border-blue-500/50 text-blue-400"
-                                      : "bg-white/[0.02] border-white/10 text-white/40 hover:bg-white/10",
+                                      : "foreground/[0.02] border-border text-muted-foreground hover:bg-white/10",
                                   )}
                                 >
                                   {genre.name}
@@ -477,21 +477,21 @@ export default function EditMediaModal({
                       className="space-y-5"
                     >
                       <div className="space-y-2">
-                        <Label className="text-[10px] font-black uppercase tracking-widest text-white/60">
+                        <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
                           Poster URL
                         </Label>
                         <Input
                           {...form.register("posterUrl")}
-                          className="bg-white/5 border-white/10 text-white focus-visible:ring-blue-500/50"
+                          className="bg-foreground/5 border-border text-foreground focus-visible:ring-blue-500/50"
                         />
                       </div>
                       <div className="space-y-2">
-                        <Label className="text-[10px] font-black uppercase tracking-widest text-white/60">
+                        <Label className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
                           Secure Streaming URL
                         </Label>
                         <Input
                           {...form.register("streamingUrl")}
-                          className="bg-white/5 border-white/10 text-white focus-visible:ring-blue-500/50"
+                          className="bg-foreground/5 border-border text-foreground focus-visible:ring-blue-500/50"
                         />
                       </div>
 
@@ -500,10 +500,10 @@ export default function EditMediaModal({
                           <Save className="size-5" />
                         </div>
                         <div>
-                          <h4 className="text-[11px] font-black text-white uppercase tracking-widest">
+                          <h4 className="text-[11px] font-black text-foreground uppercase tracking-widest">
                             Commit Changes
                           </h4>
-                          <p className="text-[10px] text-white/50 leading-relaxed mt-1">
+                          <p className="text-[10px] text-muted-foreground leading-relaxed mt-1">
                             Review your modifications. Only altered data points
                             will be transmitted to the Nexus to preserve
                             bandwidth.
@@ -517,13 +517,13 @@ export default function EditMediaModal({
             </div>
 
             {/* Footer Actions */}
-            <div className="p-6 border-t border-white/10 bg-black/40 flex items-center justify-between">
+            <div className="p-6 border-t border-border/50  bg-surface flex items-center justify-between">
               <Button
                 type="button"
                 variant="ghost"
                 disabled={step === 1 || isPending || isFetchingDetails}
                 onClick={() => setStep((p) => p - 1)}
-                className="text-white/50 hover:text-white hover:bg-white/5"
+                className="text-muted-foreground hover:text-foreground hover:bg-foreground/5"
               >
                 <ChevronLeft className="size-4 mr-1" /> Back
               </Button>
@@ -533,7 +533,7 @@ export default function EditMediaModal({
                   type="button"
                   onClick={handleNext}
                   disabled={isFetchingDetails}
-                  className="bg-white/10 text-white hover:bg-white/20 border border-white/10 disabled:opacity-50"
+                  className="bg-foreground/10 text-foreground hover:bg-foreground/20 border border-white/10 disabled:opacity-50"
                 >
                   Next Sector <ChevronRight className="size-4 ml-1" />
                 </Button>

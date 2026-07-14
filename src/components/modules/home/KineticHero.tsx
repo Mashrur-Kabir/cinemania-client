@@ -115,7 +115,7 @@ export default function KineticHero() {
       </div>
 
       {/* Kinetic Headline */}
-      <h1 className="font-heading font-black leading-[0.88] tracking-tighter text-white mb-8 overflow-hidden">
+      <h1 className="font-heading font-black leading-[0.88] tracking-tighter text-foreground mb-8 overflow-hidden">
         {HEADLINE_WORDS.map((word, i) => {
           const isAccent = i >= ACCENT_START;
           const delay = 120 + i * 110;
@@ -192,7 +192,7 @@ export default function KineticHero() {
           asChild
           variant="outline"
           size="lg"
-          className="neo-button-secondary h-14 px-10 text-base"
+          className="neo-button-secondary h-14 px-10 text-base text-foreground"
         >
           <Link href="/community">Browse Community</Link>
         </Button>
@@ -212,14 +212,14 @@ export default function KineticHero() {
         {STATS.map(({ icon: Icon, value, label }) => (
           <div
             key={label}
-            className="stat-pill flex items-center gap-2.5 px-4 py-2.5 rounded-full border border-white/10 bg-white/[0.04] backdrop-blur-xl"
+            className="stat-pill flex items-center gap-2.5 px-4 py-2.5 rounded-full border border-border/10 bg-surface/80 dark:border-white/10 dark:bg-white/[0.04] backdrop-blur-xl"
             style={{
               transition: "transform 200ms cubic-bezier(0.22,1,0.36,1)",
               willChange: "transform",
             }}
           >
             <Icon className="size-3.5 text-primary" />
-            <span className="text-sm font-black text-white">{value}</span>
+            <span className="text-sm font-black text-foreground">{value}</span>
             <span className="text-xs text-muted-foreground font-medium">
               {label}
             </span>
@@ -235,10 +235,10 @@ export default function KineticHero() {
           transition: "opacity 700ms 1200ms",
         }}
       >
-        <span className="text-[9px] uppercase tracking-[0.3em] text-white/40">
+        <span className="text-[9px] uppercase tracking-[0.3em] text-foreground/40">
           Scroll
         </span>
-        <div className="h-8 w-px bg-gradient-to-b from-white/30 to-transparent animate-pulse" />
+        <div className="h-8 w-px bg-gradient-to-b from-foreground/30 dark:from-white/30 to-transparent animate-pulse" />
       </div>
     </section>
   );

@@ -32,7 +32,7 @@ export default function ArchiveSearch() {
         name="search"
         defaultValue={defaultSearch}
         placeholder="Search quarantined media by title..."
-        className="w-full pl-12 pr-4 py-3 bg-rose-500/[0.02] border border-rose-500/20 rounded-2xl text-[11px] font-black tracking-widest uppercase text-white focus:outline-none focus:border-rose-500/50 transition-colors placeholder:text-rose-500/20"
+        className="w-full pl-12 pr-4 py-3 bg-rose-500/[0.02] border border-rose-500/20 rounded-2xl text-[11px] font-black tracking-widest uppercase text-foreground focus:outline-none focus:border-rose-500/50 transition-colors placeholder:text-rose-500/20"
       />
     </form>
   );

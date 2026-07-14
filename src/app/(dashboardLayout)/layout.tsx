@@ -8,7 +8,7 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="relative flex h-screen overflow-hidden bg-[#030406]">
+    <div className="relative flex h-screen overflow-hidden bg-background">
       {/* 🌌 Persistent Background for Dashboard Consistency */}
       <BackgroundMain />
 
@@ -22,7 +22,7 @@ export default function DashboardLayout({
       {/* 🚀 Main Command Center Area */}
       <main className="relative flex flex-1 flex-col overflow-hidden z-10">
         {/* Dynamic Top Header for Search & Actions */}
-        <header className="h-20 flex items-center px-8 border-b border-white/5 bg-black/20 backdrop-blur-md">
+        <header className="h-20 flex items-center px-8 border-b border-border/50 bg-surface backdrop-blur-md">
           {/* Dashboard Navbar */}
           <DashboardNavbar />
         </header>

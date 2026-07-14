@@ -51,9 +51,10 @@ export default function UserFollowCard({
     <motion.div
       variants={cardVariants}
       className={cn(
-        "group relative flex items-center justify-between p-5 rounded-[2rem] bg-[#050505]",
-        "border border-white/5 transition-all duration-500",
-        "hover:bg-[#0a0a0a] hover:border-primary/30 hover:shadow-[0_0_30px_-10px_rgba(225,29,72,0.2)]",
+        "group relative flex flex-col gap-4 items-start justify-between p-5 rounded-[2rem] bg-surface",
+        "border border-border/50 transition-all duration-500",
+        "hover:bg-surface-strong hover:border-primary/30 hover:shadow-[0_0_30px_-10px_rgba(225,29,72,0.2)]",
+        "md:flex-row md:flex-wrap md:items-center",
       )}
     >
       {/* Ambient Hover Glow */}
@@ -62,9 +63,9 @@ export default function UserFollowCard({
       {/* 🎯 THE FIX: Clickable Link wrapper for Avatar and Name */}
       <Link
         href={`/profile/${user.id}`}
-        className="flex items-center gap-4 relative z-10 flex-1 min-w-0 group/link outline-none"
+        className="flex flex-1 flex-col md:flex-row flex-wrap items-start md:items-center gap-4 relative z-10 min-w-0 group/link outline-none"
       >
-        <div className="relative size-14 rounded-2xl overflow-hidden border border-white/10 group-hover/link:border-primary/50 shadow-lg transition-colors duration-500 shrink-0">
+        <div className="relative size-14 rounded-2xl overflow-hidden border border-border group-hover/link:border-primary/50 shadow-lg transition-colors duration-500 shrink-0">
           <Image
             src={user.image || "/default-avatar.png"}
             alt={user.name}
@@ -74,13 +75,13 @@ export default function UserFollowCard({
           />
           <div className="absolute inset-0 bg-primary/20 mix-blend-overlay opacity-0 group-hover/link:opacity-100 transition-opacity duration-500" />
         </div>
-        <div className="min-w-0 pr-4">
-          <h4 className="font-black text-white uppercase tracking-tight text-sm truncate group-hover/link:text-primary transition-colors duration-300">
+        <div className="min-w-0 pr-4 w-full sm:w-auto">
+          <h4 className="font-black text-foreground uppercase tracking-tight text-sm truncate group-hover/link:text-primary transition-colors duration-300">
             {user.name}
           </h4>
           <Badge
             variant="outline"
-            className="mt-1 text-[8px] font-black uppercase border-white/10 bg-white/[0.02] text-muted-foreground tracking-widest backdrop-blur-sm group-hover/link:bg-primary/10 group-hover/link:text-primary group-hover/link:border-primary/20 transition-colors duration-300"
+            className="mt-1 text-[8px] font-black uppercase border border-border bg-foreground/[0.02] text-muted-foreground tracking-widest backdrop-blur-sm group-hover/link:bg-primary/10 group-hover/link:text-primary group-hover/link:border-primary/20 transition-colors duration-300"
           >
             {user.role}
           </Badge>
@@ -91,10 +92,10 @@ export default function UserFollowCard({
         onClick={() => handleToggle()}
         disabled={isPending}
         className={cn(
-          "relative z-10 flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all duration-300 active:scale-95 shrink-0 transform-gpu",
+          "relative z-10 flex w-full md:w-auto items-center justify-center gap-2 px-5 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all duration-300 active:scale-95 shrink-0 transform-gpu",
           isPending && "opacity-50 cursor-wait scale-95",
           isFollowingMode
-            ? "bg-white/[0.03] text-white/50 border border-white/10 hover:bg-rose-500/10 hover:text-rose-500 hover:border-rose-500/30 hover:shadow-[0_0_15px_rgba(225,29,72,0.2)]"
+            ? "bg-foreground/[0.03] text-muted-foreground border border-border hover:bg-rose-500/10 hover:text-rose-500 hover:border-rose-500/30 hover:shadow-[0_0_15px_rgba(225,29,72,0.2)]"
             : "bg-accent text-black hover:bg-accent/80 hover:shadow-[0_0_15px_rgba(56,189,248,0.4)]",
         )}
       >

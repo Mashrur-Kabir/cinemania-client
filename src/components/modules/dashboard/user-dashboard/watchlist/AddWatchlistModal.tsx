@@ -108,14 +108,14 @@ export default function AddWatchlistModal() {
       </DialogTrigger>
 
       {/* 🎯 FIX 1: '[&>button]:hidden' hides the default Shadcn close button */}
-      <DialogContent className="sm:max-w-[700px] bg-[#030406]/95 border-white/5 backdrop-blur-3xl p-0 overflow-hidden rounded-[2.5rem] shadow-2xl focus:outline-none [&>button]:hidden">
+      <DialogContent className="sm:max-w-[700px] bg-surface-strong border-border/50 backdrop-blur-3xl p-0 overflow-hidden rounded-[2.5rem] shadow-2xl focus:outline-none [&>button]:hidden">
         {/* 🎯 FIX 1.1: Functional Manual Close Button */}
-        <DialogClose className="absolute right-8 top-8 z-50 rounded-full p-2 text-white/30 hover:bg-white/10 hover:text-white transition-all outline-none border border-white/5 hover:border-white/20">
+        <DialogClose className="absolute right-8 top-8 z-50 rounded-full p-2 text-muted-foreground hover:bg-foreground/10 hover:text-foreground transition-all outline-none border border-border/50 hover:border-border">
           <X className="size-5" />
         </DialogClose>
 
-        <DialogHeader className="p-10 pb-6 relative z-10 border-b border-white/5">
-          <DialogTitle className="text-3xl font-black text-white tracking-tighter italic uppercase">
+        <DialogHeader className="p-10 pb-6 relative z-10 border-b border-border/50">
+          <DialogTitle className="text-3xl font-black text-foreground tracking-tighter italic uppercase">
             FIND YOUR <span className="text-primary">NEXT OBSESSION.</span>
           </DialogTitle>
 
@@ -125,7 +125,7 @@ export default function AddWatchlistModal() {
               value={text}
               onChange={(e) => setText(e.target.value)}
               placeholder="Search by title, director, or cast..."
-              className="pl-12 bg-white/5 border-white/10 focus-visible:ring-primary/40 h-14 rounded-2xl text-base font-medium transition-all"
+              className="pl-12 bg-foreground/5 border-border focus-visible:ring-primary/40 h-14 rounded-2xl text-base font-medium transition-all"
             />
           </div>
         </DialogHeader>
@@ -152,9 +152,9 @@ export default function AddWatchlistModal() {
               return (
                 <div
                   key={media.id}
-                  className="group flex items-center gap-6 p-4 rounded-[1.5rem] bg-white/[0.02] border border-white/5 hover:bg-white/[0.04] hover:border-white/10 transition-all duration-300"
+                  className="group flex items-center gap-6 p-4 rounded-[1.5rem] bg-foreground/[0.02] border border-border/50 hover:bg-foreground/[0.04] hover:border-border transition-all duration-300"
                 >
-                  <div className="relative h-20 aspect-[2/3] rounded-xl overflow-hidden border border-white/10 flex-shrink-0">
+                  <div className="relative h-20 aspect-[2/3] rounded-xl overflow-hidden border border-border flex-shrink-0">
                     <Image
                       src={media.posterUrl || ""}
                       alt={media.title}
@@ -166,7 +166,7 @@ export default function AddWatchlistModal() {
 
                   <div className="flex-1 min-w-0 space-y-1.5">
                     <div className="flex items-center gap-2">
-                      <h4 className="text-base font-black text-white truncate group-hover:text-primary transition-colors">
+                      <h4 className="text-base font-black text-foreground truncate group-hover:text-primary transition-colors">
                         {media.title}
                       </h4>
                       <span className="text-[10px] font-bold text-muted-foreground/40">
@@ -174,7 +174,7 @@ export default function AddWatchlistModal() {
                       </span>
                     </div>
                     <div className="flex flex-col gap-0.5 opacity-60">
-                      <div className="flex items-center gap-2 text-[10px] text-white font-bold uppercase tracking-wider">
+                      <div className="flex items-center gap-2 text-[10px] text-foreground font-bold uppercase tracking-wider">
                         <Clapperboard className="size-3 text-primary/80" />
                         <span className="truncate">{media.director}</span>
                       </div>
@@ -200,7 +200,7 @@ export default function AddWatchlistModal() {
                         ? "bg-emerald-500 border-emerald-400 text-white shadow-[0_0_20px_rgba(16,185,129,0.4)]"
                         : added
                           ? "bg-rose-500/10 border-rose-500/20 text-rose-500 hover:bg-rose-500 hover:text-white"
-                          : "bg-white/5 border-white/5 text-muted-foreground hover:bg-primary hover:text-white",
+                          : "bg-foreground/5 border-border/50 text-muted-foreground hover:bg-primary hover:text-primary-foreground",
                     )}
                   >
                     {isCurrentlyActing ? (

@@ -26,14 +26,14 @@ export default async function MediaDetailsPage({
           className="object-cover opacity-20 blur-2xl scale-110"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#030406] via-[#030406]/90 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-surface via-surface/90 to-transparent" />
       </div>
 
       {/* 🎯 THE FIX: 'items-center' ensures vertical symmetry between poster and text */}
       <div className="container relative z-10 mx-auto pt-32 px-6 grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
         {/* Left: Poster */}
         <div className="lg:col-span-4 animate-in fade-in slide-in-from-left-12 duration-1000">
-          <div className="relative aspect-[2/3] rounded-[3rem] overflow-hidden border border-white/10 shadow-[0_0_80px_rgba(0,0,0,0.8)] group">
+          <div className="relative aspect-[2/3] rounded-[3rem] overflow-hidden border border-border shadow-[0_0_80px_rgba(15,23,42,0.08)] group">
             <Image
               src={media.posterUrl || ""}
               alt={media.title}
@@ -57,12 +57,12 @@ export default async function MediaDetailsPage({
                 </Badge>
               ))}
             </div>
-            <h1 className="text-5xl md:text-7xl font-black text-white tracking-tighter uppercase leading-[0.8] italic">
+            <h1 className="text-5xl md:text-7xl font-black text-foreground tracking-tighter uppercase leading-[0.8] italic">
               {media.title}
             </h1>
           </div>
 
-          <div className="flex items-center gap-10 text-white/50 font-black text-[11px] uppercase tracking-[0.2em]">
+          <div className="flex items-center gap-10 text-muted-foreground font-black text-[11px] uppercase tracking-[0.2em]">
             <div className="flex items-center gap-2.5 text-yellow-500">
               <Star className="size-4 fill-current" />{" "}
               <span>{media.averageRating.toFixed(1)} Rating</span>
@@ -83,7 +83,7 @@ export default async function MediaDetailsPage({
             <button
               className={cn(
                 // 🎯 Layout & Standard Dimensions
-                "group relative flex items-center gap-5 px-10 py-4 bg-primary rounded-full font-black uppercase tracking-tighter text-white text-sm overflow-hidden",
+                "group relative flex items-center gap-5 px-10 py-4 bg-primary rounded-full font-black uppercase tracking-tighter text-primary-foreground text-sm overflow-hidden",
                 // 🎯 Performance: GPU Acceleration & Jitter Prevention
                 "transition-all duration-500 ease-out transform-gpu will-change-transform [backface-visibility:hidden] [perspective:1000px]",
                 // 🎯 Hover Effects: Scaling & Dynamic Shadows

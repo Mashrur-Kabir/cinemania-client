@@ -13,7 +13,7 @@ export default function ReviewCard({ review }: { review: IReview }) {
       {/* 🔝 Header: User & Rating */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-3">
-          <Avatar className="size-10 border border-white/10 bg-white/5">
+          <Avatar className="size-10 border border-border bg-foreground/5">
             {/* If your backend eventually provides user.image, it goes here */}
             <AvatarImage src="" alt="User" />
             <AvatarFallback className="text-xs font-bold text-primary bg-transparent">

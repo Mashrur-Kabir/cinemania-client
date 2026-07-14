@@ -114,7 +114,7 @@ const DataTable = <TData,>({
                 <DropdownMenuTrigger asChild>
                   <Button
                     variant={"ghost"}
-                    className="h-8 w-8 p-0 hover:bg-white/10 hover:text-primary transition-colors"
+                    className="h-8 w-8 p-0 hover:bg-foreground/10 hover:text-primary transition-colors"
                   >
                     <span className="sr-only">Open Menu</span>
                     <MoreHorizontal className="h-4 w-4" />
@@ -123,7 +123,7 @@ const DataTable = <TData,>({
 
                 <DropdownMenuContent
                   align="end"
-                  className="bg-black/90 border border-white/10 backdrop-blur-xl shadow-2xl"
+                  className="bg-surface-strong border border-border backdrop-blur-xl shadow-2xl"
                 >
                   {actions.onView && (
                     <DropdownMenuItem
@@ -197,7 +197,7 @@ const DataTable = <TData,>({
     <div className="relative flex flex-col h-full">
       {/* 🔦 Neon Loading Overlay */}
       {showLoadingOverlay && (
-        <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px] z-20 flex items-center justify-center rounded-xl transition-all duration-300">
+        <div className="absolute inset-0 bg-background/60 backdrop-blur-[2px] z-20 flex items-center justify-center rounded-xl transition-all duration-300">
           <div className="flex flex-col items-center gap-3 p-6 glass-panel border-primary/20 shadow-[0_0_30px_rgba(225,29,72,0.15)]">
             <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent drop-shadow-[0_0_10px_rgba(225,29,72,0.8)]" />
             <span className="text-[10px] font-black uppercase tracking-widest text-primary animate-pulse">
@@ -238,13 +238,13 @@ const DataTable = <TData,>({
       {/* 🎯 THE FIX: min-h-[500px] added to prevent the sudden shrinking */}
       <div
         className={cn(
-          "rounded-xl border border-white/10 bg-black/20 overflow-hidden flex flex-col justify-between min-h-[500px] shadow-xl transition-opacity duration-300",
+          "rounded-xl border border-border bg-surface overflow-hidden flex flex-col justify-between min-h-[500px] shadow-xl transition-opacity duration-300",
           showLoadingOverlay && "opacity-50 pointer-events-none select-none", // 🎯 Dims and locks the table during sync
         )}
       >
         <div className="overflow-x-auto chart-scrollbar-x">
           <Table>
-            <TableHeader className="bg-white/[0.02] border-b border-white/10">
+            <TableHeader className="bg-foreground/[0.02] border-b border-border">
               {table.getHeaderGroups().map((hg) => (
                 <TableRow
                   key={hg.id}
@@ -253,12 +253,12 @@ const DataTable = <TData,>({
                   {hg.headers.map((header) => (
                     <TableHead
                       key={header.id}
-                      className="h-12 px-4 align-middle text-[10px] font-black uppercase tracking-widest text-white/40"
+                      className="h-12 px-4 align-middle text-[10px] font-black uppercase tracking-widest text-muted-foreground"
                     >
                       {header.isPlaceholder ? null : header.column.getCanSort() ? (
                         <Button
                           variant={"ghost"}
-                          className="h-auto cursor-pointer p-0 font-black uppercase tracking-widest hover:bg-transparent hover:text-white focus-visible:ring-0 transition-colors"
+                          className="h-auto cursor-pointer p-0 font-black uppercase tracking-widest hover:bg-transparent hover:text-foreground focus-visible:ring-0 transition-colors"
                           onClick={header.column.getToggleSortingHandler()}
                         >
                           {flexRender(
@@ -289,7 +289,7 @@ const DataTable = <TData,>({
                 table.getRowModel().rows.map((row) => (
                   <TableRow
                     key={row.id}
-                    className="border-b border-white/5 hover:bg-white/[0.03] transition-colors duration-200 group"
+                    className="border-b border-border/50 hover:bg-foreground/[0.03] transition-colors duration-200 group"
                   >
                     {row.getVisibleCells().map((cell) => (
                       <TableCell key={cell.id} className="p-4 align-middle">
@@ -321,7 +321,7 @@ const DataTable = <TData,>({
 
         {/* Pagination is anchored to the bottom of the min-h container */}
         {pagination && (
-          <div className="mt-auto border-t border-white/10 bg-black/40">
+          <div className="mt-auto border-t border-border bg-surface">
             <DataTablePagination
               table={table}
               totalPages={meta?.totalPages}

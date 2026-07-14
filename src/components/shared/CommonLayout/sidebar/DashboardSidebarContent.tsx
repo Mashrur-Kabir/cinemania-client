@@ -18,11 +18,13 @@ import CinemaniaLogo from "@/assets/logo/cinemania_logo.png";
 interface SidebarContentProps {
   navItems: NavSection[];
   userInfo: UserInfo;
+  forceExpanded?: boolean;
 }
 
 export default function DashboardSidebarContent({
   navItems,
   userInfo,
+  forceExpanded = false,
 }: SidebarContentProps) {
   const pathname = usePathname();
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -30,27 +32,28 @@ export default function DashboardSidebarContent({
   return (
     <div
       className={cn(
-        "relative flex h-full flex-col bg-[#030406]/60 backdrop-blur-xl border-r border-white/5 transition-all duration-500 ease-in-out",
+        "relative flex h-full flex-col bg-surface backdrop-blur-xl border-r border-white/5 transition-all duration-500 ease-in-out",
         isCollapsed ? "w-[80px]" : "w-[280px]",
       )}
     >
-      {/* 🔄 Collapse Toggle Button */}
-      <Button
-        variant="ghost"
-        size="icon"
-        onClick={() => setIsCollapsed(!isCollapsed)}
-        className="absolute -right-3 top-17 z-50 size-6 rounded-full border border-white/10 bg-[#030406] text-muted-foreground hover:text-primary shadow-xl transition-all hover:scale-110 active:scale-90"
-      >
-        {/* 🎯 FIX: Toggle icons based on state to clear the 'unused' error */}
-        {isCollapsed ? (
-          <PanelLeftOpen className="size-4 animate-in fade-in zoom-in duration-300 text-primary" />
-        ) : (
-          <ChevronLeft className="size-4 transition-transform duration-500" />
-        )}
-      </Button>
+      {/* 🔄 Collapse Toggle Button — hidden in mobile drawer, no reason to collapse a drawer that already has a close button */}
+      {!forceExpanded && (
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => setIsCollapsed(!isCollapsed)}
+          className="absolute -right-3 top-17 z-50 size-6 rounded-full border border-white/10 bg-surface-strong text-muted-foreground hover:text-primary shadow-xl transition-all hover:scale-110 active:scale-90"
+        >
+          {isCollapsed ? (
+            <PanelLeftOpen className="size-4 animate-in fade-in zoom-in duration-300 text-primary" />
+          ) : (
+            <ChevronLeft className="size-4 transition-transform duration-500" />
+          )}
+        </Button>
+      )}
 
       {/* 🎬 Brand Logo Area (UPDATED) */}
-      <div className="flex h-20 items-center border-b border-white/5 overflow-hidden">
+      <div className="flex h-20 items-center border-b border-border/50 overflow-hidden">
         <Link href="/" className="flex items-center gap-3 group w-full px-6">
           {/* 🎯 Logo Icon Container */}
           <div
@@ -74,7 +77,7 @@ export default function DashboardSidebarContent({
           {/* 🎯 Brand Title - Hidden when collapsed */}
           <span
             className={cn(
-              "font-heading font-black tracking-tighter text-xl text-white transition-all duration-500 whitespace-nowrap",
+              "font-heading font-black tracking-tighter text-xl text-foreground transition-all duration-500 whitespace-nowrap",
               isCollapsed ? "opacity-0 w-0 overflow-hidden" : "opacity-100",
             )}
           >
@@ -112,7 +115,7 @@ export default function DashboardSidebarContent({
                           : "gap-3 px-3 py-2.5",
                         isActive
                           ? "bg-primary/10 text-primary shadow-[inset_0_0_20px_rgba(225,29,72,0.1)] border-primary/20" // 🎯 Removed 'border' here as it's now in the base
-                          : "text-muted-foreground hover:bg-white/5 hover:text-white hover:border-white/10", // 🎯 Added a subtle border on hover for polish
+                          : "text-muted-foreground hover:bg-white/5 hover:text-foreground hover:border-white/10", // 🎯 Added a subtle border on hover for polish
                       )}
                     >
                       <Icon
@@ -152,7 +155,7 @@ export default function DashboardSidebarContent({
       {/* 👤 User Card (Adaptive) */}
       <div
         className={cn(
-          "p-4 border-t border-white/5 bg-black/20 transition-all duration-500",
+          "p-4 border-t border-white/5 bg-surface transition-all duration-500",
           isCollapsed ? "px-2" : "p-4",
         )}
       >
@@ -175,7 +178,7 @@ export default function DashboardSidebarContent({
               isCollapsed ? "opacity-0 w-0" : "opacity-100",
             )}
           >
-            <p className="text-sm font-bold text-white truncate">
+            <p className="text-sm font-bold text-foreground truncate">
               {userInfo.name}
             </p>
             <p className="text-[10px] font-black text-primary uppercase tracking-tighter">

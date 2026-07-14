@@ -48,16 +48,16 @@ export default function FollowerList({
 
   if (!followers.length) {
     return (
-      <div className="flex flex-col items-center justify-center py-24 rounded-[2.5rem] border border-dashed border-white/5 bg-white/[0.01]">
-        <div className="p-4 rounded-full bg-white/[0.02] border border-white/5 mb-4 shadow-[0_0_30px_rgba(255,255,255,0.02)]">
+      <div className="flex flex-col items-center justify-center py-24 rounded-[2.5rem] border border-dashed border-border/50 bg-foreground/[0.01]">
+        <div className="p-4 rounded-full bg-foreground/[0.02] border border-border/50 mb-4 shadow-[0_0_30px_rgba(255,255,255,0.02)]">
           {/* 🎯 THE FIX: Dynamic empty state based on if they are searching */}
           {search ? (
             <SearchX className="size-8 text-primary/40" />
           ) : (
-            <Users className="size-8 text-white/20" />
+            <Users className="size-8 text-muted-foreground/60" />
           )}
         </div>
-        <p className="font-black uppercase tracking-[0.2em] text-[10px] text-white/40">
+        <p className="font-black uppercase tracking-[0.2em] text-[10px] text-muted-foreground">
           No Inbound Signals
         </p>
         <p className="text-[10px] text-muted-foreground/50 mt-1">

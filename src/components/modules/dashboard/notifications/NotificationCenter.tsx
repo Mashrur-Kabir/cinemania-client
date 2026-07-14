@@ -49,7 +49,7 @@ const NOTIFICATION_ICONS: Record<
   COMMENT_ADD: { icon: MessageSquarePlus, color: "text-indigo-400" },
   COMMENT_REPLY: { icon: Reply, color: "text-sky-400" },
   SYSTEM_ANNOUNCEMENT: { icon: Megaphone, color: "text-primary" },
-  WATCHED_MEDIA: { icon: PlayCircle, color: "text-white" },
+  WATCHED_MEDIA: { icon: PlayCircle, color: "text-primary" },
 };
 
 // 🎯 Animation Variants for the Container
@@ -134,7 +134,7 @@ export default function NotificationCenter({
                 "size-5 transition-all duration-300",
                 unreadCount > 0
                   ? "text-primary"
-                  : "text-muted-foreground group-hover:text-white",
+                  : "text-muted-foreground group-hover:text-foreground",
               )}
             />
             <AnimatePresence>
@@ -161,7 +161,7 @@ export default function NotificationCenter({
             sideOffset={12}
             asChild
             className={cn(
-              "w-[400px] bg-[#0c0d10]/95 backdrop-blur-3xl border-white/5 p-0 rounded-[2rem] shadow-2xl overflow-hidden ring-1 ring-white/10",
+              "w-[400px] bg-surface-strong/95 backdrop-blur-3xl border-border/50 p-0 rounded-[2rem] shadow-2xl overflow-hidden ring-1 ring-border/10",
               "outline-none transform-gpu", // Removed Tailwind animate-in classes
             )}
           >
@@ -171,9 +171,9 @@ export default function NotificationCenter({
               animate="visible"
               exit="exit"
             >
-              <div className="p-6 border-b border-white/5 flex items-center justify-between bg-white/[0.02]">
+              <div className="p-6 border-b border-border/50 flex items-center justify-between bg-foreground/[0.02]">
                 <div className="space-y-0.5">
-                  <h3 className="text-xs font-black uppercase tracking-[0.2em] text-white">
+                  <h3 className="text-xs font-black uppercase tracking-[0.2em] text-foreground">
                     NOTIFICATIONS
                   </h3>
                   <p className="text-[9px] font-bold text-muted-foreground uppercase">
@@ -183,7 +183,7 @@ export default function NotificationCenter({
                 {unreadCount > 0 && (
                   <button
                     onClick={() => markAllRead()}
-                    className="text-[9px] font-black text-primary hover:text-white transition-colors uppercase tracking-widest flex items-center gap-1.5 active:scale-95"
+                    className="text-[9px] font-black text-primary hover:text-foreground transition-colors uppercase tracking-widest flex items-center gap-1.5 active:scale-95"
                   >
                     <CheckCheck className="size-3" /> Clear All
                   </button>
@@ -192,7 +192,7 @@ export default function NotificationCenter({
 
               <ScrollArea className="h-[450px] custom-scrollbar">
                 {notifications.length > 0 ? (
-                  <div className="divide-y divide-white/5">
+                  <div className="divide-y divide-border/50">
                     {notifications.map((n) => {
                       const config =
                         NOTIFICATION_ICONS[n.type] ||
@@ -209,13 +209,13 @@ export default function NotificationCenter({
                               setIsOpen(false); // Close dropdown on click
                             }}
                             className={cn(
-                              "flex items-start gap-4 p-5 transition-all hover:bg-white/[0.03] relative group outline-none",
+                              "flex items-start gap-4 p-5 transition-all hover:bg-foreground/[0.03] relative group outline-none",
                               !n.isRead && "bg-primary/[0.02]",
                             )}
                           >
                             <div
                               className={cn(
-                                "mt-1 flex-shrink-0 size-8 rounded-xl flex items-center justify-center bg-white/[0.03] border border-white/5 group-hover:border-white/10 transition-all group-hover:scale-110",
+                                "mt-1 flex-shrink-0 size-8 rounded-xl flex items-center justify-center bg-foreground/[0.03] border border-border/50 group-hover:border-border transition-all group-hover:scale-110",
                                 config.color,
                               )}
                             >
@@ -223,7 +223,7 @@ export default function NotificationCenter({
                             </div>
 
                             <div className="flex-1 space-y-1">
-                              <p className="text-[11px] text-white/80 leading-relaxed font-medium group-hover:text-white transition-colors">
+                              <p className="text-[11px] text-foreground/80 leading-relaxed font-medium group-hover:text-foreground transition-colors">
                                 {n.displayMessage}
                               </p>
                               <p className="text-[9px] font-bold text-muted-foreground/50 uppercase tracking-tighter">

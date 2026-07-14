@@ -32,10 +32,14 @@ export default function MobileSidebar({
       </SheetTrigger>
       <SheetContent
         side="left"
-        className="p-0 w-[280px] bg-[#030406] border-r-white/5"
+        className="p-0 !w-[280px] bg-surface border-r-white/5"
       >
         {/* We pass the navItems and userInfo but force isCollapsed to false for mobile */}
-        <DashboardSidebarContent navItems={navItems} userInfo={userInfo} />
+        <DashboardSidebarContent
+          navItems={navItems}
+          userInfo={userInfo}
+          forceExpanded
+        />
       </SheetContent>
     </Sheet>
   );

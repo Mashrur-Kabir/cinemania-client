@@ -28,7 +28,7 @@ export default function RevenueMatrix({ data }: { data: RevenueData[] }) {
   const maxRevenue = Math.max(...synchronizedData.map((d) => d.amount), 100);
 
   return (
-    <div className="glass-panel p-8 space-y-8 border-white/5 bg-white/[0.01] relative overflow-hidden group/matrix">
+    <div className="glass-panel p-8 space-y-8 border-border/50 bg-foreground/[0.01] relative overflow-hidden group/matrix">
       {/* 🌌 Ambient Glow */}
       <div className="absolute -top-24 -right-24 size-64 bg-primary/5 blur-[120px] rounded-full pointer-events-none" />
 
@@ -38,7 +38,7 @@ export default function RevenueMatrix({ data }: { data: RevenueData[] }) {
             <DollarSign className="size-6 text-primary animate-pulse" />
           </div>
           <div className="space-y-1">
-            <h3 className="text-sm font-black text-white uppercase tracking-widest flex items-center gap-2">
+            <h3 className="text-sm font-black text-foreground uppercase tracking-widest flex items-center gap-2">
               Revenue Flux <span className="text-primary/40">/</span>
               <span className="text-primary">
                 ${totalInCycle.toLocaleString()}
@@ -79,7 +79,7 @@ export default function RevenueMatrix({ data }: { data: RevenueData[] }) {
                         { month: "short", day: "numeric" },
                       )}
                 </span>
-                <span className="text-[9px] font-bold text-white bg-black border border-white/10 px-2 py-1 rounded shadow-2xl whitespace-nowrap">
+                <span className="text-[9px] font-bold text-foreground bg-surface-strong border border-border px-2 py-1 rounded shadow-2xl whitespace-nowrap">
                   ${item.amount.toLocaleString()}
                 </span>
               </div>
@@ -99,7 +99,7 @@ export default function RevenueMatrix({ data }: { data: RevenueData[] }) {
                   "transform-gpu will-change-[height]",
                 )}
               >
-                <div className="absolute inset-x-0 top-0 h-0.5 bg-white/20 rounded-full" />
+                <div className="absolute inset-x-0 top-0 h-0.5 bg-foreground/20 rounded-full" />
               </motion.div>
             </div>
           );
@@ -107,17 +107,17 @@ export default function RevenueMatrix({ data }: { data: RevenueData[] }) {
       </div>
 
       {/* 🧾 Bottom Legend */}
-      <div className="flex justify-between pt-4 border-t border-white/5 relative z-10">
+      <div className="flex justify-between pt-4 border-t border-border/50 relative z-10">
         <div className="flex items-center gap-6">
           <div className="flex items-center gap-2">
             <div className="size-1.5 rounded-full bg-primary shadow-[0_0_8px_rgba(225,29,72,0.8)]" />
-            <span className="text-[9px] font-black text-white/40 uppercase tracking-widest">
+            <span className="text-[9px] font-black text-muted-foreground uppercase tracking-widest">
               Active Yield
             </span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="size-1.5 rounded-full bg-white/10" />
-            <span className="text-[9px] font-black text-white/40 uppercase tracking-widest">
+            <div className="size-1.5 rounded-full bg-foreground/20" />
+            <span className="text-[9px] font-black text-muted-foreground uppercase tracking-widest">
               Projection
             </span>
           </div>
@@ -125,7 +125,7 @@ export default function RevenueMatrix({ data }: { data: RevenueData[] }) {
 
         {/* 🎯 THE BEST FIX: Removed state/effect and added suppressHydrationWarning */}
         <p
-          className="text-[9px] font-black text-white/20 uppercase tracking-[0.2em]"
+          className="text-[9px] font-black text-muted-foreground/60 uppercase tracking-[0.2em]"
           suppressHydrationWarning
         >
           Nexus Sync: {new Date().toLocaleTimeString()}

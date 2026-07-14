@@ -30,7 +30,9 @@ export default function StarRating({
               <Star
                 className={cn(
                   "absolute inset-0 size-6 transition-colors",
-                  isFull ? "text-yellow-500 fill-yellow-500" : "text-white/10",
+                  isFull
+                    ? "text-yellow-500 fill-yellow-500"
+                    : "text-muted-foreground/60",
                 )}
               />
 
@@ -67,7 +69,7 @@ export default function StarRating({
 
         {/* 🎯 Score Display */}
         <div className="ml-4 flex flex-col">
-          <span className="text-2xl font-black text-white italic tracking-tighter leading-none">
+          <span className="text-2xl font-black text-foreground italic tracking-tighter leading-none">
             {displayValue.toFixed(1)}
           </span>
           <span className="text-[8px] font-black text-primary uppercase tracking-widest">

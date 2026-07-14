@@ -76,12 +76,12 @@ export default function PlanDetailsClient({ plan }: { plan: string }) {
   const prices = { BASIC: "9.99", PRO: "19.99", PREMIUM: "29.99" };
 
   return (
-    <div className="min-h-screen pt-32 pb-20 px-6 flex items-center justify-center bg-[#030406]">
+    <div className="min-h-screen pt-32 pb-20 px-6 flex items-center justify-center bg-surface">
       <motion.div
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="max-w-5xl w-full glass-panel rounded-[3.5rem] border-white/5 relative overflow-hidden flex flex-col md:flex-row shadow-2xl"
+        className="max-w-5xl w-full glass-panel rounded-[3.5rem] border-border relative overflow-hidden flex flex-col md:flex-row shadow-2xl"
       >
         <div
           className={cn(
@@ -92,19 +92,18 @@ export default function PlanDetailsClient({ plan }: { plan: string }) {
           <PlanIcon className="size-96" />
         </div>
 
-        <div className="flex-1 p-12 md:p-16 space-y-10 relative z-10 border-r border-white/5">
+        <div className="flex-1 p-12 md:p-16 space-y-10 relative z-10 border-r border-border/30">
           <motion.div variants={itemVariants} className="space-y-6">
             <div
               className={cn(
-                "inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border text-[10px] font-black uppercase tracking-[0.2em]",
-                theme.border,
+                "inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-foreground/5 border border-border text-[10px] font-black uppercase tracking-[0.2em]",
                 theme.color,
               )}
             >
               <PlanIcon className="size-3" /> Digital Transmission Pending
             </div>
 
-            <h1 className="text-5xl md:text-7xl font-black text-white tracking-tighter uppercase italic leading-none">
+            <h1 className="text-5xl md:text-7xl font-black text-foreground tracking-tighter uppercase italic leading-none">
               {upperPlan} <span className={theme.color}>UPGRADE.</span>
             </h1>
 
@@ -120,7 +119,7 @@ export default function PlanDetailsClient({ plan }: { plan: string }) {
               onClick={handleAction}
               disabled={isRedirecting}
               className={cn(
-                "group relative flex items-center gap-5 px-12 py-6 rounded-full font-black uppercase text-sm tracking-tighter text-white overflow-hidden transition-all duration-300",
+                "group relative flex items-center gap-5 px-12 py-6 rounded-full font-black uppercase text-sm tracking-tighter text-primary-foreground overflow-hidden transition-all duration-300",
                 "transform-gpu will-change-transform [backface-visibility:hidden]",
                 "hover:scale-105 active:scale-95",
                 theme.bg,
@@ -154,17 +153,17 @@ export default function PlanDetailsClient({ plan }: { plan: string }) {
           </motion.div>
         </div>
 
-        <div className="w-full md:w-[380px] p-12 bg-white/[0.01] flex flex-col justify-between relative z-10">
+        <div className="w-full md:w-[380px] p-12 bg-surface/80 flex flex-col justify-between relative z-10">
           <div className="space-y-10">
             <div className="space-y-1">
-              <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-white/40">
+              <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-muted-foreground/70">
                 Financial Matrix
               </h4>
-              <div className="h-px w-full bg-white/10" />
+              <div className="h-px w-full bg-border/50" />
             </div>
 
             <div className="space-y-6">
-              <div className="flex justify-between items-center border-b border-white/5 pb-4">
+              <div className="flex justify-between items-center border-b border-border/50 pb-4">
                 <span className="text-[10px] font-bold text-muted-foreground uppercase tracking-[0.2em]">
                   Tier Selection
                 </span>
@@ -177,12 +176,12 @@ export default function PlanDetailsClient({ plan }: { plan: string }) {
                   {upperPlan}
                 </span>
               </div>
-              <div className="flex justify-between items-end text-3xl font-black italic text-white">
+              <div className="flex justify-between items-end text-3xl font-black italic text-foreground">
                 <div className="flex flex-col">
                   <span className="not-italic font-bold text-[9px] text-muted-foreground uppercase tracking-[0.3em]">
                     Transmission Fee
                   </span>
-                  <span className="text-sm font-bold text-white/40 not-italic">
+                  <span className="text-sm font-bold text-muted-foreground/70 not-italic">
                     Monthly
                   </span>
                 </div>
@@ -190,8 +189,8 @@ export default function PlanDetailsClient({ plan }: { plan: string }) {
               </div>
             </div>
 
-            <div className="p-6 rounded-[2rem] bg-emerald-500/[0.03] border border-emerald-500/10 space-y-4">
-              <div className="flex items-center gap-3 text-emerald-500">
+            <div className="p-6 rounded-[2rem] bg-primary/5 border border-primary/10 space-y-4">
+              <div className="flex items-center gap-3 text-primary">
                 <ShieldCheck className="size-4" />
                 <span className="text-[10px] font-black uppercase tracking-widest">
                   Gateway Secure
@@ -205,7 +204,7 @@ export default function PlanDetailsClient({ plan }: { plan: string }) {
           </div>
 
           {/* 🎯 FIX 3: Wrapped comment-like text in a string literal to satisfy React/JSX rules */}
-          <p className="text-[8px] text-white/20 uppercase font-black tracking-widest text-center mt-12 md:mt-0 italic">
+          <p className="text-[8px] text-muted-foreground/50 uppercase font-black tracking-widest text-center mt-12 md:mt-0 italic">
             {"// CINEMANIA_PROTOCOL_v6.0"}
           </p>
         </div>

@@ -34,10 +34,10 @@ export default async function DiscoveryPage({
         {data.searchResults ? (
           <div className="space-y-6">
             <div className="flex items-center gap-4">
-              <h2 className="text-sm font-black uppercase tracking-[0.2em] text-white/40">
+              <h2 className="text-sm font-black uppercase tracking-[0.2em] text-muted-foreground">
                 Found {data.searchResults.meta.total} Signals
               </h2>
-              <div className="h-px flex-1 bg-white/5" />
+              <div className="h-px flex-1 bg-border" />
             </div>
             {/* 🚀 Pass through to the stabilized grid */}
             <MediaGrid items={data.searchResults.data} />

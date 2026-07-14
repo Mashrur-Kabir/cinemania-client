@@ -111,14 +111,14 @@ export default function EditReviewModal({
         if (!open) setIsOpen(false);
       }}
     >
-      <DialogContent className="sm:max-w-[650px] bg-[#030406]/95 border-white/5 backdrop-blur-3xl p-0 overflow-hidden rounded-[2.5rem] shadow-2xl focus:outline-none [&>button]:hidden">
-        <DialogClose className="absolute right-8 top-8 z-50 rounded-full p-2 text-white/30 hover:bg-white/10 transition-all border border-white/5">
+      <DialogContent className="sm:max-w-[650px] bg-surface-strong border-border backdrop-blur-3xl p-0 overflow-hidden rounded-[2.5rem] shadow-2xl focus:outline-none [&>button]:hidden">
+        <DialogClose className="absolute right-8 top-8 z-50 rounded-full p-2 text-muted-foreground hover:bg-foreground/10 transition-all border border-border">
           <X className="size-5" />
         </DialogClose>
 
         <div className="max-h-[90vh] overflow-y-auto custom-scrollbar">
           {/* 🎭 Symmetrical Horizontal Header */}
-          <DialogHeader className="relative h-44 w-full p-0 space-y-0 overflow-hidden border-b border-white/5">
+          <DialogHeader className="relative h-44 w-full p-0 space-y-0 overflow-hidden border-b border-border/50">
             <Image
               src={posterSrc}
               alt=""
@@ -126,7 +126,7 @@ export default function EditReviewModal({
               className="object-cover opacity-10 blur-xl scale-125"
               priority
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#030406] to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent" />
 
             <div className="absolute inset-0 flex items-center gap-6 px-10 pt-10">
               <div className="relative h-28 aspect-[2/3] rounded-xl overflow-hidden border border-accent/50 shadow-[0_0_30px_rgba(56,189,248,0.2)] shrink-0">
@@ -138,7 +138,7 @@ export default function EditReviewModal({
                 />
               </div>
               <div className="flex flex-col items-start gap-1">
-                <DialogTitle className="text-3xl font-black text-white uppercase tracking-tighter leading-none">
+                <DialogTitle className="text-3xl font-black text-foreground uppercase tracking-tighter leading-none">
                   {review.media?.title}
                 </DialogTitle>
                 <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-accent/10 border border-accent/20 mt-1">
@@ -171,7 +171,7 @@ export default function EditReviewModal({
             <form.Field name="content">
               {(field) => (
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40">
+                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground">
                     Update Thoughts
                   </label>
                   <div className="relative group mt-2">
@@ -180,7 +180,7 @@ export default function EditReviewModal({
                       value={field.state.value}
                       onChange={(e) => field.handleChange(e.target.value)}
                       placeholder="Did your perspective shift?"
-                      className="w-full min-h-[140px] bg-white/[0.03] border border-white/10 rounded-2xl p-5 pl-12 text-sm focus:border-accent/50 outline-none transition-all"
+                      className="w-full min-h-[140px] bg-foreground/[0.03] border border-border rounded-2xl p-5 pl-12 text-sm focus:border-accent/50 outline-none transition-all"
                     />
                   </div>
                 </div>
@@ -191,7 +191,7 @@ export default function EditReviewModal({
             <form.Field name="tags">
               {(field) => (
                 <div className="space-y-1.5">
-                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-white/40">
+                  <label className="text-[10px] font-black uppercase tracking-[0.2em] text-muted-foreground">
                     Context Tags
                   </label>
                   <div className="relative group mt-2">
@@ -201,7 +201,7 @@ export default function EditReviewModal({
                       onChange={(e) => setTagInput(e.target.value)}
                       onKeyDown={(e) => handleAddTag(e, field)}
                       placeholder="Press Enter to update tags..."
-                      className="h-12 bg-white/[0.03] border-white/10 rounded-xl pl-12 focus:ring-accent/20"
+                      className="h-12 bg-foreground/[0.03] border-border rounded-xl pl-12 focus:ring-accent/20"
                     />
                   </div>
                   {(field.state.value || []).length > 0 && (
@@ -228,18 +228,18 @@ export default function EditReviewModal({
               )}
             </form.Field>
 
-            <div className="flex items-center justify-between p-5 rounded-2xl bg-white/[0.02] border border-white/5">
+            <div className="flex items-center justify-between p-5 rounded-2xl bg-foreground/[0.02] border border-border">
               <div className="flex items-center gap-3">
                 <ShieldAlert
                   className={cn(
                     "size-5 transition-colors",
                     form.getFieldValue("isSpoiler")
                       ? "text-rose-500"
-                      : "text-white/20",
+                      : "text-muted-foreground/60",
                   )}
                 />
                 <div>
-                  <p className="text-[10px] font-black uppercase text-white">
+                  <p className="text-[10px] font-black uppercase text-foreground">
                     Spoiler Warning?
                   </p>
                   <p className="text-[9px] text-muted-foreground italic">

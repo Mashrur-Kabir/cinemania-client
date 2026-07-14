@@ -75,7 +75,7 @@ export default function PublicReviewCard({
 
   return (
     <>
-      <div className="group relative flex flex-col h-full overflow-hidden rounded-[2rem] bg-[#050505] border border-white/5 transition-all duration-500 hover:bg-[#0a0a0a] hover:border-primary/30 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_rgba(225,29,72,0.1)] outline-none transform-gpu will-change-transform">
+      <div className="group relative flex flex-col h-full overflow-hidden rounded-[2rem] bg-surface border border-border/50 hover:bg-surface-strong hover:border-primary/30 transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_20px_40px_rgba(225,29,72,0.1)] outline-none transform-gpu will-change-transform">
         <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-b from-primary/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
 
         <div className="p-6 flex flex-col flex-1 gap-6 relative z-10">
@@ -83,7 +83,7 @@ export default function PublicReviewCard({
             href={`/media/${review.media?.slug}`}
             className="flex gap-5 items-start outline-none group/media"
           >
-            <div className="relative h-24 w-16 rounded-xl overflow-hidden border border-white/10 shrink-0 shadow-lg group-hover/media:shadow-[0_0_20px_rgba(255,255,255,0.05)] transition-all">
+            <div className="relative h-24 w-16 rounded-xl overflow-hidden border border-border shrink-0 shadow-lg group-hover/media:shadow-[0_0_20px_rgba(255,255,255,0.05)] transition-all">
               <Image
                 src={posterSrc}
                 alt={mediaTitle}
@@ -97,14 +97,14 @@ export default function PublicReviewCard({
                 <Clapperboard className="size-3" />
                 <span>Transmission</span>
               </div>
-              <h3 className="text-lg font-black text-white truncate uppercase tracking-tight group-hover/media:text-primary transition-colors">
+              <h3 className="text-lg font-black text-foreground truncate uppercase tracking-tight group-hover/media:text-primary transition-colors">
                 {mediaTitle}
               </h3>
               <div className="flex items-center gap-3 text-[10px] font-bold text-muted-foreground/60 uppercase tracking-widest">
                 <span>
                   {formatDistanceToNow(new Date(review.createdAt))} ago
                 </span>
-                <span className="size-1 rounded-full bg-white/10" />
+                <span className="size-1 rounded-full bg-border" />
                 <span className="flex items-center gap-1 text-yellow-500">
                   <Star className="size-3 fill-current" />
                   {review.rating.toFixed(1)}
@@ -118,12 +118,12 @@ export default function PublicReviewCard({
             className="relative flex-1 outline-none group/text"
           >
             <Quote className="absolute -left-2 -top-2 size-6 text-white/5 transition-transform group-hover/text:-translate-y-1 duration-500" />
-            <p className="text-[14px] leading-relaxed text-white/70 italic font-medium line-clamp-3 group-hover/text:text-white/90 transition-colors pl-1">
+            <p className="text-[14px] leading-relaxed text-muted-foreground group-hover/text:text-foreground italic font-medium line-clamp-3 transition-colors pl-1">
               ❝{review.content}❞
             </p>
           </Link>
 
-          <div className="flex items-center justify-between pt-5 border-t border-white/5">
+          <div className="flex items-center justify-between pt-5 border-t border-border/50">
             <div className="flex items-center gap-5">
               <button
                 onClick={(e) => {
@@ -155,7 +155,7 @@ export default function PublicReviewCard({
               {/* 🎯 THE LOGIC & STYLING FIX: High visibility pill that shows 'disabled' if it's your own review */}
               {currentUserId === review.userId ? (
                 <div
-                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 border border-white/5 text-white/20 cursor-not-allowed"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-foreground/5 border border-border/50 text-muted-foreground/60 cursor-not-allowed"
                   title="Cannot report own transmission"
                 >
                   <Flag className="size-3.5 opacity-50" />
@@ -182,7 +182,7 @@ export default function PublicReviewCard({
 
               <Link
                 href={`/reviews/${review.id}`}
-                className="text-[9px] font-black uppercase tracking-[0.2em] text-white/20 group-hover:text-primary transition-colors outline-none"
+                className="text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground/60 group-hover:text-primary transition-colors outline-none"
               >
                 Read Log
               </Link>
@@ -202,7 +202,7 @@ export default function PublicReviewCard({
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   onClick={() => !isReportPending && setIsReportOpen(false)}
-                  className="absolute inset-0 bg-black/90 backdrop-blur-xl"
+                  className="absolute inset-0 bg-surface-strong backdrop-blur-xl"
                 />
 
                 <motion.div
@@ -217,7 +217,7 @@ export default function PublicReviewCard({
                       <div className="mx-auto size-12 rounded-full bg-rose-500/10 border border-rose-500/20 flex items-center justify-center mb-4 shadow-[inset_0_0_20px_rgba(225,29,72,0.2)]">
                         <AlertTriangle className="size-5 text-rose-500" />
                       </div>
-                      <h2 className="text-xl font-black text-white uppercase tracking-tighter">
+                      <h2 className="text-xl font-black text-foreground uppercase tracking-tighter">
                         Report Transmission
                       </h2>
                       <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
@@ -232,7 +232,7 @@ export default function PublicReviewCard({
                         value={reportReason}
                         onChange={(e) => setReportReason(e.target.value)}
                         placeholder="Spam, hate speech, severe spoilers without warning..."
-                        className="w-full min-h-[100px] bg-black/50 border border-rose-500/20 rounded-xl p-4 text-sm text-white focus:border-rose-500/50 outline-none transition-all placeholder:text-rose-500/30 resize-none"
+                        className="w-full min-h-[100px] bg-background/50 border border-rose-500/20 rounded-xl p-4 text-sm text-foreground focus:border-rose-500/50 outline-none transition-all placeholder:text-rose-500/30 resize-none"
                         autoFocus
                         disabled={isReportPending}
                       />
@@ -241,7 +241,7 @@ export default function PublicReviewCard({
                       <button
                         onClick={() => setIsReportOpen(false)}
                         disabled={isReportPending}
-                        className="flex-1 py-3 rounded-xl bg-white/5 border border-white/10 text-white/50 text-[10px] font-black uppercase tracking-widest hover:bg-white/10 hover:text-white transition-all disabled:opacity-50"
+                        className="flex-1 py-3 rounded-xl bg-foreground/5 border border-border text-muted-foreground text-[10px] font-black uppercase tracking-widest hover:bg-white/10 hover:text-white transition-all disabled:opacity-50"
                       >
                         Cancel
                       </button>
@@ -259,7 +259,7 @@ export default function PublicReviewCard({
                   </div>
                   <button
                     onClick={() => !isReportPending && setIsReportOpen(false)}
-                    className="absolute top-4 right-4 text-white/40 hover:text-white transition"
+                    className="absolute top-4 right-4 text-muted-foreground hover:text-foreground transition"
                     disabled={isReportPending}
                   >
                     <X className="size-4" />

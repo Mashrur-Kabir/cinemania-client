@@ -9,6 +9,8 @@ import { cn } from "@/lib/utils";
 import { NavItem } from "@/lib/navItems";
 import { UserInfo } from "@/types/user.types";
 import UserDropdown from "./UserDropdown";
+import MobileCommonNav from "./MobileCommonNav";
+import ThemeToggle from "@/components/shared/theme/ThemeToggle";
 
 // 2. Import your logo asset
 import CinemaniaLogo from "@/assets/logo/cinemania_logo.png";
@@ -36,7 +38,7 @@ const CommonNavbarContent = ({
       className={cn(
         "fixed top-0 w-full z-50 transition-all duration-500 border-b",
         isScrolled
-          ? "bg-[#030406]/80 backdrop-blur-xl border-white/5 py-2 shadow-[0_4px_30px_rgba(0,0,0,0.5)]"
+          ? "bg-surface/90 backdrop-blur-xl border-border py-2 shadow-[0_4px_20px_rgba(15,23,42,0.08)]"
           : "bg-transparent border-transparent py-5",
       )}
     >
@@ -60,7 +62,7 @@ const CommonNavbarContent = ({
             />
           </div>
 
-          <span className="text-xl font-black tracking-tighter text-white">
+          <span className="text-xl font-black tracking-tighter text-foreground">
             CINE<span className="text-primary">MANIA</span>
           </span>
         </Link>
@@ -76,8 +78,8 @@ const CommonNavbarContent = ({
                 className={cn(
                   "text-sm font-bold transition-all relative py-1",
                   isActive
-                    ? "text-white"
-                    : "text-muted-foreground hover:text-white",
+                    ? "text-foreground"
+                    : "text-muted-foreground hover:text-foreground",
                 )}
               >
                 {item.title}
@@ -91,13 +93,14 @@ const CommonNavbarContent = ({
 
         {/* Auth Actions */}
         <div className="flex items-center gap-4">
+          <ThemeToggle />
           {userInfo ? (
             <UserDropdown userInfo={userInfo} />
           ) : (
             <>
               <Link
                 href="/login"
-                className="text-sm font-bold text-muted-foreground hover:text-white transition-colors hidden sm:block"
+                className="text-sm font-bold text-muted-foreground hover:text-foreground transition-colors hidden sm:block"
               >
                 Sign In
               </Link>
@@ -109,6 +112,7 @@ const CommonNavbarContent = ({
               </Button>
             </>
           )}
+          <MobileCommonNav navItems={navItems} />
         </div>
       </div>
     </header>

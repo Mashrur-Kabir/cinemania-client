@@ -19,12 +19,12 @@ const itemVariants: Variants = {
 
 export default function NotFound() {
   return (
-    <div className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-[#030406] text-white">
+    <div className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-surface text-foreground">
       {/* 🌌 Ambient Background Glows */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/10 blur-[120px] rounded-full pointer-events-none" />
 
       {/* ⚠️ Massive Background Watermark */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[30vw] font-black text-white/[0.02] tracking-tighter select-none pointer-events-none z-0">
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[30vw] font-black text-foreground/[0.02] tracking-tighter select-none pointer-events-none z-0">
         404
       </div>
 
@@ -37,7 +37,7 @@ export default function NotFound() {
       >
         {/* Radar Icon */}
         <motion.div variants={itemVariants} className="mb-8">
-          <div className="size-20 rounded-[2rem] bg-white/[0.02] border border-white/10 flex items-center justify-center shadow-[0_0_30px_rgba(225,29,72,0.15)] relative overflow-hidden">
+          <div className="size-20 rounded-[2rem] bg-surface/10 border border-border/30 flex items-center justify-center shadow-[0_0_30px_rgba(225,29,72,0.15)] relative overflow-hidden">
             <div className="absolute inset-0 bg-primary/20 animate-pulse" />
             <Radio className="size-8 text-primary relative z-10" />
           </div>
@@ -50,7 +50,7 @@ export default function NotFound() {
             Dead End
           </h1>
           <h2 className="text-5xl md:text-7xl font-black uppercase italic tracking-tighter drop-shadow-2xl">
-            Signal <span className="text-white/30">Lost.</span>
+            Signal <span className="text-muted-foreground/70">Lost.</span>
           </h2>
           <p className="text-base text-muted-foreground font-medium max-w-md mx-auto leading-relaxed">
             The cinematic frequency you are trying to intercept does not exist
@@ -65,7 +65,7 @@ export default function NotFound() {
         >
           <Link
             href="/"
-            className="group relative w-full sm:w-auto flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-primary text-white font-black uppercase text-[11px] tracking-widest overflow-hidden transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(225,29,72,0.4)] transform-gpu will-change-transform [backface-visibility:hidden] [transform-style:preserve-3d]"
+            className="group relative w-full sm:w-auto flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-primary text-primary-foreground font-black uppercase text-[11px] tracking-widest overflow-hidden transition-all duration-300 hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(225,29,72,0.4)] transform-gpu will-change-transform [backface-visibility:hidden] [transform-style:preserve-3d]"
           >
             <div className="absolute inset-0 -translate-x-[150%] group-hover:translate-x-[150%] transition-transform duration-1000 ease-in-out bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12 transform-gpu" />
             <Home className="size-4 relative z-10" />
@@ -74,9 +74,9 @@ export default function NotFound() {
 
           <Link
             href="/discovery"
-            className="group w-full sm:w-auto flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-white/5 border border-white/10 text-white font-black uppercase text-[11px] tracking-widest transition-all duration-300 hover:bg-white/10 hover:border-white/20 active:scale-95 transform-gpu [backface-visibility:hidden]"
+            className="group w-full sm:w-auto flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-surface/90 border border-border text-foreground font-black uppercase text-[11px] tracking-widest transition-all duration-300 hover:bg-surface/95 hover:border-border/70 active:scale-95 transform-gpu [backface-visibility:hidden]"
           >
-            <Compass className="size-4 text-muted-foreground group-hover:text-white transition-colors" />
+            <Compass className="size-4 text-muted-foreground group-hover:text-primary transition-colors" />
             <span>Explore Network</span>
           </Link>
         </motion.div>

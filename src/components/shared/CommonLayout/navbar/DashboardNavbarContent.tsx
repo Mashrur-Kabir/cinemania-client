@@ -73,13 +73,13 @@ export default function DashboardNavbarContent({
     <header
       className={cn(
         "h-20 flex items-center justify-between px-4 md:px-8 sticky top-0 z-30",
-        "border-b border-white/5 bg-black/40 backdrop-blur-md",
+        "border-b border-border/50 bg-surface backdrop-blur-md",
       )}
     >
       {/* 📱 Left Side: Mobile Menu + Title */}
-      <div className="flex items-center gap-4">
+      <div className="flex items-center gap-4 md:gap-5">
         <MobileSidebar navItems={navItems} userInfo={userInfo} />
-        <h2 className="text-xl font-heading font-black text-white tracking-tighter uppercase hidden sm:block">
+        <h2 className="text-xl font-heading font-black text-foreground tracking-tighter uppercase hidden sm:block">
           Command <span className="text-primary">Center</span>
         </h2>
       </div>
@@ -94,7 +94,7 @@ export default function DashboardNavbarContent({
             onKeyDown={handleSearch}
             placeholder="Search movies, users, or reviews..."
             className={cn(
-              "w-full bg-white/[0.03] border-white/10 pl-10 transition-all rounded-xl",
+              "w-full bg-foreground/[0.03] border-border pl-10 transition-all rounded-xl",
               "focus-visible:ring-primary/50 focus-visible:border-primary/50",
             )}
           />
@@ -107,7 +107,7 @@ export default function DashboardNavbarContent({
 
         <Separator
           orientation="vertical"
-          className="h-6 bg-white/10 hidden md:block"
+          className="hidden md:flex h-6 self-center bg-border"
         />
 
         {/* User Dropdown */}
@@ -115,7 +115,7 @@ export default function DashboardNavbarContent({
           <DropdownMenuTrigger asChild>
             <Button
               variant="ghost"
-              className="relative h-10 w-10 rounded-full border border-white/10 p-0 hover:bg-white/5 overflow-hidden transition-all hover:border-primary/50"
+              className="relative h-10 w-10 rounded-full border border-border p-0 hover:bg-foreground/5 overflow-hidden transition-all hover:border-primary/50"
             >
               <Avatar className="h-9 w-9">
                 <AvatarImage src={userInfo.image || ""} />
@@ -126,7 +126,7 @@ export default function DashboardNavbarContent({
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent
-            className="w-64 mt-2 p-2 bg-[#0c0d10]/90 backdrop-blur-2xl border-white/10 text-white rounded-[1.5rem] shadow-2xl"
+            className="w-64 mt-2 p-2 bg-surface-strong backdrop-blur-2xl border-border text-foreground rounded-[1.5rem] shadow-2xl"
             align="end"
           >
             <DropdownMenuLabel className="px-4 py-3">
@@ -138,18 +138,18 @@ export default function DashboardNavbarContent({
               </div>
             </DropdownMenuLabel>
 
-            <DropdownMenuSeparator className="bg-white/5 mx-2" />
+            <DropdownMenuSeparator className="bg-border mx-2" />
 
             <div className="p-1 space-y-1">
               <DropdownMenuItem asChild className="outline-none">
                 <Link
                   href="/dashboard/my-profile"
-                  className="flex items-center gap-3 px-3 py-2 rounded-xl cursor-pointer bg-transparent hover:bg-white/5 focus:bg-white/5 group transition-all duration-300"
+                  className="flex items-center gap-3 px-3 py-2 rounded-xl cursor-pointer bg-transparent hover:bg-foreground/5 focus:bg-foreground/5 group transition-all duration-300"
                 >
-                  <div className="size-7 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-primary/10 group-hover:border-primary/30 transition-all duration-300">
+                  <div className="size-7 rounded-lg bg-foreground/5 border border-border flex items-center justify-center group-hover:bg-primary/10 group-hover:border-primary/30 transition-all duration-300">
                     <Settings className="size-3.5 text-muted-foreground group-hover:text-primary transition-all duration-500 group-hover:rotate-90" />
                   </div>
-                  <span className="text-xs font-bold text-white/70 group-hover:text-white transition-all duration-300 transform-gpu group-hover:translate-x-1">
+                  <span className="text-xs font-bold text-muted-foreground group-hover:text-foreground transition-all duration-300 transform-gpu group-hover:translate-x-1">
                     Account Settings
                   </span>
                 </Link>
@@ -158,19 +158,19 @@ export default function DashboardNavbarContent({
               <DropdownMenuItem asChild className="outline-none">
                 <Link
                   href="/dashboard/security"
-                  className="flex items-center gap-3 px-3 py-2 rounded-xl cursor-pointer bg-transparent hover:bg-white/5 focus:bg-white/5 group transition-all duration-300"
+                  className="flex items-center gap-3 px-3 py-2 rounded-xl cursor-pointer bg-transparent hover:bg-foreground/5 focus:bg-foreground/5 group transition-all duration-300"
                 >
-                  <div className="size-7 rounded-lg bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-emerald-500/10 group-hover:border-emerald-500/30 transition-all duration-300">
+                  <div className="size-7 rounded-lg bg-foreground/5 border border-border flex items-center justify-center group-hover:bg-emerald-500/10 group-hover:border-emerald-500/30 transition-all duration-300">
                     <ShieldCheck className="size-3.5 text-muted-foreground group-hover:text-emerald-500 transition-all duration-300 transform-gpu group-hover:scale-110" />
                   </div>
-                  <span className="text-xs font-bold text-white/70 group-hover:text-white transition-all duration-300 transform-gpu group-hover:translate-x-1">
+                  <span className="text-xs font-bold text-muted-foreground group-hover:text-foreground transition-all duration-300 transform-gpu group-hover:translate-x-1">
                     Access & Security
                   </span>
                 </Link>
               </DropdownMenuItem>
             </div>
 
-            <DropdownMenuSeparator className="bg-white/5 mx-2" />
+            <DropdownMenuSeparator className="bg-border mx-22" />
 
             <DropdownMenuItem
               onClick={handleLogout}

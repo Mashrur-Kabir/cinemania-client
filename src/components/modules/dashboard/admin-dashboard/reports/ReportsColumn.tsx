@@ -84,7 +84,7 @@ const ModerationActions = ({ review }: { review: IReview }) => {
             "p-2 rounded-lg border transition-all duration-300 group",
             isAppeal
               ? "bg-purple-500/10 border-purple-500/30 text-purple-400 hover:bg-purple-500 hover:text-white hover:shadow-[0_0_15px_rgba(168,85,247,0.3)]"
-              : "bg-white/5 border-white/10 text-white/40 hover:bg-white/10 hover:text-white hover:shadow-[0_0_15px_rgba(255,255,255,0.1)]",
+              : "bg-foreground/5 border-border text-muted-foreground hover:bg-foreground/10 hover:text-foreground hover:shadow-[0_0_15px_rgba(255,255,255,0.1)]",
             // 🎯 THE FIX: Apply intense red tactical glow if this is the isolated target!
             isTargetLocked &&
               "ring-2 ring-rose-500 bg-rose-500/20 text-rose-400 shadow-[0_0_30px_rgba(225,29,72,0.6)] animate-pulse",
@@ -107,7 +107,7 @@ const ModerationActions = ({ review }: { review: IReview }) => {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   onClick={() => !isProcessing && setIsViewOpen(false)}
-                  className="absolute inset-0 bg-black/90 backdrop-blur-xl"
+                  className="absolute inset-0 bg-background/95 backdrop-blur-xl"
                 />
 
                 <motion.div
@@ -123,7 +123,7 @@ const ModerationActions = ({ review }: { review: IReview }) => {
                 >
                   <div
                     className={cn(
-                      "p-8 border-b border-white/5 flex items-center justify-between",
+                      "p-8 border-b border-border/50 flex items-center justify-between",
                       isAppeal ? "bg-purple-500/[0.02]" : "bg-amber-500/[0.02]",
                     )}
                   >
@@ -139,7 +139,7 @@ const ModerationActions = ({ review }: { review: IReview }) => {
                         <Film className="size-6" />
                       </div>
                       <div>
-                        <h2 className="text-xl font-black text-white uppercase tracking-tighter">
+                        <h2 className="text-xl font-black text-foreground uppercase tracking-tighter">
                           {isAppeal ? "Appeal Analysis" : "Review Analysis"}
                         </h2>
                         <p
@@ -160,10 +160,10 @@ const ModerationActions = ({ review }: { review: IReview }) => {
                           setRejectReason("");
                         }
                       }}
-                      className="p-2 hover:bg-white/5 rounded-full transition-colors group disabled:opacity-50"
+                      className="p-2 hover:bg-foreground/5 rounded-full transition-colors group disabled:opacity-50"
                       disabled={isProcessing}
                     >
-                      <X className="size-5 text-white/40 group-hover:text-white transition-colors" />
+                      <X className="size-5 text-muted-foreground group-hover:text-foreground transition-colors" />
                     </button>
                   </div>
 
@@ -185,35 +185,35 @@ const ModerationActions = ({ review }: { review: IReview }) => {
                     )}
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                      <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5 flex items-center gap-3">
+                      <div className="p-4 rounded-2xl bg-foreground/[0.02] border border-border/50 flex items-center gap-3">
                         <User className="size-4 text-cyan-400" />
                         <div className="min-w-0">
-                          <p className="text-[8px] text-white/40 uppercase font-black">
+                          <p className="text-[8px] text-muted-foreground uppercase font-black">
                             Author
                           </p>
-                          <p className="text-[11px] font-bold text-white uppercase truncate">
+                          <p className="text-[11px] font-bold text-foreground uppercase truncate">
                             {review.user?.name}
                           </p>
                         </div>
                       </div>
-                      <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5 flex items-center gap-3">
+                      <div className="p-4 rounded-2xl bg-foreground/[0.02] border border-border/50 flex items-center gap-3">
                         <Star className="size-4 text-amber-400" />
                         <div>
-                          <p className="text-[8px] text-white/40 uppercase font-black">
+                          <p className="text-[8px] text-muted-foreground uppercase font-black">
                             Rating
                           </p>
-                          <p className="text-[11px] font-bold text-white">
+                          <p className="text-[11px] font-bold text-foreground">
                             {review.rating}/10
                           </p>
                         </div>
                       </div>
-                      <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5 flex items-center gap-3">
+                      <div className="p-4 rounded-2xl bg-foreground/[0.02] border border-border/50 flex items-center gap-3">
                         <Calendar className="size-4 text-emerald-400" />
                         <div>
-                          <p className="text-[8px] text-white/40 uppercase font-black">
+                          <p className="text-[8px] text-muted-foreground uppercase font-black">
                             Submitted
                           </p>
-                          <p className="text-[11px] font-bold text-white">
+                          <p className="text-[11px] font-bold text-foreground">
                             {new Date(review.createdAt).toLocaleDateString(
                               "en-US",
                               { month: "short", day: "numeric" },
@@ -230,14 +230,14 @@ const ModerationActions = ({ review }: { review: IReview }) => {
                           The Critique
                         </span>
                       </div>
-                      <p className="text-sm leading-relaxed text-white/80 italic bg-white/[0.01] p-6 rounded-3xl border border-white/5 break-words whitespace-pre-wrap shadow-[inset_0_0_20px_rgba(255,255,255,0.02)]">
+                      <p className="text-sm leading-relaxed text-foreground/80 italic bg-foreground/[0.01] p-6 rounded-3xl border border-border/50 break-words whitespace-pre-wrap shadow-[inset_0_0_20px_rgba(255,255,255,0.02)]">
                         ❝{review.content}❞
                       </p>
                     </div>
 
                     {review.tags && review.tags.length > 0 && (
                       <div className="space-y-3">
-                        <div className="flex items-center gap-2 text-white/20">
+                        <div className="flex items-center gap-2 text-muted-foreground/60">
                           <Hash className="size-3" />
                           <span className="text-[9px] font-black uppercase tracking-[0.2em]">
                             Metadata Tags
@@ -247,7 +247,7 @@ const ModerationActions = ({ review }: { review: IReview }) => {
                           {review.tags.map((tag) => (
                             <span
                               key={tag}
-                              className="px-3 py-1 rounded-full bg-white/[0.03] border border-white/10 text-[9px] font-bold text-white/60 uppercase tracking-tighter hover:text-amber-400 hover:border-amber-400/40 transition-colors"
+                              className="px-3 py-1 rounded-full bg-foreground/[0.03] border border-border text-[9px] font-bold text-muted-foreground uppercase tracking-tighter hover:text-amber-400 hover:border-amber-400/40 transition-colors"
                             >
                               #{tag}
                             </span>
@@ -258,7 +258,7 @@ const ModerationActions = ({ review }: { review: IReview }) => {
                   </div>
 
                   {/* 🎯 Inline Confirmation Footer */}
-                  <div className="p-8 bg-black/40 border-t border-white/5 flex flex-col gap-4 overflow-hidden shrink-0">
+                  <div className="p-8 bg-surface border-t border-border/50 flex flex-col gap-4 overflow-hidden shrink-0">
                     <AnimatePresence mode="wait">
                       {confirmReject ? (
                         <motion.div
@@ -280,7 +280,7 @@ const ModerationActions = ({ review }: { review: IReview }) => {
                             value={rejectReason}
                             onChange={(e) => setRejectReason(e.target.value)}
                             placeholder="e.g. Contains inappropriate language or unflagged spoilers..."
-                            className="bg-white/5 border-rose-500/30 focus-visible:ring-rose-500/50 text-white min-h-[80px] resize-none"
+                            className="bg-foreground/5 border-rose-500/30 focus-visible:ring-rose-500/50 text-foreground min-h-[80px] resize-none"
                             disabled={isProcessing}
                           />
 
@@ -291,7 +291,7 @@ const ModerationActions = ({ review }: { review: IReview }) => {
                                 setConfirmReject(false);
                                 setRejectReason("");
                               }}
-                              className="px-6 py-4 rounded-2xl bg-white/5 text-white/60 hover:text-white hover:bg-white/10 text-[11px] font-black uppercase tracking-widest transition-all"
+                              className="px-6 py-4 rounded-2xl bg-foreground/5 text-muted-foreground hover:text-foreground hover:bg-foreground/10 text-[11px] font-black uppercase tracking-widest transition-all"
                             >
                               Abort
                             </button>
@@ -357,7 +357,7 @@ export const reportsColumns: ColumnDef<IReview>[] = [
       const media = row.original.media;
       return (
         <div className="flex items-center gap-3 max-w-[200px]">
-          <div className="relative h-10 w-7 rounded overflow-hidden border border-white/10 shrink-0 group-hover:border-amber-500/40 transition-colors">
+          <div className="relative h-10 w-7 rounded overflow-hidden border border-border shrink-0 group-hover:border-amber-500/40 transition-colors">
             {media?.posterUrl ? (
               <Image
                 src={media.posterUrl}
@@ -367,11 +367,11 @@ export const reportsColumns: ColumnDef<IReview>[] = [
                 className="object-cover"
               />
             ) : (
-              <Film className="absolute inset-0 m-auto size-3 text-white/20" />
+              <Film className="absolute inset-0 m-auto size-3 text-muted-foreground/60" />
             )}
           </div>
           <div className="flex flex-col min-w-0">
-            <span className="font-bold text-white text-xs truncate group-hover:text-amber-400 transition-colors">
+            <span className="font-bold text-foreground text-xs truncate group-hover:text-amber-400 transition-colors">
               {media?.title}
             </span>
           </div>
@@ -388,15 +388,15 @@ export const reportsColumns: ColumnDef<IReview>[] = [
       };
       return (
         <div className="flex items-center gap-2">
-          <div className="p-1.5 rounded-full bg-white/5 border border-white/10 text-white/40 shrink-0">
+          <div className="p-1.5 rounded-full bg-foreground/5 border border-border text-muted-foreground shrink-0">
             <User className="size-3" />
           </div>
           <div className="flex flex-col min-w-0">
-            <span className="font-bold text-white/80 text-xs truncate">
+            <span className="font-bold text-foreground text-xs truncate">
               {user?.name}
             </span>
             {user?.email && (
-              <span className="text-[9px] font-black uppercase tracking-widest text-white/30 truncate">
+              <span className="text-[9px] font-black uppercase tracking-widest text-muted-foreground/60 truncate">
                 {user.email}
               </span>
             )}
@@ -413,7 +413,7 @@ export const reportsColumns: ColumnDef<IReview>[] = [
 
       return (
         <div className="max-w-[300px]">
-          <p className="text-[11px] text-white/60 leading-relaxed line-clamp-2 italic">
+          <p className="text-[11px] text-muted-foreground leading-relaxed line-clamp-2 italic">
             ❝{row.original.content}❞
           </p>
           <div className="flex items-center gap-2 mt-1.5">
@@ -455,7 +455,7 @@ export const reportsColumns: ColumnDef<IReview>[] = [
     accessorKey: "createdAt",
     header: "Timestamp",
     cell: ({ row }) => (
-      <div className="flex items-center gap-1.5 text-[10px] font-bold text-white/40 uppercase tracking-wider">
+      <div className="flex items-center gap-1.5 text-[10px] font-bold text-muted-foreground uppercase tracking-wider">
         <Clock className="size-3" />
         {new Date(row.original.updatedAt).toLocaleDateString("en-US", {
           // 🎯 Used updatedAt to show when it was appealed!

@@ -5,18 +5,20 @@ export const metadata = {
 
 export default function PrivacyPolicyPage() {
   return (
-    <div className="min-h-screen bg-black pt-40 pb-32">
+    <div className="min-h-screen bg-surface pt-40 pb-32">
       <div className="mx-auto max-w-3xl px-6 lg:px-8">
         <div className="mb-12">
-          <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl font-heading">
-            Privacy <span className="text-[#FF00FF]">Policy</span>
+          <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl font-heading">
+            Privacy <span className="text-primary">Policy</span>
           </h1>
-          <p className="mt-4 text-zinc-400">Last updated: April 29, 2026</p>
+          <p className="mt-4 text-muted-foreground">
+            Last updated: April 29, 2026
+          </p>
         </div>
 
-        <div className="space-y-10 text-zinc-300 leading-relaxed">
+        <div className="space-y-10 text-muted-foreground leading-relaxed">
           <section className="space-y-4">
-            <h2 className="text-2xl font-semibold text-white">
+            <h2 className="text-2xl font-semibold text-foreground">
               1. Information We Collect
             </h2>
             <p>
@@ -29,7 +31,7 @@ export default function PrivacyPolicyPage() {
           </section>
 
           <section className="space-y-4">
-            <h2 className="text-2xl font-semibold text-white">
+            <h2 className="text-2xl font-semibold text-foreground">
               2. How We Use Your Information
             </h2>
             <p>
@@ -42,7 +44,7 @@ export default function PrivacyPolicyPage() {
           </section>
 
           <section className="space-y-4">
-            <h2 className="text-2xl font-semibold text-white">
+            <h2 className="text-2xl font-semibold text-foreground">
               3. Information Sharing
             </h2>
             <p>
@@ -56,7 +58,7 @@ export default function PrivacyPolicyPage() {
           </section>
 
           <section className="space-y-4">
-            <h2 className="text-2xl font-semibold text-white">
+            <h2 className="text-2xl font-semibold text-foreground">
               4. Data Security
             </h2>
             <p>

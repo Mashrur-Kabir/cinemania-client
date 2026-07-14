@@ -5,18 +5,20 @@ export const metadata = {
 
 export default function CookiePolicyPage() {
   return (
-    <div className="min-h-screen bg-black pt-40 pb-32">
+    <div className="min-h-screen bg-surface pt-40 pb-32">
       <div className="mx-auto max-w-3xl px-6 lg:px-8">
         <div className="mb-12">
-          <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl font-heading">
-            Cookie <span className="text-[#FF00FF]">Policy</span>
+          <h1 className="text-4xl font-bold tracking-tight text-foreground sm:text-5xl font-heading">
+            Cookie <span className="text-primary">Policy</span>
           </h1>
-          <p className="mt-4 text-zinc-400">Last updated: April 29, 2026</p>
+          <p className="mt-4 text-muted-foreground">
+            Last updated: April 29, 2026
+          </p>
         </div>
 
-        <div className="space-y-10 text-zinc-300 leading-relaxed">
+        <div className="space-y-10 text-muted-foreground leading-relaxed">
           <section className="space-y-4">
-            <h2 className="text-2xl font-semibold text-white">
+            <h2 className="text-2xl font-semibold text-foreground">
               1. What Are Cookies?
             </h2>
             <p>
@@ -28,7 +30,7 @@ export default function CookiePolicyPage() {
           </section>
 
           <section className="space-y-4">
-            <h2 className="text-2xl font-semibold text-white">
+            <h2 className="text-2xl font-semibold text-foreground">
               2. How Cinemania Uses Cookies
             </h2>
             <p>
@@ -38,27 +40,29 @@ export default function CookiePolicyPage() {
             </p>
             <ul className="list-disc pl-6 space-y-2 mt-2">
               <li>
-                <strong className="text-white">Essential Cookies:</strong> We
-                use essential cookies to authenticate users and prevent
+                <strong className="text-foreground">Essential Cookies:</strong>{" "}
+                We use essential cookies to authenticate users and prevent
                 fraudulent use of user accounts. These are critical for your
                 secure login sessions.
               </li>
               <li>
-                <strong className="text-white">Preferences Cookies:</strong> To
-                remember information that changes the way the platform behaves
-                or looks, such as your preferred theme or default sorting
-                options.
+                <strong className="text-foreground">
+                  Preferences Cookies:
+                </strong>{" "}
+                To remember information that changes the way the platform
+                behaves or looks, such as your preferred theme or default
+                sorting options.
               </li>
               <li>
-                <strong className="text-white">Analytics Cookies:</strong> We
-                use analytics to track information on how the platform is used
-                so that we can make improvements and fix bugs.
+                <strong className="text-foreground">Analytics Cookies:</strong>{" "}
+                We use analytics to track information on how the platform is
+                used so that we can make improvements and fix bugs.
               </li>
             </ul>
           </section>
 
           <section className="space-y-4">
-            <h2 className="text-2xl font-semibold text-white">
+            <h2 className="text-2xl font-semibold text-foreground">
               3. Your Choices Regarding Cookies
             </h2>
             <p>

@@ -70,7 +70,7 @@ const AppField = ({
           disabled={disabled}
           aria-invalid={hasError}
           className={cn(
-            "bg-white/[0.03] border-white/10 transition-all duration-300",
+            "bg-foreground/[0.03] border-border transition-all duration-300",
             "focus-visible:ring-primary/30 focus-visible:border-primary/50",
             prepend && "pl-10",
             append && "pr-10",

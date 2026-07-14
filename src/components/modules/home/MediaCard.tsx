@@ -40,9 +40,9 @@ export default function MediaCard({ media, priority = false }: MediaCardProps) {
         href={`/media/${media.slug}`}
         className="block outline-none focus-visible:ring-2 focus-visible:ring-primary rounded-2xl"
       >
-        <div className="relative aspect-[2/3] w-full overflow-hidden rounded-2xl border border-white/5 bg-white/[0.02] transition-all duration-500 group-hover:border-primary/40 group-hover:shadow-[0_0_40px_-10px_rgba(225,29,72,0.4)]">
+        <div className="relative aspect-[2/3] w-full overflow-hidden rounded-2xl border border-border/30 bg-surface/80 transition-all duration-500 group-hover:border-primary/40 group-hover:shadow-[0_0_40px_-10px_rgba(225,29,72,0.4)]">
           {/* Overlay */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-80 z-10" />
+          <div className="absolute inset-0 bg-gradient-to-t from-surface/90 via-surface/70 to-transparent opacity-90 z-10" />
 
           {/* 🖼️ Poster */}
           <Image
@@ -65,7 +65,7 @@ export default function MediaCard({ media, priority = false }: MediaCardProps) {
           <div className="absolute top-3.5 inset-x-3.5 z-30 flex items-center justify-between pointer-events-none">
             <Badge
               className={cn(
-                "h-6 bg-black/60 backdrop-blur-md border-white/10 text-[9px] font-black uppercase tracking-widest px-2 flex items-center justify-center shadow-lg",
+                "h-6 bg-foreground/10 border-border/20 text-[9px] font-black uppercase tracking-widest px-2 flex items-center justify-center shadow-lg",
                 media.pricing === "PRO" && "text-amber-400 border-amber-500/40",
                 media.pricing === "PREMIUM" && "text-primary border-primary/40",
               )}
@@ -73,7 +73,7 @@ export default function MediaCard({ media, priority = false }: MediaCardProps) {
               {media.pricing}
             </Badge>
 
-            <div className="h-6 flex items-center gap-1.5 px-2 rounded-full bg-black/60 backdrop-blur-md border border-white/10 text-[10px] font-black text-yellow-500 shadow-lg">
+            <div className="h-6 flex items-center gap-1.5 px-2 rounded-full bg-foreground/10 border border-border/20 text-[10px] font-black text-yellow-500 shadow-lg">
               <Star className="size-2.5 fill-current" />
               <span>
                 {media.averageRating > 0
@@ -84,7 +84,7 @@ export default function MediaCard({ media, priority = false }: MediaCardProps) {
           </div>
 
           {/* 📊 Stats */}
-          <div className="absolute bottom-3 left-3 right-3 z-30 flex items-center justify-between text-white/70">
+          <div className="absolute bottom-3 left-3 right-3 z-30 flex items-center justify-between text-muted-foreground/80">
             <div className="flex items-center gap-3">
               <div className="flex items-center gap-1 text-[10px] font-bold">
                 <Heart className="size-3 text-primary fill-primary/20" />
@@ -109,7 +109,7 @@ export default function MediaCard({ media, priority = false }: MediaCardProps) {
           <button
             onClick={handlePlayClick}
             className={cn(
-              "pointer-events-auto p-4 rounded-full border border-primary/40 text-white transition-all duration-300 ease-out",
+              "pointer-events-auto p-4 rounded-full border border-primary/40 text-primary-foreground transition-all duration-300 ease-out",
               // 🎯 THE FIX: Hardware acceleration stack to stop the "blurring" jitter
               "transform-gpu will-change-transform [backface-visibility:hidden]",
               "hover:scale-110 active:scale-95 hover:bg-primary shadow-[0_0_30px_rgba(225,29,72,0.4)]",
@@ -125,13 +125,13 @@ export default function MediaCard({ media, priority = false }: MediaCardProps) {
       {/* 📝 Metadata */}
       <div className="mt-3 space-y-1 text-left px-1">
         <Link href={`/media/${media.slug}`}>
-          <h3 className="truncate font-semibold font-heading text-sm text-white transition-colors group-hover:text-primary tracking-tight">
+          <h3 className="truncate font-semibold font-heading text-sm text-foreground transition-colors group-hover:text-primary tracking-tight">
             {media.title}
           </h3>
         </Link>
 
         <div className="flex items-center gap-2 text-[11px] text-muted-foreground font-semibold">
-          <span className="text-white/40">{media.releaseYear}</span>
+          <span className="text-muted-foreground/70">{media.releaseYear}</span>
           <span className="size-1 rounded-full bg-primary/40" />
           <span className="truncate uppercase tracking-tighter">
             {media.genres?.length

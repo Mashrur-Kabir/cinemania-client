@@ -31,18 +31,18 @@ export default async function CommunityPage({
   const meta = reviewRes.meta;
 
   return (
-    <div className="min-h-screen bg-[#030406] pb-24">
+    <div className="min-h-screen bg-surface pb-24">
       <CommunityHero media={spotlightMedia} />
 
       <main className="max-w-7xl mx-auto px-6 -mt-16 relative z-20">
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 bg-[#030406]/80 backdrop-blur-xl p-8 rounded-[2.5rem] border border-white/5 shadow-2xl">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 bg-surface/80 backdrop-blur-xl p-8 rounded-[2.5rem] border border-border shadow-2xl">
           <div className="space-y-2">
             <h2 className="flex items-center gap-3 text-[10px] font-black text-primary uppercase tracking-[0.4em]">
               <span className="size-2 rounded-full bg-primary animate-pulse shadow-[0_0_10px_rgba(225,29,72,0.8)]" />
               Live Network
             </h2>
-            <h3 className="text-3xl md:text-4xl font-black text-white uppercase italic tracking-tighter">
-              Global <span className="text-white/30">Feed.</span>
+            <h3 className="text-3xl md:text-4xl font-black text-foreground uppercase italic tracking-tighter">
+              Global <span className="text-muted-foreground">Feed.</span>
             </h3>
           </div>
           <p className="text-xs font-bold text-muted-foreground uppercase tracking-widest max-w-xs md:text-right">

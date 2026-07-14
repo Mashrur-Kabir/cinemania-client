@@ -147,7 +147,7 @@ const DataTablePagination = <TData,>({
         <Button
           variant="outline"
           size="sm"
-          className="bg-white/[0.02] border-white/10 text-white/70 hover:bg-white/10 hover:text-white transition-colors"
+          className="bg-foreground/[0.02] border-border text-muted-foreground hover:bg-foreground/10 hover:text-foreground transition-colors"
           onClick={() => table.previousPage()}
           disabled={!table.getCanPreviousPage() || isLoading}
         >
@@ -162,7 +162,7 @@ const DataTablePagination = <TData,>({
                 key={`${item}-${idx}`}
                 variant="ghost"
                 size="sm"
-                className="min-w-9 px-2 text-white/40 hover:bg-white/5 hover:text-white"
+                className="min-w-9 px-2 text-muted-foreground hover:bg-foreground/5 hover:text-foreground"
                 onClick={() =>
                   table.setPageIndex(
                     item === "start-ellipsis"
@@ -186,8 +186,8 @@ const DataTablePagination = <TData,>({
               className={cn(
                 "min-w-9 transition-all duration-300",
                 isActive
-                  ? "bg-primary text-white border-primary shadow-[0_0_15px_rgba(225,29,72,0.3)] pointer-events-none"
-                  : "bg-white/[0.02] border-white/10 text-white/70 hover:bg-white/10 hover:text-white",
+                  ? "bg-primary text-primary-foreground border-primary shadow-[0_0_15px_rgba(225,29,72,0.3)] pointer-events-none"
+                  : "bg-foreground/[0.02] border-border text-muted-foreground hover:bg-foreground/10 hover:text-foreground",
               )}
               onClick={() => table.setPageIndex(item - 1)}
               disabled={isLoading}
@@ -200,7 +200,7 @@ const DataTablePagination = <TData,>({
         <Button
           variant="outline"
           size="sm"
-          className="bg-white/[0.02] border-white/10 text-white/70 hover:bg-white/10 hover:text-white transition-colors"
+          className="bg-foreground/[0.02] border-border text-muted-foreground hover:bg-foreground/10 hover:text-foreground transition-colors"
           onClick={() => table.nextPage()}
           disabled={!table.getCanNextPage() || isLoading}
         >
@@ -209,16 +209,16 @@ const DataTablePagination = <TData,>({
         </Button>
       </div>
 
-      <div className="flex flex-wrap items-center gap-3 text-xs font-medium text-white/50">
+      <div className="flex flex-wrap items-center gap-3 text-xs font-medium text-muted-foreground">
         <Select value={pageSizeSelectValue} onValueChange={onPageSizeSelect}>
           <SelectTrigger
-            className="w-[110px] h-9 bg-white/[0.02] border-white/10 text-white hover:border-white/20 transition-colors focus:ring-primary/50"
+            className="w-[110px] h-9 bg-foreground/[0.02] border-border text-foreground hover:border-foreground/20 transition-colors focus:ring-primary/50"
             aria-label="Rows per page"
           >
             <SelectValue placeholder="Limit" />
           </SelectTrigger>
 
-          <SelectContent className="bg-black/95 backdrop-blur-xl border-white/10 text-white">
+          <SelectContent className="bg-surface-strong backdrop-blur-xl border-border text-foreground">
             {DEFAULT_PAGE_SIZES.map((size) => (
               <SelectItem
                 key={size}
@@ -242,7 +242,7 @@ const DataTablePagination = <TData,>({
             <Input
               type="number"
               min={1}
-              className="h-9 w-20 bg-white/[0.02] border-white/10 text-white focus-visible:ring-primary/50"
+              className="h-9 w-20 bg-foreground/[0.02] border-border text-foreground focus-visible:ring-primary/50"
               value={customPageSize}
               onChange={(event) => setCustomPageSize(event.target.value)}
               onKeyDown={(event) => {
@@ -255,7 +255,7 @@ const DataTablePagination = <TData,>({
             <Button
               size="sm"
               variant="outline"
-              className="bg-white/[0.02] border-white/10 text-white hover:bg-primary hover:text-white hover:border-primary transition-colors"
+              className="bg-foreground/[0.02] border-border text-foreground hover:bg-primary hover:text-primary-foreground hover:border-primary transition-colors"
               onClick={applyCustomPageSize}
               disabled={isLoading}
             >
@@ -264,8 +264,9 @@ const DataTablePagination = <TData,>({
           </div>
         )}
 
-        <span className="ml-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 tracking-wide">
-          Total <strong className="text-white">{totalRows ?? 0}</strong> items
+        <span className="ml-2 px-3 py-1.5 rounded-full bg-foreground/5 border border-border tracking-wide">
+          Total <strong className="text-foreground">{totalRows ?? 0}</strong>{" "}
+          items
         </span>
       </div>
     </div>

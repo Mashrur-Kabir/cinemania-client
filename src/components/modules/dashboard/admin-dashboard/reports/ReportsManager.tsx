@@ -74,7 +74,7 @@ export default function ReportsManager({
   return (
     <div className="space-y-8">
       {/* 🎛️ Animated Tabs */}
-      <div className="flex items-center gap-2 p-1.5 rounded-2xl bg-white/[0.02] border border-white/5 w-fit">
+      <div className="flex items-center gap-2 p-1.5 rounded-2xl bg-foreground/[0.02] border border-border/50 w-fit">
         {TABS.map((tab) => {
           const isActive = currentTab === tab.id;
           const Icon = tab.icon;
@@ -89,7 +89,7 @@ export default function ReportsManager({
                 "relative flex items-center gap-2 px-6 py-3 rounded-xl text-[11px] font-black uppercase tracking-widest transition-colors z-10 disabled:opacity-70",
                 isActive
                   ? tab.activeColor
-                  : "text-white/40 hover:text-white/70",
+                  : "text-muted-foreground hover:text-foreground/70",
               )}
             >
               {isActive && (

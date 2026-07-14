@@ -77,8 +77,8 @@ export default function PendingModeration({
   if (items.length === 0) {
     return (
       <div className="py-10 text-center opacity-20">
-        <Check className="size-8 mx-auto mb-2 text-white" />
-        <p className="text-[10px] font-black uppercase tracking-widest text-white">
+        <Check className="size-8 mx-auto mb-2 text-muted-foreground/60" />
+        <p className="text-[10px] font-black uppercase tracking-widest text-muted-foreground">
           Nexus Clear
         </p>
       </div>
@@ -102,7 +102,7 @@ export default function PendingModeration({
             }}
             onClick={() => setSelectedReview(review)}
             className={cn(
-              "group relative p-4 rounded-2xl bg-white/[0.02] border border-white/5 cursor-pointer transition-all duration-300",
+              "group relative p-4 rounded-2xl bg-foreground/[0.02] border border-border/50 cursor-pointer transition-all duration-300",
               "hover:shadow-[inset_0_0_15px_rgba(225,29,72,0.05)]",
               "transform-gpu will-change-transform", // 🎯 Locks the card to the GPU
             )}
@@ -115,7 +115,7 @@ export default function PendingModeration({
                   <Film className="size-4 text-primary" />
                 </div>
                 <div className="min-w-0">
-                  <h4 className="text-[11px] font-black text-white uppercase truncate tracking-tighter">
+                  <h4 className="text-[11px] font-black text-foreground uppercase truncate tracking-tighter">
                     {review.media?.title}
                   </h4>
                   <p className="text-[9px] font-bold text-muted-foreground uppercase flex items-center gap-1">
@@ -123,11 +123,11 @@ export default function PendingModeration({
                   </p>
                 </div>
               </div>
-              <Eye className="size-3 text-white/20 group-hover:text-primary transition-colors mt-1" />
+              <Eye className="size-3 text-muted-foreground/60 group-hover:text-primary transition-colors mt-1" />
             </div>
 
             <div className="relative">
-              <p className="text-[10px] leading-relaxed text-white/40 line-clamp-2 px-1">
+              <p className="text-[10px] leading-relaxed text-muted-foreground line-clamp-2 px-1">
                 {review.content}
               </p>
             </div>
@@ -146,7 +146,7 @@ export default function PendingModeration({
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   onClick={closeModal}
-                  className="absolute inset-0 bg-black/90 backdrop-blur-xl"
+                  className="absolute inset-0 bg-background/95 backdrop-blur-xl"
                 />
 
                 <motion.div
@@ -156,13 +156,13 @@ export default function PendingModeration({
                   className="relative w-full max-w-xl glass-panel border-primary/20 overflow-hidden shadow-2xl flex flex-col max-h-[90vh]"
                 >
                   {/* Modal Header */}
-                  <div className="p-8 border-b border-white/5 flex items-center justify-between bg-primary/[0.02] shrink-0">
+                  <div className="p-8 border-b border-border/50 flex items-center justify-between bg-primary/[0.02] shrink-0">
                     <div className="flex items-center gap-4">
                       <div className="p-3 rounded-2xl bg-primary/10 border border-primary/20 shadow-[0_0_20px_rgba(225,29,72,0.1)]">
                         <Film className="size-6 text-primary" />
                       </div>
                       <div>
-                        <h2 className="text-xl font-black text-white uppercase tracking-tighter">
+                        <h2 className="text-xl font-black text-foreground uppercase tracking-tighter">
                           Review Analysis
                         </h2>
                         <p className="text-[10px] font-black text-primary uppercase tracking-[0.2em]">
@@ -172,22 +172,22 @@ export default function PendingModeration({
                     </div>
                     <button
                       onClick={closeModal}
-                      className="p-2 hover:bg-white/5 rounded-full transition-colors group"
+                      className="p-2 hover:bg-foreground/5 rounded-full transition-colors group"
                     >
-                      <X className="size-5 text-white/40 group-hover:text-white transition-colors" />
+                      <X className="size-5 text-muted-foreground group-hover:text-foreground transition-colors" />
                     </button>
                   </div>
 
                   {/* Modal Body */}
                   <div className="p-8 space-y-8 overflow-y-auto chart-scrollbar-x shrink">
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                      <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5 flex items-center gap-3">
+                      <div className="p-4 rounded-2xl bg-foreground/[0.02] border border-border/50 flex items-center gap-3">
                         <User className="size-4 text-blue-400" />
                         <div>
-                          <p className="text-[8px] text-white/40 uppercase font-black">
+                          <p className="text-[8px] text-muted-foreground uppercase font-black">
                             Author
                           </p>
-                          <p className="text-[11px] font-bold text-white uppercase truncate max-w-[80px]">
+                          <p className="text-[11px] font-bold text-foreground uppercase truncate max-w-[80px]">
                             {selectedReview.user?.name}
                           </p>
                         </div>
@@ -195,10 +195,10 @@ export default function PendingModeration({
                       <div className="p-4 rounded-2xl bg-white/[0.02] border border-white/5 flex items-center gap-3">
                         <Star className="size-4 text-amber-400" />
                         <div>
-                          <p className="text-[8px] text-white/40 uppercase font-black">
+                          <p className="text-[8px] text-muted-foreground uppercase font-black">
                             Rating
                           </p>
-                          <p className="text-[11px] font-bold text-white">
+                          <p className="text-[11px] font-bold text-foreground">
                             {selectedReview.rating}/10
                           </p>
                         </div>
@@ -209,7 +209,7 @@ export default function PendingModeration({
                           <p className="text-[8px] text-white/40 uppercase font-black">
                             Submitted
                           </p>
-                          <p className="text-[11px] font-bold text-white">
+                          <p className="text-[11px] font-bold text-foreground">
                             {new Date(
                               selectedReview.createdAt,
                             ).toLocaleDateString("en-US", {
@@ -230,7 +230,7 @@ export default function PendingModeration({
                       </div>
                       <p
                         className={cn(
-                          "text-sm leading-relaxed text-white/70 italic bg-white/[0.01] p-6 rounded-3xl border border-white/5",
+                          "text-sm leading-relaxed text-foreground/80 italic bg-foreground/[0.01] p-6 rounded-3xl border border-border/50",
                           "shadow-[inset_0_0_20px_rgba(255,255,255,0.01)]",
                         )}
                       >
@@ -240,7 +240,7 @@ export default function PendingModeration({
 
                     {selectedReview.tags && selectedReview.tags.length > 0 && (
                       <div className="space-y-3">
-                        <div className="flex items-center gap-2 text-white/20">
+                        <div className="flex items-center gap-2 text-muted-foreground/60">
                           <Hash className="size-3" />
                           <span className="text-[9px] font-black uppercase tracking-[0.2em]">
                             Metadata Tags
@@ -250,7 +250,7 @@ export default function PendingModeration({
                           {selectedReview.tags.map((tag) => (
                             <span
                               key={tag}
-                              className="px-3 py-1 rounded-full bg-white/[0.03] border border-white/10 text-[9px] font-bold text-white/60 uppercase tracking-tighter hover:text-primary hover:border-primary/40 transition-colors"
+                              className="px-3 py-1 rounded-full bg-foreground/[0.03] border border-border text-[9px] font-bold text-muted-foreground uppercase tracking-tighter hover:text-primary hover:border-primary/40 transition-colors"
                             >
                               #{tag}
                             </span>
@@ -261,7 +261,7 @@ export default function PendingModeration({
                   </div>
 
                   {/* 🎯 Modal Footer (Dynamic Action Area) */}
-                  <div className="p-8 bg-black/40 border-t border-white/5 shrink-0 overflow-hidden relative">
+                  <div className="p-8 bg-surface border-t border-border/50 shrink-0 overflow-hidden relative">
                     <AnimatePresence mode="wait">
                       {!isRejecting ? (
                         <motion.div
@@ -313,7 +313,7 @@ export default function PendingModeration({
                               value={rejectReason}
                               onChange={(e) => setRejectReason(e.target.value)}
                               placeholder="Detail the community guideline violation..."
-                              className="w-full min-h-[80px] bg-black/50 border border-rose-500/20 rounded-xl p-4 text-sm text-white focus:border-rose-500/50 outline-none transition-all placeholder:text-rose-500/30 resize-none shadow-[inset_0_0_20px_rgba(225,29,72,0.05)]"
+                              className="w-full min-h-[80px] bg-foreground/[0.05] border border-rose-500/20 rounded-xl p-4 text-sm text-foreground focus:border-rose-500/50 outline-none transition-all placeholder:text-rose-500/40 resize-none shadow-[inset_0_0_20px_rgba(225,29,72,0.05)]"
                               autoFocus
                             />
                           </div>
@@ -324,7 +324,7 @@ export default function PendingModeration({
                                 setRejectReason("");
                               }}
                               disabled={isProcessing}
-                              className="px-6 py-3 rounded-xl bg-white/5 border border-white/10 text-white/50 text-[10px] font-black uppercase tracking-widest hover:bg-white/10 hover:text-white transition-all disabled:opacity-50"
+                              className="px-6 py-3 rounded-xl bg-foreground/5 border border-border text-muted-foreground text-[10px] font-black uppercase tracking-widest hover:bg-foreground/10 hover:text-foreground transition-all disabled:opacity-50"
                             >
                               Cancel
                             </button>
@@ -357,7 +357,7 @@ export default function PendingModeration({
         )}
 
       <Link href="/admin/dashboard/reports" className="block w-full pt-2">
-        <button className="w-full py-3 rounded-xl bg-white/[0.02] border border-white/5 text-[10px] font-black uppercase tracking-widest text-white/40 hover:bg-amber-500/10 hover:text-amber-500 hover:border-amber-500/20 transition-all duration-300">
+        <button className="w-full py-3 rounded-xl bg-foreground/[0.02] border border-border/50 text-[10px] font-black uppercase tracking-widest text-muted-foreground hover:bg-amber-500/10 hover:text-amber-500 hover:border-amber-500/20 transition-all duration-300">
           View Full Queue
         </button>
       </Link>

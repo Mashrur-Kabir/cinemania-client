@@ -79,9 +79,9 @@ export default function CommunityReviewCard({
     <>
       <div
         className={cn(
-          "group relative flex flex-col h-full overflow-hidden rounded-[2.5rem] bg-[#0a0b0e] border border-white/5 transition-all duration-500",
+          "group relative flex flex-col h-full overflow-hidden rounded-[2.5rem] bg-surface border border-border/30 transition-all duration-500",
           "transform-gpu will-change-transform [backface-visibility:hidden]",
-          "hover:border-primary/30 hover:bg-[#0c0d12] hover:-translate-y-1.5 hover:shadow-[0_20px_50px_rgba(225,29,72,0.1)]",
+          "hover:border-primary/30 hover:bg-surface/95 hover:-translate-y-1.5 hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)]",
         )}
       >
         <div className="p-6 md:p-8 flex flex-col flex-1 space-y-6 z-10">
@@ -90,17 +90,17 @@ export default function CommunityReviewCard({
               href={`/profile/${review.userId}`}
               className="flex items-center gap-3 group/user outline-none"
             >
-              <Avatar className="size-10 border border-white/10 group-hover/user:border-primary/50 transition-colors">
+              <Avatar className="size-10 border border-border/30 group-hover/user:border-primary/50 transition-colors">
                 <AvatarImage src={review.user?.image} />
                 <AvatarFallback className="bg-primary/10 text-primary text-xs font-black">
                   {userName.substring(0, 2).toUpperCase()}
                 </AvatarFallback>
               </Avatar>
               <div className="space-y-0.5">
-                <p className="text-sm font-black text-white uppercase tracking-tight group-hover/user:text-primary transition-colors">
+                <p className="text-sm font-black text-foreground uppercase tracking-tight group-hover/user:text-primary transition-colors">
                   {userName}
                 </p>
-                <p className="text-[10px] font-bold text-muted-foreground/50 uppercase tracking-widest">
+                <p className="text-[10px] font-bold text-muted-foreground/70 uppercase tracking-widest">
                   {formatDistanceToNow(new Date(review.createdAt))} ago
                 </p>
               </div>
@@ -125,7 +125,7 @@ export default function CommunityReviewCard({
                   <ShieldAlert className="size-3" /> Spoiler Alert
                 </span>
               )}
-              <p className="text-[15px] leading-relaxed text-white/80 italic font-medium line-clamp-4 group-hover/text:text-white transition-colors">
+              <p className="text-[15px] leading-relaxed text-foreground/80 italic font-medium line-clamp-4 group-hover/text:text-primary transition-colors">
                 {review.content}
               </p>
             </div>
@@ -135,10 +135,10 @@ export default function CommunityReviewCard({
             href={`/media/${review.media?.slug}`}
             className="block outline-none group/media"
           >
-            <div className="relative flex items-center gap-4 p-3 rounded-2xl bg-white/[0.02] border border-white/5 group-hover/media:border-white/15 group-hover/media:bg-white/[0.04] transition-all overflow-hidden">
+            <div className="relative flex items-center gap-4 p-3 rounded-2xl bg-surface/70 border border-border/30 group-hover/media:border-primary/30 group-hover/media:bg-surface/90 transition-all overflow-hidden">
               <div className="absolute right-0 top-0 w-32 h-full bg-gradient-to-l from-primary/10 to-transparent opacity-0 group-hover/media:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
-              <div className="relative h-16 w-12 rounded-lg overflow-hidden border border-white/10 shrink-0 shadow-md group-hover/media:shadow-[0_0_15px_rgba(255,255,255,0.1)] transition-all">
+              <div className="relative h-16 w-12 rounded-lg overflow-hidden border border-border/30 shrink-0 shadow-md group-hover/media:shadow-[0_0_15px_rgba(0,0,0,0.08)] transition-all">
                 <Image
                   src={posterSrc}
                   alt={mediaTitle}
@@ -152,7 +152,7 @@ export default function CommunityReviewCard({
                 <div className="flex items-center gap-1.5 text-primary/60 font-black text-[8px] uppercase tracking-widest">
                   <Film className="size-2.5" /> Logged Subject
                 </div>
-                <h4 className="text-sm font-black text-white uppercase tracking-tighter truncate group-hover/media:text-primary transition-colors">
+                <h4 className="text-sm font-black text-foreground uppercase tracking-tighter truncate group-hover/media:text-primary transition-colors">
                   {mediaTitle}
                 </h4>
                 <p className="text-[9px] font-bold text-muted-foreground uppercase tracking-widest">
@@ -163,7 +163,7 @@ export default function CommunityReviewCard({
           </Link>
         </div>
 
-        <div className="px-6 md:px-8 py-4 bg-black/40 border-t border-white/5 flex items-center justify-between z-10">
+        <div className="px-6 md:px-8 py-4 bg-surface/80 border-t border-border/30 flex items-center justify-between z-10">
           <div className="flex items-center gap-6">
             <button
               onClick={(e) => {
@@ -182,9 +182,9 @@ export default function CommunityReviewCard({
                     : "text-muted-foreground/50 group-hover/stat:text-rose-500",
                 )}
               />
-              <span className="text-[11px] font-black text-muted-foreground/60 group-hover/stat:text-white transition-colors">
+              <p className="text-[11px] font-black text-muted-foreground/60 group-hover/stat:text-foreground transition-colors">
                 {review.likeCount}
-              </span>
+              </p>
             </button>
 
             <Link
@@ -192,17 +192,17 @@ export default function CommunityReviewCard({
               className="flex items-center gap-2 group/stat outline-none"
             >
               <MessageSquare className="size-4 text-muted-foreground/50 group-hover/stat:text-sky-400 transition-colors" />
-              <span className="text-[11px] font-black text-muted-foreground/60 group-hover/stat:text-white transition-colors">
+              <span className="text-[11px] font-black text-muted-foreground/60 group-hover/stat:text-foreground transition-colors">
                 {review.commentCount}
               </span>
             </Link>
           </div>
 
           <div className="flex items-center gap-4">
-            {/* 🎯 THE LOGIC & STYLING FIX: High visibility pill that shows 'disabled' if it's your own review */}
+            {/* High visibility pill that shows 'disabled' if it's your own review */}
             {currentUserId === review.userId ? (
               <div
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 border border-white/5 text-white/20 cursor-not-allowed"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-foreground/5 border border-border/30 text-muted-foreground/70 cursor-not-allowed"
                 title="Cannot report own transmission"
               >
                 <Flag className="size-3.5 opacity-50" />
@@ -229,7 +229,7 @@ export default function CommunityReviewCard({
 
             <Link
               href={`/reviews/${review.id}`}
-              className="text-[9px] font-black uppercase tracking-[0.2em] text-white/20 hover:text-primary transition-colors"
+              className="text-[9px] font-black uppercase tracking-[0.2em] text-muted-foreground/70 hover:text-primary transition-colors"
             >
               Expand
             </Link>
@@ -247,21 +247,20 @@ export default function CommunityReviewCard({
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   onClick={() => !isReportPending && setIsReportOpen(false)}
-                  className="absolute inset-0 bg-black/90 backdrop-blur-xl"
+                  className="absolute inset-0 bg-surface/80 backdrop-blur-xl"
                 />
-
                 <motion.div
-                  initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                  initial={{ opacity: 0, scale: 0.95, y: 20 }}
                   animate={{ opacity: 1, scale: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                  className="relative w-full max-w-md bg-[#0a0c10] rounded-[2rem] border border-rose-500/20 overflow-hidden shadow-2xl shadow-rose-500/10"
+                  exit={{ opacity: 0, scale: 0.95, y: 20 }}
+                  className="relative w-full max-w-md bg-surface rounded-[2rem] border border-rose-500/20 overflow-hidden shadow-2xl shadow-rose-500/10"
                 >
                   <div className="p-8 space-y-6">
                     <div className="space-y-2 text-center">
                       <div className="mx-auto size-12 rounded-full bg-rose-500/10 border border-rose-500/20 flex items-center justify-center mb-4 shadow-[inset_0_0_20px_rgba(225,29,72,0.2)]">
                         <AlertTriangle className="size-5 text-rose-500" />
                       </div>
-                      <h2 className="text-xl font-black text-white uppercase tracking-tighter">
+                      <h2 className="text-xl font-black text-foreground uppercase tracking-tighter">
                         Report Transmission
                       </h2>
                       <p className="text-[10px] font-bold text-muted-foreground uppercase tracking-widest">
@@ -277,7 +276,7 @@ export default function CommunityReviewCard({
                         value={reportReason}
                         onChange={(e) => setReportReason(e.target.value)}
                         placeholder="Spam, hate speech, severe spoilers without warning..."
-                        className="w-full min-h-[100px] bg-black/50 border border-rose-500/20 rounded-xl p-4 text-sm text-white focus:border-rose-500/50 outline-none transition-all placeholder:text-rose-500/30 resize-none"
+                        className="w-full min-h-[100px] bg-surface/80 border border-border/30 rounded-xl p-4 text-sm text-foreground focus:border-primary/50 outline-none transition-all placeholder:text-muted-foreground/50 resize-none"
                         autoFocus
                         disabled={isReportPending}
                       />
@@ -287,7 +286,7 @@ export default function CommunityReviewCard({
                       <button
                         onClick={() => setIsReportOpen(false)}
                         disabled={isReportPending}
-                        className="flex-1 py-3 rounded-xl bg-white/5 border border-white/10 text-white/50 text-[10px] font-black uppercase tracking-widest hover:bg-white/10 hover:text-white transition-all disabled:opacity-50"
+                        className="flex-1 py-3 rounded-xl bg-foreground/5 border border-border text-muted-foreground text-[10px] font-black uppercase tracking-widest hover:bg-surface/90 hover:text-foreground transition-all disabled:opacity-50"
                       >
                         Cancel
                       </button>
@@ -305,7 +304,7 @@ export default function CommunityReviewCard({
                   </div>
                   <button
                     onClick={() => !isReportPending && setIsReportOpen(false)}
-                    className="absolute top-4 right-4 text-white/40 hover:text-white transition"
+                    className="absolute top-4 right-4 text-muted-foreground/70 hover:text-foreground transition"
                     disabled={isReportPending}
                   >
                     <X className="size-4" />

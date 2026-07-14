@@ -112,16 +112,16 @@ export default function AddHistoryModal() {
         </div>
       </DialogTrigger>
 
-      <DialogContent className="sm:max-w-[650px] bg-[#030406]/95 border-white/5 backdrop-blur-3xl p-0 overflow-hidden rounded-[2.5rem] shadow-2xl focus:outline-none [&>button]:hidden">
-        <DialogClose className="absolute right-8 top-8 z-50 rounded-full p-2 text-white/30 hover:bg-white/10 transition-all border border-transparent hover:border-white/10">
+      <DialogContent className="sm:max-w-[650px] bg-surface-strong border-border/50 backdrop-blur-3xl p-0 overflow-hidden rounded-[2.5rem] shadow-2xl focus:outline-none [&>button]:hidden">
+        <DialogClose className="absolute right-8 top-8 z-50 rounded-full p-2 text-muted-foreground hover:bg-foreground/10 transition-all border border-transparent hover:border-border">
           <X className="size-5" />
         </DialogClose>
 
         {!selectedMedia ? (
           /* --- STATE 1: SEARCH --- */
           <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <DialogHeader className="p-10 pb-6 border-b border-white/5">
-              <DialogTitle className="text-3xl font-black text-white tracking-tighter italic uppercase text-center">
+            <DialogHeader className="p-10 pb-6 border-b border-border/50">
+              <DialogTitle className="text-3xl font-black text-foreground tracking-tighter italic uppercase text-center">
                 WHICH UNIVERSE{" "}
                 <span className="text-primary">DID YOU VISIT?</span>
               </DialogTitle>
@@ -131,7 +131,7 @@ export default function AddHistoryModal() {
                   value={text}
                   onChange={(e) => setText(e.target.value)}
                   placeholder="Search movies to log..."
-                  className="pl-12 bg-white/5 border-white/10 h-14 rounded-2xl focus:ring-primary/20"
+                  className="pl-12 bg-foreground/5 border-border h-14 rounded-2xl focus:ring-primary/20"
                 />
               </div>
             </DialogHeader>
@@ -146,9 +146,9 @@ export default function AddHistoryModal() {
                   <button
                     key={media.id}
                     onClick={() => setSelectedMedia(media)}
-                    className="w-full flex items-center gap-4 p-3 rounded-2xl bg-white/[0.02] border border-white/5 hover:bg-primary/10 hover:border-primary/30 transition-all text-left group"
+                    className="w-full flex items-center gap-4 p-3 rounded-2xl bg-foreground/[0.02] border border-border/50 hover:bg-primary/10 hover:border-primary/30 transition-all text-left group"
                   >
-                    <div className="relative h-16 aspect-[2/3] rounded-lg overflow-hidden border border-white/10">
+                    <div className="relative h-16 aspect-[2/3] rounded-lg overflow-hidden border border-border">
                       <Image
                         src={media.posterUrl || ""}
                         alt=""
@@ -157,7 +157,7 @@ export default function AddHistoryModal() {
                       />
                     </div>
                     <div className="flex-1">
-                      <h4 className="font-bold text-white group-hover:text-primary transition-colors">
+                      <h4 className="font-bold text-foreground group-hover:text-primary transition-colors">
                         {media.title}
                       </h4>
                       <p className="text-[10px] text-muted-foreground uppercase font-black">
@@ -184,7 +184,7 @@ export default function AddHistoryModal() {
 
               <button
                 onClick={() => setSelectedMedia(null)}
-                className="absolute top-8 left-8 flex items-center gap-2 text-[10px] font-black uppercase text-white/50 hover:text-primary transition-colors z-20"
+                className="absolute top-8 left-8 flex items-center gap-2 text-[10px] font-black uppercase text-muted-foreground hover:text-primary transition-colors z-20"
               >
                 <ChevronLeft className="size-4" /> Change Movie
               </button>
@@ -199,7 +199,7 @@ export default function AddHistoryModal() {
                   />
                 </div>
                 <div className="flex flex-col items-start gap-1 pb-2">
-                  <DialogTitle className="text-3xl font-black text-white uppercase tracking-tighter leading-none">
+                  <DialogTitle className="text-3xl font-black text-foreground uppercase tracking-tighter leading-none">
                     {selectedMedia.title}
                   </DialogTitle>
                   <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 mt-1">
@@ -237,7 +237,7 @@ export default function AddHistoryModal() {
                 <form.Field name="isRewatch">
                   {(field) => (
                     <div className="space-y-1.5 flex-1">
-                      <label className="text-sm font-medium text-white/70">
+                      <label className="text-sm font-medium text-muted-foreground">
                         Experience Type
                       </label>
                       <div
@@ -246,7 +246,7 @@ export default function AddHistoryModal() {
                           "flex items-center justify-between px-4 mt-1.5 h-8 rounded-md border transition-all duration-300",
                           field.state.value
                             ? "bg-primary/5 border-primary/40 text-primary"
-                            : "bg-white/[0.03] border-white/10 text-muted-foreground hover:border-white/20",
+                            : "bg-foreground/[0.03] border-border text-muted-foreground hover:border-foreground/20",
                         )}
                       >
                         <span className="text-[10px] font-black uppercase tracking-widest">
@@ -268,7 +268,7 @@ export default function AddHistoryModal() {
               <form.Field name="notes">
                 {(field) => (
                   <div className="space-y-1.5">
-                    <label className="text-sm font-medium text-white/70">
+                    <label className="text-sm font-medium text-muted-foreground">
                       Diary Notes
                     </label>
                     <div className="relative group">
@@ -277,7 +277,7 @@ export default function AddHistoryModal() {
                         value={field.state.value}
                         onChange={(e) => field.handleChange(e.target.value)}
                         placeholder="What made this watch special?"
-                        className="w-full min-h-[120px] bg-white/[0.03] border border-white/10 rounded-xl p-4 mt-1.5 pl-12 text-sm focus:border-primary/50 outline-none transition-all placeholder:text-muted-foreground/20"
+                        className="w-full min-h-[120px] bg-foreground/[0.03] border border-border rounded-xl p-4 mt-1.5 pl-12 text-sm focus:border-primary/50 outline-none transition-all placeholder:text-muted-foreground/20"
                       />
                     </div>
                     {field.state.meta.errors.length > 0 && (

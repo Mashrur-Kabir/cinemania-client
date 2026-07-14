@@ -31,13 +31,13 @@ export default function ChangePasswordForm() {
   });
 
   return (
-    <div className="mx-auto w-full rounded-[2.5rem] p-8 border border-white/5 bg-black/40 max-w-2xl">
+    <div className="mx-auto w-full rounded-[2.5rem] p-8 border border-border/50 bg-surface max-w-2xl">
       <div className="flex items-center gap-4 mb-8">
         <div className="size-12 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center">
           <ShieldCheck className="size-6 text-primary" />
         </div>
         <div>
-          <h2 className="text-xl font-black uppercase tracking-tight text-white">
+          <h2 className="text-xl font-black uppercase tracking-tight text-foreground">
             Credentials Access
           </h2>
           <p className="text-xs text-muted-foreground font-medium uppercase tracking-widest">
@@ -65,7 +65,7 @@ export default function ChangePasswordForm() {
                 <button
                   type="button"
                   onClick={() => setShowOld(!showOld)}
-                  className="text-muted-foreground hover:text-white transition-colors"
+                  className="text-muted-foreground hover:text-foreground transition-colors"
                 >
                   {showOld ? (
                     <EyeOff className="size-4" />
@@ -89,7 +89,7 @@ export default function ChangePasswordForm() {
                 <button
                   type="button"
                   onClick={() => setShowNew(!showNew)}
-                  className="text-muted-foreground hover:text-white transition-colors"
+                  className="text-muted-foreground hover:text-foreground transition-colors"
                 >
                   {showNew ? (
                     <EyeOff className="size-4" />

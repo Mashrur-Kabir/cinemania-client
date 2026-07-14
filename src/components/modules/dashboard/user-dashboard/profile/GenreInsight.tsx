@@ -8,7 +8,7 @@ export default async function GenreInsight({
   genres: IUserProfileStats["genres"];
 }) {
   return (
-    <div className="p-8 rounded-[2.5rem] bg-white/[0.02] border border-white/5 h-full">
+    <div className="p-8 rounded-[2.5rem] bg-foreground/[0.02] border border-border/50 h-full">
       <h3 className="text-xl font-black uppercase tracking-tighter mb-8">
         Cinematic Taste
       </h3>
@@ -16,7 +16,7 @@ export default async function GenreInsight({
         {genres.map((genre, i) => (
           <div key={i} className="space-y-3">
             <div className="flex justify-between items-end">
-              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-white">
+              <span className="text-[10px] font-black uppercase tracking-[0.2em] text-foreground">
                 {genre.name}
               </span>
               <span className="text-xs font-black text-primary italic">
